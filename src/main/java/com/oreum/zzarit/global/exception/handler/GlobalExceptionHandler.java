@@ -36,6 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> handleUnexpectedException(Exception e, WebRequest request) {
         ProblemDetail problemDetail = handleException(e, request);
+        System.out.println(problemDetail);
         HttpStatus statusCode = HttpStatus.valueOf(problemDetail.getStatus());
         if (statusCode.is5xxServerError()) {
             ExceptionLogger.error(problemDetail);
@@ -53,6 +54,7 @@ public class GlobalExceptionHandler {
             problemDetail.setProperties(setDetails(getCurrentHttpRequest(), e, HttpStatus.INTERNAL_SERVER_ERROR));
             return problemDetail;
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return ProblemDetail.forStatusAndDetail(
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     "예기치 못한 오류가 발생하였습니다."

@@ -8,7 +8,9 @@ import com.oreum.zzarit.planner.domain.Planner;
 import com.oreum.zzarit.spot.domain.Badge;
 import com.oreum.zzarit.spot.domain.VisitLog;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -18,11 +20,18 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "member")
+@NoArgsConstructor
 public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "login_id")
+    private String loginId;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "email")
     private String email;
@@ -54,5 +63,11 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Rating> ratings = new ArrayList<>();
+
+
+    @Builder
+    public Member(String loginId){
+        this.loginId =loginId;
+    }
 
 }

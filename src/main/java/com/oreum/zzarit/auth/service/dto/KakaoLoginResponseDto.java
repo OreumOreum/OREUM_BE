@@ -1,0 +1,4 @@
+package com.oreum.zzarit.auth.service.dto;
+
+public record KakaoLoginResponseDto(Long id) {
+}
