@@ -26,7 +26,7 @@ public class Folder extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "folder")
+    @OneToMany(mappedBy = "folder", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<FolderPlace> folderPlaces = new ArrayList<>();
 
 }
