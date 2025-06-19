@@ -11,4 +11,5 @@ public interface FolderRepository extends JpaRepository<Folder, Long> {
     void deleteAllByMember(Member member);
 
     List<Folder> findAllByMember(Member member);
+    Optional<Folder> findByIdAndMember(Long id, Member member);
 }

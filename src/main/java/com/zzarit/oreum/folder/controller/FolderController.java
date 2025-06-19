@@ -1,8 +1,9 @@
 package com.zzarit.oreum.folder.controller;
 
 import com.zzarit.oreum.folder.service.FolderService;
-import com.zzarit.oreum.folder.service.dto.FolderIdListDto;
-import com.zzarit.oreum.folder.service.dto.FolderNameDto;
+import com.zzarit.oreum.folder.service.dto.FolderIdListRequestDto;
+import com.zzarit.oreum.folder.service.dto.FolderNameRequestDto;
+import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
 import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
 import com.zzarit.oreum.member.domain.Member;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,7 +22,7 @@ public class FolderController {
     private final FolderService folderService;
 
     @PostMapping("/create-folder")
-    public ResponseEntity<Void> createFolder(@RequestBody FolderNameDto request, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> createFolder(@RequestBody FolderNameRequestDto request, @Parameter(hidden = true) Member member) {
         folderService.createFolder(request, member);
 
         return ResponseEntity.noContent().build();
@@ -35,7 +36,7 @@ public class FolderController {
     };
 
     @PatchMapping("/update-folder/{folderId}")
-    public ResponseEntity<Void> updateFolder(@PathVariable Long folderId, @RequestBody FolderNameDto request, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> updateFolder(@PathVariable Long folderId, @RequestBody FolderNameRequestDto request, @Parameter(hidden = true) Member member) {
         folderService.updateFolderName(folderId, request, member);
 
         return ResponseEntity.noContent().build();
@@ -49,7 +50,7 @@ public class FolderController {
     };
 
     @DeleteMapping("/delete-multiple-folders")
-    public ResponseEntity<Void> deleteMultipleFolders(@RequestBody FolderIdListDto request, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> deleteMultipleFolders(@RequestBody FolderIdListRequestDto request, @Parameter(hidden = true) Member member) {
         folderService.deleteMultipleFolders(request, member);
 
         return ResponseEntity.noContent().build();
@@ -62,4 +63,11 @@ public class FolderController {
 
         return ResponseEntity.noContent().build();
     };
+
+    @PostMapping("/{folderId}/add-folder-place")
+    public ResponseEntity<Void> addFolderPlace(@PathVariable Long folderId, @RequestBody FolderPlaceRequestDto request, @Parameter(hidden = true) Member member) {
+        folderService.addFolderPlace(folderId, request, member);
+
+        return ResponseEntity.noContent().build();
+    }
 }
