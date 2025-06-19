@@ -6,9 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class OreumApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(OreumApplication.class, args);
 	}
-
 }
