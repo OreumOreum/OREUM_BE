@@ -26,7 +26,7 @@ public class Planner extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "planner")
+    @OneToMany(mappedBy = "planner", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<PlannerPlace> plannerPlaces = new ArrayList<>();
 
 }
