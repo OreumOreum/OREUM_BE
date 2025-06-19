@@ -39,6 +39,12 @@ public class PlannerService {
         addPlannerPlaces(planner, request.places());
     }
 
+    public List<PlannerResponseDto> getMyPlanners(Member member) {
+        List<Planner> planners = plannerRepository.findAllByMember(member);
+
+        return planners.stream().map(planner -> new PlannerResponseDto(planner.getId(), planner.getName())).toList();
+    }
+
     @Transactional
     public void updatePlanner(Long plannerId, PlannerCreateRequestDto request, Member member) {
         Planner planner = plannerRepository.findById(plannerId)
