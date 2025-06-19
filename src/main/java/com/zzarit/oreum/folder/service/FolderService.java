@@ -26,6 +26,19 @@ public class FolderService {
         folderRepository.save(folder);
     };
 
+    public void updateFolderName(Long folderId, FolderNameDto request, Member member) {
+        Folder folder = folderRepository.findById(folderId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));
+
+        if (!folder.getMember().getId().equals(member.getId())) {
+            throw new SecurityException("본인의 폴더만 수정할 수 있습니다.");
+        }
+
+        folder.setName(request.name());
+
+        folderRepository.save(folder);
+    }
+
     public void deleteFolder(Long folderId, Member member) {
         Folder folder = folderRepository.findById(folderId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));

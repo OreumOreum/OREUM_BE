@@ -14,3 +14,13 @@ INSERT INTO member (created_at, updated_at,login_id, name, email, fcm_token, pho
 VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 'GOOGLE1','주해찬','user3@test.com', 'token3', '0100000003', 'FOREST');
 INSERT INTO member (created_at, updated_at,login_id, name, email, fcm_token, phone_no, category_type)
 VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 'APPLE1','김태현','user4@test.com', 'token4', '0100000004', 'CULTURE');
+INSERT INTO folder (created_at, updated_at, name, member_id)
+VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '내폴더1','1');
+INSERT INTO folder (created_at, updated_at, name, member_id)
+VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '내폴더2','1');
+INSERT INTO folder (created_at, updated_at, name, member_id)
+VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '내폴더1','2');
+INSERT INTO folder (created_at, updated_at, name, member_id)
+VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '내폴더2','2');
+INSERT INTO folder (created_at, updated_at, name, member_id)
+VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '내폴더3','2');

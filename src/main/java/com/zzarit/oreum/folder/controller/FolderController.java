@@ -24,6 +24,13 @@ public class FolderController {
         return ResponseEntity.noContent().build();
     };
 
+    @PatchMapping("/update-folder/{folderId}")
+    public ResponseEntity<Void> updateFolder(@PathVariable Long folderId, @RequestBody FolderNameDto request, @Parameter(hidden = true) Member member) {
+        folderService.updateFolderName(folderId, request, member);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/delete-folder/{folderId}")
     public ResponseEntity<Void> deleteFolder(@PathVariable Long folderId, @Parameter(hidden = true) Member member) {
         folderService.deleteFolder(folderId, member);
