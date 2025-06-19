@@ -1,10 +1,8 @@
 package com.zzarit.oreum.folder.controller;
 
+import com.zzarit.oreum.folder.service.FolderPlaceService;
 import com.zzarit.oreum.folder.service.FolderService;
-import com.zzarit.oreum.folder.service.dto.FolderIdListRequestDto;
-import com.zzarit.oreum.folder.service.dto.FolderNameRequestDto;
-import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
-import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
+import com.zzarit.oreum.folder.service.dto.*;
 import com.zzarit.oreum.member.domain.Member;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +18,7 @@ import java.util.List;
 public class FolderController {
 
     private final FolderService folderService;
+    private final FolderPlaceService folderPlaceService;
 
     @PostMapping("/create-folder")
     public ResponseEntity<Void> createFolder(@RequestBody FolderNameRequestDto request, @Parameter(hidden = true) Member member) {
@@ -66,7 +65,28 @@ public class FolderController {
 
     @PostMapping("/{folderId}/add-folder-place")
     public ResponseEntity<Void> addFolderPlace(@PathVariable Long folderId, @RequestBody FolderPlaceRequestDto request, @Parameter(hidden = true) Member member) {
-        folderService.addFolderPlace(folderId, request, member);
+        folderPlaceService.addFolderPlace(folderId, request, member);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete-folder-place/{folderId}")
+    public ResponseEntity<Void> deleteFolderPlace(@PathVariable Long folderId, @RequestBody FolderPlaceRequestDto request, @Parameter(hidden = true) Member member) {
+        folderPlaceService.deleteFolderPlace(folderId, request, member);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete-multiple-folder-place/{folderId}")
+    public ResponseEntity<Void> deleteMultipleFolderPlaces(@PathVariable Long folderId, @RequestBody FolderPlaceListRequestDto request, @Parameter(hidden = true) Member member) {
+        folderPlaceService.deleteMultipleFolderPlaces(folderId, request, member);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete-all-folder-place/{folderId}")
+    public ResponseEntity<Void> deleteAllFolderPlaces(@PathVariable Long folderId, @Parameter(hidden = true) Member member) {
+        folderPlaceService.deleteAllFolderPlaces(folderId, member);
 
         return ResponseEntity.noContent().build();
     }
