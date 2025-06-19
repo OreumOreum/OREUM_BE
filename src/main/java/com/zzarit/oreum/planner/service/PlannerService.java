@@ -8,10 +8,12 @@ import com.zzarit.oreum.planner.domain.PlannerPlace;
 import com.zzarit.oreum.planner.domain.repository.PlannerPlaceRepository;
 import com.zzarit.oreum.planner.domain.repository.PlannerRepository;
 import com.zzarit.oreum.planner.service.dto.PlannerCreateRequestDto;
+import com.zzarit.oreum.planner.service.dto.PlannerIdListRequestDto;
 import com.zzarit.oreum.planner.service.dto.PlannerPlaceRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,5 +48,27 @@ public class PlannerService {
 
             plannerPlaceRepository.save(plannerPlace);
         }
-    };
+    }
+
+    public void deletePlanner(Long plannerId, Member member) {
+        Planner planner = plannerRepository.findById(plannerId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));
+
+        if (!planner.getMember().getId().equals(member.getId())) {
+            throw new SecurityException("본인의 일정만 삭제할 수 있습니다.");
+        }
+
+        plannerRepository.deleteById(plannerId);
+    }
+
+    public void deleteMultiplePlanners(PlannerIdListRequestDto request, Member member) {
+        for (Long plannerId : request.plannerIds()) {
+            deletePlanner(plannerId, member);
+        }
+    }
+
+    @Transactional
+    public void deleteAllPlanners(Member member) {
+        plannerRepository.deleteAllByMember(member);
+    }
 }
