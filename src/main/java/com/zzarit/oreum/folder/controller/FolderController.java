@@ -56,7 +56,6 @@ public class FolderController {
     };
 
     @DeleteMapping("delete-all-folders")
-    @Transactional
     public ResponseEntity<Void> deleteAllFolder(@Parameter(hidden = true) Member member) {
         folderService.deleteAllFolders(member);
 
