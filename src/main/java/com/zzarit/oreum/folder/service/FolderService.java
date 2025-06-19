@@ -2,6 +2,7 @@ package com.zzarit.oreum.folder.service;
 
 import com.zzarit.oreum.folder.domain.Folder;
 import com.zzarit.oreum.folder.domain.repository.FolderRepository;
+import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
 import com.zzarit.oreum.folder.service.dto.FolderIdListDto;
 import com.zzarit.oreum.folder.service.dto.FolderNameDto;
 import com.zzarit.oreum.member.domain.Member;
@@ -25,6 +26,12 @@ public class FolderService {
 
         folderRepository.save(folder);
     };
+
+    public List<FolderResponseDto> getMyFolders(Member member) {
+        List<Folder> folders = folderRepository.findAllByMember(member);
+
+        return folders.stream().map(folder -> new FolderResponseDto(folder.getId(), folder.getName())).toList();
+    }
 
     public void updateFolderName(Long folderId, FolderNameDto request, Member member) {
         Folder folder = folderRepository.findById(folderId)
