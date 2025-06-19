@@ -5,6 +5,7 @@ import com.zzarit.oreum.planner.domain.Planner;
 import com.zzarit.oreum.planner.service.PlannerService;
 import com.zzarit.oreum.planner.service.dto.PlannerCreateRequestDto;
 import com.zzarit.oreum.planner.service.dto.PlannerIdListRequestDto;
+import com.zzarit.oreum.planner.service.dto.PlannerUpdateRequestDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,16 @@ public class PlannerController {
     public ResponseEntity<Void> createPlanner(@RequestBody PlannerCreateRequestDto request, @Parameter(hidden = true) Member member) {
         plannerService.createPlanner(request, member);
 
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/updatePlanner/{plannerId}")
+    public ResponseEntity<Void> updatePlanner(
+            @PathVariable Long plannerId,
+            @RequestBody PlannerCreateRequestDto request,
+            @Parameter(hidden = true) Member member) {
+
+        plannerService.updatePlanner(plannerId, request, member);
         return ResponseEntity.noContent().build();
     }
 
