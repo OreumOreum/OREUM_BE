@@ -1,5 +1,7 @@
 package com.zzarit.oreum.planner.service;
 
+import com.zzarit.oreum.global.exception.ForbiddenException;
+import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
@@ -7,15 +9,17 @@ import com.zzarit.oreum.planner.domain.Planner;
 import com.zzarit.oreum.planner.domain.PlannerPlace;
 import com.zzarit.oreum.planner.domain.repository.PlannerPlaceRepository;
 import com.zzarit.oreum.planner.domain.repository.PlannerRepository;
-import com.zzarit.oreum.planner.service.dto.PlannerCreateRequestDto;
-import com.zzarit.oreum.planner.service.dto.PlannerIdListRequestDto;
-import com.zzarit.oreum.planner.service.dto.PlannerPlaceRequestDto;
+import com.zzarit.oreum.planner.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -31,6 +35,21 @@ public class PlannerService {
         planner.setName(request.name());
         planner.setMember(member);
         plannerRepository.save(planner);
+
+        addPlannerPlaces(planner, request.places());
+    }
+
+    @Transactional
+    public void updatePlanner(Long plannerId, PlannerCreateRequestDto request, Member member) {
+        Planner planner = plannerRepository.findById(plannerId)
+                .orElseThrow(() -> new RuntimeException("플래너 없음"));
+
+        if (!planner.getMember().getId().equals(member.getId())) {
+            throw new RuntimeException("접근 권한 없음");
+        }
+
+        planner.setName(request.name());
+        plannerPlaceRepository.deleteAllByPlanner(planner);
 
         addPlannerPlaces(planner, request.places());
     }
