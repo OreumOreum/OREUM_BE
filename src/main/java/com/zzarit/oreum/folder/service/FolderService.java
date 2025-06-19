@@ -4,10 +4,7 @@ import com.zzarit.oreum.folder.domain.Folder;
 import com.zzarit.oreum.folder.domain.FolderPlace;
 import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
 import com.zzarit.oreum.folder.domain.repository.FolderRepository;
-import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
-import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
-import com.zzarit.oreum.folder.service.dto.FolderIdListRequestDto;
-import com.zzarit.oreum.folder.service.dto.FolderNameRequestDto;
+import com.zzarit.oreum.folder.service.dto.*;
 import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
@@ -24,9 +21,6 @@ import java.util.List;
 public class FolderService {
 
     private final FolderRepository folderRepository;
-    private final FolderPlaceRepository folderPlaceRepository;
-    private final PlaceRepository placeRepository;
-
 
     public void createFolder(FolderNameRequestDto request, Member member) {
         Folder folder = new Folder();
@@ -75,18 +69,4 @@ public class FolderService {
     public void deleteAllFolders(Member member) {
         folderRepository.deleteAllByMember(member);
     };
-
-    public void addFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
-        Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
-
-        Place place = placeRepository.findById(request.placeId())
-                .orElseThrow(() -> new IllegalArgumentException("장소가 존재하지 않습니다."));
-
-        FolderPlace folderPlace = new FolderPlace();
-        folderPlace.setFolder(folder);
-        folderPlace.setPlace(place);
-
-        folderPlaceRepository.save(folderPlace);
-    }
 }

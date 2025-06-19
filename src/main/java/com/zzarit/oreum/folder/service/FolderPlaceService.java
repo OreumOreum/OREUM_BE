@@ -1,0 +1,75 @@
+package com.zzarit.oreum.folder.service;
+
+import com.zzarit.oreum.folder.domain.Folder;
+import com.zzarit.oreum.folder.domain.FolderPlace;
+import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
+import com.zzarit.oreum.folder.domain.repository.FolderRepository;
+import com.zzarit.oreum.folder.service.dto.FolderPlaceListRequestDto;
+import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
+import com.zzarit.oreum.global.exception.NotFoundException;
+import com.zzarit.oreum.member.domain.Member;
+import com.zzarit.oreum.place.domain.Place;
+import com.zzarit.oreum.place.domain.repository.PlaceRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class FolderPlaceService {
+
+    private final FolderRepository folderRepository;
+    private final FolderPlaceRepository folderPlaceRepository;
+    private final PlaceRepository placeRepository;
+
+    public void addFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
+        Folder folder = folderRepository.findByIdAndMember(folderId, member)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        Place place = placeRepository.findById(request.placeId())
+                .orElseThrow(() -> new IllegalArgumentException("장소가 존재하지 않습니다."));
+
+        boolean exists = folderPlaceRepository.existsByFolderAndPlace(folder, place);
+        if (exists) {
+            throw new IllegalStateException("이미 추가된 장소입니다.");
+        }
+
+        FolderPlace folderPlace = new FolderPlace();
+        folderPlace.setFolder(folder);
+        folderPlace.setPlace(place);
+
+        folderPlaceRepository.save(folderPlace);
+    }
+
+    public void deleteFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
+        Folder folder = folderRepository.findByIdAndMember(folderId, member)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        Place place = placeRepository.findById(request.placeId())
+                .orElseThrow(() -> new NotFoundException("장소가 존재하지 않습니다."));
+
+        FolderPlace folderPlace = folderPlaceRepository.findByFolderAndPlace(folder, place)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        folderPlaceRepository.delete(folderPlace);
+    }
+
+    public void deleteMultipleFolderPlaces(Long folderId, FolderPlaceListRequestDto request, Member member) {
+
+        for (Long folderPlaceId : request.placeIds()) {
+            deleteFolderPlace(folderId, new FolderPlaceRequestDto(folderPlaceId), member);
+        }
+    }
+
+    public void deleteAllFolderPlaces(Long folderId,  Member member) {
+        Folder folder = folderRepository.findByIdAndMember(folderId, member)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        List<FolderPlace> folderPlaces = folderPlaceRepository.findAllByFolder(folder);
+
+        folderPlaceRepository.deleteAll(folderPlaces);
+    }
+}
