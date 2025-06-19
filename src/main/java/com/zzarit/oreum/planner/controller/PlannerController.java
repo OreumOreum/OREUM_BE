@@ -5,6 +5,7 @@ import com.zzarit.oreum.planner.domain.Planner;
 import com.zzarit.oreum.planner.service.PlannerService;
 import com.zzarit.oreum.planner.service.dto.PlannerCreateRequestDto;
 import com.zzarit.oreum.planner.service.dto.PlannerIdListRequestDto;
+import com.zzarit.oreum.planner.service.dto.PlannerResponseDto;
 import com.zzarit.oreum.planner.service.dto.PlannerUpdateRequestDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,13 @@ public class PlannerController {
         plannerService.createPlanner(request, member);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/get-my-planners")
+    public ResponseEntity<List<PlannerResponseDto>> getMyPlanners(@Parameter(hidden = true) Member member) {
+        List<PlannerResponseDto> planners = plannerService.getMyPlanners(member);
+
+        return ResponseEntity.ok(planners);
     }
 
     @PutMapping("/updatePlanner/{plannerId}")
