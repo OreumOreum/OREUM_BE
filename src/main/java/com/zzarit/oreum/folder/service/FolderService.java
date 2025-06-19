@@ -1,11 +1,17 @@
 package com.zzarit.oreum.folder.service;
 
 import com.zzarit.oreum.folder.domain.Folder;
+import com.zzarit.oreum.folder.domain.FolderPlace;
+import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
 import com.zzarit.oreum.folder.domain.repository.FolderRepository;
+import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
 import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
-import com.zzarit.oreum.folder.service.dto.FolderIdListDto;
-import com.zzarit.oreum.folder.service.dto.FolderNameDto;
+import com.zzarit.oreum.folder.service.dto.FolderIdListRequestDto;
+import com.zzarit.oreum.folder.service.dto.FolderNameRequestDto;
+import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Member;
+import com.zzarit.oreum.place.domain.Place;
+import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,8 +24,11 @@ import java.util.List;
 public class FolderService {
 
     private final FolderRepository folderRepository;
+    private final FolderPlaceRepository folderPlaceRepository;
+    private final PlaceRepository placeRepository;
 
-    public void createFolder(FolderNameDto request, Member member) {
+
+    public void createFolder(FolderNameRequestDto request, Member member) {
         Folder folder = new Folder();
         folder.setName(request.name());
         folder.setMember(member);
@@ -33,7 +42,7 @@ public class FolderService {
         return folders.stream().map(folder -> new FolderResponseDto(folder.getId(), folder.getName())).toList();
     }
 
-    public void updateFolderName(Long folderId, FolderNameDto request, Member member) {
+    public void updateFolderName(Long folderId, FolderNameRequestDto request, Member member) {
         Folder folder = folderRepository.findById(folderId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));
 
@@ -57,7 +66,7 @@ public class FolderService {
         folderRepository.deleteById(folderId);
     };
 
-    public void deleteMultipleFolders(FolderIdListDto request, Member member) {
+    public void deleteMultipleFolders(FolderIdListRequestDto request, Member member) {
         for (Long folderId : request.folderIds()) {
             deleteFolder(folderId, member);
         }
@@ -66,4 +75,18 @@ public class FolderService {
     public void deleteAllFolders(Member member) {
         folderRepository.deleteAllByMember(member);
     };
+
+    public void addFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
+        Folder folder = folderRepository.findByIdAndMember(folderId, member)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        Place place = placeRepository.findById(request.placeId())
+                .orElseThrow(() -> new IllegalArgumentException("장소가 존재하지 않습니다."));
+
+        FolderPlace folderPlace = new FolderPlace();
+        folderPlace.setFolder(folder);
+        folderPlace.setPlace(place);
+
+        folderPlaceRepository.save(folderPlace);
+    }
 }
