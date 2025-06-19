@@ -6,6 +6,8 @@ import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
 import com.zzarit.oreum.folder.domain.repository.FolderRepository;
 import com.zzarit.oreum.folder.service.dto.FolderPlaceListRequestDto;
 import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
+import com.zzarit.oreum.folder.service.dto.FolderPlaceResponseDto;
+import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
 import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
@@ -13,6 +15,7 @@ import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,6 +45,15 @@ public class FolderPlaceService {
         folderPlace.setPlace(place);
 
         folderPlaceRepository.save(folderPlace);
+    }
+
+    public List<FolderPlaceResponseDto> getMyFolderPlaces(Long folderId, Member member) {
+        Folder folder = folderRepository.findByIdAndMember(folderId, member)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        List<FolderPlace> folderPlaces = folderPlaceRepository.findAllByFolder(folder);
+
+        return folderPlaces.stream().map(FolderPlaceResponseDto::new).toList();
     }
 
     public void deleteFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {

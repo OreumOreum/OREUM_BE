@@ -70,6 +70,13 @@ public class FolderController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/getMyFolderPlaces/{folderId}")
+    public ResponseEntity<List<FolderPlaceResponseDto>> getMyFolderPlaces(@PathVariable Long folderId, @Parameter(hidden = true) Member member) {
+        List<FolderPlaceResponseDto> folderPlaces = folderPlaceService.getMyFolderPlaces(folderId, member);
+
+        return ResponseEntity.ok(folderPlaces);
+    }
+
     @DeleteMapping("/delete-folder-place/{folderId}")
     public ResponseEntity<Void> deleteFolderPlace(@PathVariable Long folderId, @RequestBody FolderPlaceRequestDto request, @Parameter(hidden = true) Member member) {
         folderPlaceService.deleteFolderPlace(folderId, request, member);
