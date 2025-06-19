@@ -3,12 +3,15 @@ package com.zzarit.oreum.folder.controller;
 import com.zzarit.oreum.folder.service.FolderService;
 import com.zzarit.oreum.folder.service.dto.FolderIdListDto;
 import com.zzarit.oreum.folder.service.dto.FolderNameDto;
+import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
 import com.zzarit.oreum.member.domain.Member;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +25,13 @@ public class FolderController {
         folderService.createFolder(request, member);
 
         return ResponseEntity.noContent().build();
+    };
+
+    @GetMapping("/get-my-folders")
+    public ResponseEntity<List<FolderResponseDto>> getMyFolders(@Parameter(hidden = true) Member member) {
+        List<FolderResponseDto> folders = folderService.getMyFolders(member);
+
+        return ResponseEntity.ok(folders);
     };
 
     @PatchMapping("/update-folder/{folderId}")
