@@ -16,6 +16,12 @@ public class PlannerPlace extends BaseTimeEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "sequence_day", nullable = false)
+    private int sequenceDay;
+
+    @Column(name = "sequence_order", nullable = false)
+    private int sequenceOrder;
+
     @ManyToOne
     @JoinColumn(name = "planner_id")
     private Planner planner;
