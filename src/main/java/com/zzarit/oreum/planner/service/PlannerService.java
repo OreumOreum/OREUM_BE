@@ -1,5 +1,8 @@
 package com.zzarit.oreum.planner.service;
 
+import com.zzarit.oreum.folder.domain.Folder;
+import com.zzarit.oreum.folder.domain.FolderPlace;
+import com.zzarit.oreum.folder.service.dto.FolderPlaceResponseDto;
 import com.zzarit.oreum.global.exception.ForbiddenException;
 import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Member;
@@ -43,6 +46,15 @@ public class PlannerService {
         List<Planner> planners = plannerRepository.findAllByMember(member);
 
         return planners.stream().map(planner -> new PlannerResponseDto(planner.getId(), planner.getName())).toList();
+    }
+
+    public List<PlannerPlaceResponseDto> getMyPlannerPlaces(Long plannerId, Member member) {
+        Planner planner = plannerRepository.findByIdAndMember(plannerId, member)
+                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+
+        List<PlannerPlace> plannerPlaces = plannerPlaceRepository.findAllByPlanner(planner);
+
+        return plannerPlaces.stream().map(PlannerPlaceResponseDto::new).toList();
     }
 
     @Transactional
