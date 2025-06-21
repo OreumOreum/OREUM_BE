@@ -1,6 +1,7 @@
 package com.zzarit.oreum.auth.service;
 
 import com.zzarit.oreum.auth.service.client.OAuthClient;
+import com.zzarit.oreum.auth.service.dto.AppleLoginRequestDto;
 import com.zzarit.oreum.auth.service.dto.AuthTokenDto;
 import com.zzarit.oreum.auth.service.dto.GoogleLoginRequestDto;
 import com.zzarit.oreum.auth.service.dto.KakaoLoginRequestDto;
@@ -32,6 +33,13 @@ public class AuthService {
     public AuthTokenDto googleLogin(GoogleLoginRequestDto request){
         OAuthClient googleAuthClient = oAuthClientComposite.getClient(AuthProvider.GOOGLE);
         String loginId = googleAuthClient.getUserInfo(request.idToken());
+        Member member = memberRepository.findByLoginId(loginId).orElseGet(() -> signUp(loginId));
+        return login(member);
+    }
+
+    public AuthTokenDto appleLogin(AppleLoginRequestDto request){
+        OAuthClient googleAuthClient = oAuthClientComposite.getClient(AuthProvider.APPLE);
+        String loginId = googleAuthClient.getUserInfo(request.authorizationCode());
         Member member = memberRepository.findByLoginId(loginId).orElseGet(() -> signUp(loginId));
         return login(member);
     }

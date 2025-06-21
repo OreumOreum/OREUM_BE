@@ -2,10 +2,7 @@ package com.zzarit.oreum.auth.controller;
 
 
 import com.zzarit.oreum.auth.service.AuthService;
-import com.zzarit.oreum.auth.service.dto.AuthTokenDto;
-import com.zzarit.oreum.auth.service.dto.GoogleLoginRequestDto;
-import com.zzarit.oreum.auth.service.dto.KakaoLoginRequestDto;
-import com.zzarit.oreum.auth.service.dto.RefreshTokenRequestDto;
+import com.zzarit.oreum.auth.service.dto.*;
 import com.zzarit.oreum.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +33,13 @@ public class AuthController {
     public ResponseEntity<AuthTokenDto> googleLogin(
             @RequestBody GoogleLoginRequestDto request) {
         AuthTokenDto tokens = authService.googleLogin(request);
+        return ResponseEntity.ok(tokens);
+    }
+
+    @PostMapping("/login/apple")
+    public ResponseEntity<AuthTokenDto> appleLogin(
+            @RequestBody AppleLoginRequestDto request) {
+        AuthTokenDto tokens = authService.appleLogin(request);
         return ResponseEntity.ok(tokens);
     }
 
