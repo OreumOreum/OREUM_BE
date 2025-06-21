@@ -8,7 +8,9 @@ import com.zzarit.oreum.folder.service.dto.FolderPlaceListRequestDto;
 import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
 import com.zzarit.oreum.folder.service.dto.FolderPlaceResponseDto;
 import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
+import com.zzarit.oreum.global.exception.BadRequestException;
 import com.zzarit.oreum.global.exception.NotFoundException;
+import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
@@ -30,14 +32,14 @@ public class FolderPlaceService {
 
     public void addFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         Place place = placeRepository.findById(request.placeId())
-                .orElseThrow(() -> new IllegalArgumentException("장소가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("장소"));
 
         boolean exists = folderPlaceRepository.existsByFolderAndPlace(folder, place);
         if (exists) {
-            throw new IllegalStateException("이미 추가된 장소입니다.");
+            throw new BadRequestException("이미 추가된 장소입니다.");
         }
 
         FolderPlace folderPlace = new FolderPlace();

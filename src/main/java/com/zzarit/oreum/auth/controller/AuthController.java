@@ -5,6 +5,7 @@ import com.zzarit.oreum.auth.service.AuthService;
 import com.zzarit.oreum.auth.service.dto.AuthTokenDto;
 import com.zzarit.oreum.auth.service.dto.KakaoLoginRequestDto;
 import com.zzarit.oreum.auth.service.dto.RefreshTokenRequestDto;
+import com.zzarit.oreum.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+
+    @PostMapping()
+    public ResponseEntity<Void> test(Member member,
+            @RequestBody KakaoLoginRequestDto request) {
+        return ResponseEntity.noContent().build();
+    }
+
 
     @PostMapping("/login/kakao")
     public ResponseEntity<AuthTokenDto> kakaoLogin(

@@ -20,21 +20,21 @@ public class PlannerController {
     private final PlannerService plannerService;
 
     @PostMapping("/create-planner")
-    public ResponseEntity<Void> createPlanner(@RequestBody PlannerCreateRequestDto request, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> createPlanner(@RequestBody PlannerCreateRequestDto request, Member member) {
         plannerService.createPlanner(request, member);
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/get-my-planners")
-    public ResponseEntity<List<PlannerResponseDto>> getMyPlanners(@Parameter(hidden = true) Member member) {
+    public ResponseEntity<List<PlannerResponseDto>> getMyPlanners(Member member) {
         List<PlannerResponseDto> planners = plannerService.getMyPlanners(member);
 
         return ResponseEntity.ok(planners);
     }
 
     @GetMapping("/get-my-planner-places/{plannerId}")
-    public ResponseEntity<List<PlannerPlaceResponseDto>> getAllPlanners(@PathVariable Long plannerId, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<List<PlannerPlaceResponseDto>> getAllPlanners(@PathVariable Long plannerId, Member member) {
         List<PlannerPlaceResponseDto> plannerplaces = plannerService.getMyPlannerPlaces(plannerId, member);
 
         return ResponseEntity.ok(plannerplaces);
@@ -44,28 +44,28 @@ public class PlannerController {
     public ResponseEntity<Void> updatePlanner(
             @PathVariable Long plannerId,
             @RequestBody PlannerCreateRequestDto request,
-            @Parameter(hidden = true) Member member) {
+            Member member) {
 
         plannerService.updatePlanner(plannerId, request, member);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/delete-planner/{plannerId}")
-    public ResponseEntity<Void> deletePlanner(@PathVariable Long plannerId, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> deletePlanner(@PathVariable Long plannerId, Member member) {
         plannerService.deletePlanner(plannerId, member);
 
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/delete-multiple-planners")
-    public ResponseEntity<Void> deleteMultiplePlanners(@RequestBody PlannerIdListRequestDto request, @Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> deleteMultiplePlanners(@RequestBody PlannerIdListRequestDto request, Member member) {
         plannerService.deleteMultiplePlanners(request, member);
 
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/delete-all-planners")
-    public ResponseEntity<Void> deleteAllPlanners(@Parameter(hidden = true) Member member) {
+    public ResponseEntity<Void> deleteAllPlanners(Member member) {
         plannerService.deleteAllPlanners(member);
 
         return ResponseEntity.noContent().build();
