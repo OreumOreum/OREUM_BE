@@ -38,4 +38,5 @@ out/
 
 ### SECRET KEY ###
 .env
+/src/main/resources/application.properties
 /src/main/resources/env.properties
