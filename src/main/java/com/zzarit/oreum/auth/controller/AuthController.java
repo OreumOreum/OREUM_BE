@@ -3,6 +3,7 @@ package com.zzarit.oreum.auth.controller;
 
 import com.zzarit.oreum.auth.service.AuthService;
 import com.zzarit.oreum.auth.service.dto.AuthTokenDto;
+import com.zzarit.oreum.auth.service.dto.GoogleLoginRequestDto;
 import com.zzarit.oreum.auth.service.dto.KakaoLoginRequestDto;
 import com.zzarit.oreum.auth.service.dto.RefreshTokenRequestDto;
 import com.zzarit.oreum.member.domain.Member;
@@ -28,6 +29,13 @@ public class AuthController {
     public ResponseEntity<AuthTokenDto> kakaoLogin(
             @RequestBody KakaoLoginRequestDto request) {
         AuthTokenDto tokens = authService.kakaoLogin(request);
+        return ResponseEntity.ok(tokens);
+    }
+
+    @PostMapping("/login/google")
+    public ResponseEntity<AuthTokenDto> googleLogin(
+            @RequestBody GoogleLoginRequestDto request) {
+        AuthTokenDto tokens = authService.googleLogin(request);
         return ResponseEntity.ok(tokens);
     }
 

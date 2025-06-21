@@ -22,11 +22,11 @@ public class PlannerPlace extends BaseTimeEntity {
     @Column(name = "sequence_order", nullable = false)
     private int sequenceOrder;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "planner_id")
     private Planner planner;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 

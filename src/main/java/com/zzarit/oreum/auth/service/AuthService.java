@@ -2,6 +2,7 @@ package com.zzarit.oreum.auth.service;
 
 import com.zzarit.oreum.auth.service.client.OAuthClient;
 import com.zzarit.oreum.auth.service.dto.AuthTokenDto;
+import com.zzarit.oreum.auth.service.dto.GoogleLoginRequestDto;
 import com.zzarit.oreum.auth.service.dto.KakaoLoginRequestDto;
 import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Member;
@@ -24,6 +25,13 @@ public class AuthService {
     public AuthTokenDto kakaoLogin(KakaoLoginRequestDto request){
         OAuthClient kakaoAuthClient = oAuthClientComposite.getClient(AuthProvider.KAKAO);
         String loginId = kakaoAuthClient.getUserInfo(request.accessToken());
+        Member member = memberRepository.findByLoginId(loginId).orElseGet(() -> signUp(loginId));
+        return login(member);
+    }
+
+    public AuthTokenDto googleLogin(GoogleLoginRequestDto request){
+        OAuthClient googleAuthClient = oAuthClientComposite.getClient(AuthProvider.GOOGLE);
+        String loginId = googleAuthClient.getUserInfo(request.idToken());
         Member member = memberRepository.findByLoginId(loginId).orElseGet(() -> signUp(loginId));
         return login(member);
     }

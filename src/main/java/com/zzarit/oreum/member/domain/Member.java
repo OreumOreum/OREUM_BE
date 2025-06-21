@@ -42,7 +42,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "phone_no", unique = true)
     private String phoneNo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_type")
     private Category category;
 
