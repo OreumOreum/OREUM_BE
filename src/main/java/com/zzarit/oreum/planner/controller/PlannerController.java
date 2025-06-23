@@ -19,28 +19,28 @@ public class PlannerController {
 
     private final PlannerService plannerService;
 
-    @PostMapping("/create-planner")
+    @PostMapping("")
     public ResponseEntity<Void> createPlanner(@RequestBody PlannerCreateRequestDto request, Member member) {
         plannerService.createPlanner(request, member);
 
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/get-my-planners")
+    @GetMapping("")
     public ResponseEntity<List<PlannerResponseDto>> getMyPlanners(Member member) {
         List<PlannerResponseDto> planners = plannerService.getMyPlanners(member);
 
         return ResponseEntity.ok(planners);
     }
 
-    @GetMapping("/get-my-planner-places/{plannerId}")
+    @GetMapping("/{plannerId}")
     public ResponseEntity<List<PlannerPlaceResponseDto>> getAllPlanners(@PathVariable Long plannerId, Member member) {
         List<PlannerPlaceResponseDto> plannerplaces = plannerService.getMyPlannerPlaces(plannerId, member);
 
         return ResponseEntity.ok(plannerplaces);
     }
 
-    @PutMapping("/updatePlanner/{plannerId}")
+    @PutMapping("/{plannerId}")
     public ResponseEntity<Void> updatePlanner(
             @PathVariable Long plannerId,
             @RequestBody PlannerCreateRequestDto request,
@@ -50,21 +50,21 @@ public class PlannerController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete-planner/{plannerId}")
+    @DeleteMapping("/{plannerId}")
     public ResponseEntity<Void> deletePlanner(@PathVariable Long plannerId, Member member) {
         plannerService.deletePlanner(plannerId, member);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete-multiple-planners")
+    @DeleteMapping("/multiple")
     public ResponseEntity<Void> deleteMultiplePlanners(@RequestBody PlannerIdListRequestDto request, Member member) {
         plannerService.deleteMultiplePlanners(request, member);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete-all-planners")
+    @DeleteMapping("/all")
     public ResponseEntity<Void> deleteAllPlanners(Member member) {
         plannerService.deleteAllPlanners(member);
 

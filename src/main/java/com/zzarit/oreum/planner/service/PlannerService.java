@@ -33,6 +33,7 @@ public class PlannerService {
     private final PlannerPlaceRepository plannerPlaceRepository;
     private final PlaceRepository placeRepository;
 
+    @Transactional
     public void createPlanner(PlannerCreateRequestDto request, Member member) {
         Planner planner = new Planner();
         planner.setName(request.name());
