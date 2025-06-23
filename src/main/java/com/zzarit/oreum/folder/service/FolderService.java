@@ -6,6 +6,7 @@ import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
 import com.zzarit.oreum.folder.domain.repository.FolderRepository;
 import com.zzarit.oreum.folder.service.dto.*;
 import com.zzarit.oreum.global.exception.NotFoundException;
+import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
@@ -39,10 +40,10 @@ public class FolderService {
 
     public void updateFolderName(Long folderId, FolderNameRequestDto request, Member member) {
         Folder folder = folderRepository.findById(folderId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("폴더"));
 
         if (!folder.getMember().getId().equals(member.getId())) {
-            throw new SecurityException("본인의 폴더만 수정할 수 있습니다.");
+            throw new UnauthorizedException("접근 권한이 없습니다.");
         }
 
         folder.setName(request.name());
@@ -52,10 +53,10 @@ public class FolderService {
 
     public void deleteFolder(Long folderId, Member member) {
         Folder folder = folderRepository.findById(folderId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("폴더"));
 
         if (!folder.getMember().getId().equals(member.getId())) {
-            throw new SecurityException("본인의 폴더만 삭제할 수 있습니다.");
+            throw new UnauthorizedException("접근 권한이 없습니다.");
         }
 
         folderRepository.deleteById(folderId);
