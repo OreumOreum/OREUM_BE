@@ -51,7 +51,7 @@ public class FolderPlaceService {
 
     public List<FolderPlaceResponseDto> getMyFolderPlaces(Long folderId, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         List<FolderPlace> folderPlaces = folderPlaceRepository.findAllByFolder(folder);
 
@@ -60,13 +60,13 @@ public class FolderPlaceService {
 
     public void deleteFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         Place place = placeRepository.findById(request.placeId())
-                .orElseThrow(() -> new NotFoundException("장소가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("장소"));
 
         FolderPlace folderPlace = folderPlaceRepository.findByFolderAndPlace(folder, place)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         folderPlaceRepository.delete(folderPlace);
     }
@@ -80,7 +80,7 @@ public class FolderPlaceService {
 
     public void deleteAllFolderPlaces(Long folderId,  Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         List<FolderPlace> folderPlaces = folderPlaceRepository.findAllByFolder(folder);
 

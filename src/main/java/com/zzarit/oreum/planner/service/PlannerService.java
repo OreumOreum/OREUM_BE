@@ -5,6 +5,7 @@ import com.zzarit.oreum.folder.domain.FolderPlace;
 import com.zzarit.oreum.folder.service.dto.FolderPlaceResponseDto;
 import com.zzarit.oreum.global.exception.ForbiddenException;
 import com.zzarit.oreum.global.exception.NotFoundException;
+import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
@@ -51,7 +52,7 @@ public class PlannerService {
 
     public List<PlannerPlaceResponseDto> getMyPlannerPlaces(Long plannerId, Member member) {
         Planner planner = plannerRepository.findByIdAndMember(plannerId, member)
-                .orElseThrow(() -> new SecurityException("접근 권한이 없습니다."));
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         List<PlannerPlace> plannerPlaces = plannerPlaceRepository.findAllByPlanner(planner);
 
@@ -61,10 +62,10 @@ public class PlannerService {
     @Transactional
     public void updatePlanner(Long plannerId, PlannerCreateRequestDto request, Member member) {
         Planner planner = plannerRepository.findById(plannerId)
-                .orElseThrow(() -> new RuntimeException("플래너 없음"));
+                .orElseThrow(() -> new NotFoundException("플래너"));
 
         if (!planner.getMember().getId().equals(member.getId())) {
-            throw new RuntimeException("접근 권한 없음");
+            throw new UnauthorizedException("접근 권한이 없습니다");
         }
 
         planner.setName(request.name());
@@ -76,7 +77,7 @@ public class PlannerService {
     private void addPlannerPlaces(Planner planner, List<PlannerPlaceRequestDto> placeDtos) {
         for (PlannerPlaceRequestDto placeDto : placeDtos) {
             Place place = placeRepository.findById(placeDto.placeId())
-                    .orElseThrow(() -> new RuntimeException("존재하지 않는 장소입니다: " + placeDto.placeId()));
+                    .orElseThrow(() -> new NotFoundException("장소"));
 
             PlannerPlace plannerPlace = new PlannerPlace();
             plannerPlace.setPlanner(planner);
@@ -90,10 +91,10 @@ public class PlannerService {
 
     public void deletePlanner(Long plannerId, Member member) {
         Planner planner = plannerRepository.findById(plannerId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 폴더가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("폴더"));
 
         if (!planner.getMember().getId().equals(member.getId())) {
-            throw new SecurityException("본인의 일정만 삭제할 수 있습니다.");
+            throw new UnauthorizedException("접근 권한이 없습니다.");
         }
 
         plannerRepository.deleteById(plannerId);
