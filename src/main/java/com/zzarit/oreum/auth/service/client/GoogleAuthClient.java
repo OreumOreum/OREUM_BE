@@ -28,21 +28,23 @@ public class GoogleAuthClient implements OAuthClient{
                 .setAudience(Collections.singletonList(GOOGLE_CLIENT_ID))
                 .build();
 
-        GoogleIdToken googleIdToken = null;
-        try {
-            googleIdToken = verifier.verify(idToken);
-            if (googleIdToken == null) {
-                throw new UnauthorizedException("#1 ID토큰이 유효하지 않습니다.");
-            }
-        } catch (GeneralSecurityException e) {
-            throw new UnauthorizedException("#2 ID토큰이 유효하지 않습니다.");
-        } catch (IOException e) {
-            throw new InternalServerException("잠시 뒤 다시 시도해 주세요.");
+        GoogleIdToken googleIdToken = verifyGoogleIdToken(idToken,verifier);
+
+        if (googleIdToken == null) {
+            throw new UnauthorizedException("ID 토큰이 유효하지 않습니다.");
         }
 
         GoogleIdToken.Payload payload = googleIdToken.getPayload();
 
         return AuthProvider.GOOGLE.buildLoginId(payload.getSubject());
+    }
+
+    private GoogleIdToken verifyGoogleIdToken(String idToken, GoogleIdTokenVerifier verifier) {
+        try {
+            return verifier.verify(idToken);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
