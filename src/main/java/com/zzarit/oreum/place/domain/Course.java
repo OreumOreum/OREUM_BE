@@ -2,8 +2,7 @@ package com.zzarit.oreum.place.domain;
 
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.util.ArrayList;
@@ -11,7 +10,10 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @Entity
+@NoArgsConstructor()
+@AllArgsConstructor
 @Table(name = "course")
 public class Course extends BaseTimeEntity {
     @Id
@@ -39,10 +41,9 @@ public class Course extends BaseTimeEntity {
     @Column(name = "city_code")
     private String cityCode;
 
+    @OneToMany(mappedBy = "course")
+    private List<Place> places = new ArrayList<>();
 
     @OneToMany(mappedBy = "course")
-    private List<CoursePlace> coursePlaces = new ArrayList<>();
-
-
-
+    private List<CourseCategory> courseCategories = new ArrayList<>();
 }

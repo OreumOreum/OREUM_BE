@@ -1,5 +1,6 @@
 package com.zzarit.oreum.member.domain;
 
+import com.zzarit.oreum.place.domain.CourseCategory;
 import com.zzarit.oreum.place.domain.PlaceCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,5 +24,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<PlaceCategory> placeCategories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "category")
+    private List<CourseCategory> courseCategories = new ArrayList<>();
 
 }
