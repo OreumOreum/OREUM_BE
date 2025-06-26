@@ -3,7 +3,9 @@ package com.zzarit.oreum.spot.domain;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.place.domain.Place;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "spot")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Spot extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +35,8 @@ public class Spot extends BaseTimeEntity{
 
     @OneToMany(mappedBy = "spot")
     private List<VisitLog> visitLogs = new ArrayList<>();
-
+    public Spot(LocalDate date, Place place) {
+        this.date = date;
+        this.place = place;
+    }
 }

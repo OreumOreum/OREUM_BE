@@ -28,6 +28,9 @@ public class Place extends BaseTimeEntity {
     @Column(name = "detail_address")
     private String detailAddress;
 
+    @Column(name = "sigungucode")
+    private Integer sigunguCode;
+
     @Comment("대분류")
     @Column(name = "category_1")
     private String category1;

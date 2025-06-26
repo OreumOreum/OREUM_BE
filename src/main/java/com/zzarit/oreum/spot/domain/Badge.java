@@ -3,12 +3,16 @@ package com.zzarit.oreum.spot.domain;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.member.domain.Member;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@Builder
 @Table(name = "badge")
 public class Badge extends BaseTimeEntity{
     @Id
