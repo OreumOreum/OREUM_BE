@@ -1,21 +1,27 @@
 package com.zzarit.oreum.place.service;
 
 import com.zzarit.oreum.global.exception.NotFoundException;
+import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
+import com.zzarit.oreum.member.domain.Type;
+import com.zzarit.oreum.member.domain.repository.CategoryRepository;
 import com.zzarit.oreum.member.domain.repository.MemberRepository;
-import com.zzarit.oreum.place.domain.Place;
-import com.zzarit.oreum.place.domain.Rating;
-import com.zzarit.oreum.place.domain.Review;
-import com.zzarit.oreum.place.domain.repository.PlaceRepository;
-import com.zzarit.oreum.place.domain.repository.RatingRepository;
-import com.zzarit.oreum.place.domain.repository.ReviewRepository;
+import com.zzarit.oreum.place.domain.*;
+import com.zzarit.oreum.place.domain.repository.*;
+import com.zzarit.oreum.place.service.dto.CourseResponseDto;
 import com.zzarit.oreum.place.service.dto.ReviewCreateRequestDto;
+import com.zzarit.oreum.util.CategoryFixture;
+import com.zzarit.oreum.util.CourseCategoryFixture;
+import com.zzarit.oreum.util.CourseFixture;
+import com.zzarit.oreum.util.MemberFixture;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,18 +44,25 @@ class PlaceServiceTest {
     @Autowired
     private RatingRepository ratingRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private CourseCategoryRepository courseCategoryRepository;
+    @Autowired
+    private CourseRepository courseRepository;
+
     @Test
     void name() {
     }
 
     @Test
-    public void 리뷰별점테스트(){
-        Member member = memberRepository.findById(1L).orElseThrow();
-        Place place = placeRepository.findById(1L).orElseThrow();
-        String content = "이야 너무 좋다";
+    public void 리뷰별점둘다저장(){
+        Member member = memberRepository.save(MemberFixture.member());
+        Place place = placeRepository.save(new Place());
+        String content = "좋은 장소입니다";
         Double score = 4.5;
 
-        ReviewCreateRequestDto request = new ReviewCreateRequestDto(1, score, content);
+        ReviewCreateRequestDto request = new ReviewCreateRequestDto(place.getId(), score, content);
 
         placeService.createReviewAndRating(member,request);
 
@@ -61,13 +74,13 @@ class PlaceServiceTest {
     }
 
     @Test
-    public void 리뷰테스트(){
-        Member member = memberRepository.findById(1L).orElseThrow();
-        Place place = placeRepository.findById(1L).orElseThrow();
+    public void 리뷰만저장(){
+        Member member = memberRepository.save(MemberFixture.member());
+        Place place = placeRepository.save(new Place());
         String content = null;
         Double score = 4.5;
 
-        ReviewCreateRequestDto request = new ReviewCreateRequestDto(1, score, content);
+        ReviewCreateRequestDto request = new ReviewCreateRequestDto(place.getId(), score, content);
 
         placeService.createReviewAndRating(member,request);
 
@@ -78,6 +91,44 @@ class PlaceServiceTest {
         Assertions.assertThat(rating.getScore()).isEqualTo(score);
         Assertions.assertThat(review).isEmpty();
 
+    }
+
+    @Test
+    @Transactional
+    public void 유형O코스조회(){
+        Category category = categoryRepository.save(CategoryFixture.category(Type.ACTIVITY));
+        Member member = memberRepository.save(MemberFixture.member(category));
+        List<Course> courses = CourseFixture.courses(3);
+        List<CourseCategory> cc = CourseCategoryFixture.linkCoursesToCategory(courses,category);
+        courseRepository.saveAll(courses);
+        courseCategoryRepository.saveAll(cc);
+
+
+        List<CourseResponseDto> list = placeService.getCourseList(member);
+
+        Assertions.assertThat(list.size()).isEqualTo(3);
+    }
+
+
+    @Test
+    @Transactional
+    public void 유형X코스조회(){
+        Category category1 = categoryRepository.save(CategoryFixture.category(Type.ACTIVITY));
+        Category category2 = categoryRepository.save(CategoryFixture.category(Type.FOOD));
+        Member member = memberRepository.save(MemberFixture.member());
+        List<Course> courses1 = CourseFixture.courses(3);
+        List<Course> courses2 = CourseFixture.courses(3);
+        List<CourseCategory> cc1 = CourseCategoryFixture.linkCoursesToCategory(courses1,category1);
+        List<CourseCategory> cc2 = CourseCategoryFixture.linkCoursesToCategory(courses2,category2);
+        courseRepository.saveAll(courses1);
+        courseRepository.saveAll(courses2);
+        courseCategoryRepository.saveAll(cc1);
+        courseCategoryRepository.saveAll(cc2);
+
+
+        List<CourseResponseDto> list = placeService.getCourseList(member);
+
+        Assertions.assertThat(list.size()).isEqualTo(6);
     }
 
 }
