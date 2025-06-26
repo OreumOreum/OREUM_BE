@@ -90,9 +90,6 @@ public class Place extends BaseTimeEntity {
     private List<Spot> spots = new ArrayList<>();
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
-    private List<CoursePlace> coursePlaces = new ArrayList<>();
-
-    @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<FolderPlace> folderPlaces = new ArrayList<>();
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
@@ -103,5 +100,9 @@ public class Place extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<Rating> ratings = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
 }

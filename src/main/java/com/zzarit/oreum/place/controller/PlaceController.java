@@ -3,10 +3,7 @@ package com.zzarit.oreum.place.controller;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.service.PlaceService;
-import com.zzarit.oreum.place.service.dto.PlaceDto;
-import com.zzarit.oreum.place.service.dto.PlaceSearchConditionDto;
-import com.zzarit.oreum.place.service.dto.PlaceSearchResponseDto;
-import com.zzarit.oreum.place.service.dto.ReviewCreateRequestDto;
+import com.zzarit.oreum.place.service.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +40,16 @@ public class PlaceController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "코스 리스트 검색 API", description = "유형에 맞는 코스 리스트를 제공합니다.")
+    @GetMapping("/course")
+    public ResponseEntity<List<CourseResponseDto>> getCourseList(Member member){
+        List<CourseResponseDto> dtos = placeService.getCourseList(member);
+        return ResponseEntity.ok(dtos);
+    }
+
+
+
+    @Operation(summary = "별점,리뷰 생성 API", description = "DB에 별점 리뷰를 생성합니다.")
     @PostMapping("/review")
     public ResponseEntity<Void> createReviewAndRating(Member member,@RequestBody ReviewCreateRequestDto request){
         placeService.createReviewAndRating(member, request);

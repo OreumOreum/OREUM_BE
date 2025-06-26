@@ -1,6 +1,7 @@
 package com.zzarit.oreum.place.domain;
 
-import com.zzarit.oreum.global.domain.BaseTimeEntity;
+
+import com.zzarit.oreum.member.domain.Category;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "course_place")
-public class CoursePlace extends BaseTimeEntity {
+@Table(name = "course_category")
+public class CourseCategory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,7 +22,7 @@ public class CoursePlace extends BaseTimeEntity {
     private Course course;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
-    private Place place;
+    @JoinColumn(name = "category_type")
+    private Category category;
 
 }
