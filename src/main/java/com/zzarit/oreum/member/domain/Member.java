@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class Member extends BaseTimeEntity {
 
     @Column(name = "email")
     private String email;
+
+    @ColumnDefault("0") // DB 레벨에서 기본값을 0으로 설정
+    @Column(name = "badge_count", nullable = false)
+    private Integer badgeCount;
 
     @Column(name = "fcm_token")
     private String fcmToken;
@@ -70,6 +75,7 @@ public class Member extends BaseTimeEntity {
         this.loginId =loginId;
         Folder defaultFolder = new Folder("모든 저장됨", this);
         this.folders.add(defaultFolder);
+        this.badgeCount = 0;
     }
 
 }

@@ -3,13 +3,15 @@ package com.zzarit.oreum.spot.domain;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@Builder
 @Table(name = "badge")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Badge extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
