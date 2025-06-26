@@ -4,12 +4,14 @@ import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "review")
+@NoArgsConstructor
 public class Review extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +26,12 @@ public class Review extends BaseTimeEntity {
     private Place place;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public Review(String content, Place place, Member member) {
+        this.content = content;
+        this.place = place;
+        this.member = member;
+    }
 }

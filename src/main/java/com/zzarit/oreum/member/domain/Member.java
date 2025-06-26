@@ -68,6 +68,8 @@ public class Member extends BaseTimeEntity {
     @Builder
     public Member(String loginId){
         this.loginId =loginId;
+        Folder defaultFolder = new Folder("모든 저장됨", this);
+        this.folders.add(defaultFolder);
     }
 
 }
