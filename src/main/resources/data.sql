@@ -91,26 +91,6 @@ INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order,
 INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order, place_id, planner_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 2, 2, 5, 2);
 INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order, place_id, planner_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 1, 1, 8, 3);
 
-INSERT INTO rating (created_at, updated_at, score, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 4.5, 1, 1, 1);
-INSERT INTO rating (created_at, updated_at, score, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 4.8, 2, 2, 2);
-INSERT INTO rating (created_at, updated_at, score, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 4.2, NULL, 3, 4);
-INSERT INTO rating (created_at, updated_at, score, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 4.7, NULL, 4, 5);
-INSERT INTO rating (created_at, updated_at, score, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', 4.3, 3, 5, 6);
-
-INSERT INTO review (created_at, updated_at, content, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '가마오름 트레킹 정말 좋았어요!', 1, 1, 1);
-INSERT INTO review (created_at, updated_at, content, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '국수가 정말 맛있네요. 추천합니다!', 2, 2, 2);
-INSERT INTO review (created_at, updated_at, content, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '호텔 시설이 깔끔하고 좋아요', NULL, 3, 3);
-INSERT INTO review (created_at, updated_at, content, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '애월 해안도로 드라이브 코스 최고!', NULL, 4, 4);
-INSERT INTO review (created_at, updated_at, content, course_id, member_id, place_id) VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '천지연 폭포의 웅장함에 감동', 3, 5, 5);
-
-
--- spot 테이블 추가 데이터 (5개)
-INSERT INTO spot (created_at, updated_at, date, place_id)
-VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '2025-06-20', 1);
-INSERT INTO spot (created_at, updated_at, date, place_id)
-VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '2025-06-21', 2);
-INSERT INTO spot (created_at, updated_at, date, place_id)
-VALUES ('2025-06-15 10:39:19', '2025-06-15 10:39:19', '2025-06-22', 4);
 INSERT INTO spot (created_at, updated_at, date, place_id)
 VALUES
     -- 5월의 여행지 (제주시 2곳, 서귀포시 2곳)
