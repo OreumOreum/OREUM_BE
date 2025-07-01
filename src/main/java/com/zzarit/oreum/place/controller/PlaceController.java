@@ -47,6 +47,13 @@ public class PlaceController {
         return ResponseEntity.ok(dtos);
     }
 
+    @Operation(summary = "단일코스 상세 검색 API", description = "요청한 코스의 상세보기를 제공합니다.")
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<Void> getCourseList(@PathVariable long courseId, Member member){
+        List<CourseResponseDto> dtos = placeService.getCourseList(member);
+
+    }
+
 
 
     @Operation(summary = "별점,리뷰 생성 API", description = "DB에 별점 리뷰를 생성합니다.")
