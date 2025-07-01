@@ -50,7 +50,7 @@ public class OpenApiClient {
                 .retrieve()
                 .body(new ParameterizedTypeReference<OpenApiResponseDto<DetailCommonDto>>() {});
 
-        return responseDto.getResponse().getBody().getItems().getItem().getFirst();
+        return responseDto.getResponse().getBody().getItems().getItem().get(0);
     }
 
     private UriComponentsBuilder baseOpenApiBuilder(String uri) {

@@ -41,9 +41,11 @@ public class Course extends BaseTimeEntity {
     @Column(name = "city_code")
     private String cityCode;
 
+    @Builder.Default
     @OneToMany(mappedBy = "course")
     private List<Place> places = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "course")
     private List<CourseCategory> courseCategories = new ArrayList<>();
 }
