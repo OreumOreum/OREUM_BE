@@ -30,8 +30,8 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/modakbul:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/modakbul:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/oreum:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/oreum:latest
 
       - name: SSH into Raspberry Pi and deploy
         uses: appleboy/ssh-action@v1.0.0
@@ -40,5 +40,5 @@ jobs:
           username: ${{ secrets.PI_USER }}
           key: ${{ secrets.PI_SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/modakbul:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/oreum:latest
             docker compose -f /home/pi/oreum/docker-compose.yml --env-file /home/pi/oreum/.env up -d
