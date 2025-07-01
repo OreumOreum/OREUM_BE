@@ -35,7 +35,6 @@ jobs:
             -t ${{ secrets.DOCKER_USERNAME }}/oreum:latest \
             . \
             --push
-          docker push ${{ secrets.DOCKER_USERNAME }}/oreum:latest
 
       - name: SSH into Raspberry Pi and deploy
         uses: appleboy/ssh-action@v1.0.0
