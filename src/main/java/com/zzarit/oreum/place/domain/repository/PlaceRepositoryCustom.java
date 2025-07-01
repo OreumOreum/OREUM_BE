@@ -1,5 +1,6 @@
 package com.zzarit.oreum.place.domain.repository;
 
+import com.zzarit.oreum.member.domain.Type;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.service.dto.PlaceSearchConditionDto;
 import org.springframework.data.domain.Page;
@@ -7,4 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface PlaceRepositoryCustom {
     Page<Place> searchPlaces(PlaceSearchConditionDto condition, Pageable pageable);
+
+    Page<Place> searchPlaceList(String cityCode, Type type, Pageable pageable);
 }

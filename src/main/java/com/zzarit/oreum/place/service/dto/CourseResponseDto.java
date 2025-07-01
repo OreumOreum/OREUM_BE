@@ -7,11 +7,10 @@ public record CourseResponseDto(
         String title,
         String originImage
 ) {
-    public static CourseResponseDto from(Course course) {
-        return new CourseResponseDto(
-                course.getId(),
-                course.getTitle(),
-                course.getOriginImage()
-        );
-    }
+
+
+
+
 }
+
+

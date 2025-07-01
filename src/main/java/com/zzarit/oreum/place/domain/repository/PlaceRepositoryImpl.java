@@ -2,8 +2,11 @@ package com.zzarit.oreum.place.domain.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.zzarit.oreum.member.domain.QCategory;
+import com.zzarit.oreum.member.domain.Type;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.QPlace;
+import com.zzarit.oreum.place.domain.QPlaceCategory;
 import com.zzarit.oreum.place.service.dto.PlaceSearchConditionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,6 +50,47 @@ public class PlaceRepositoryImpl implements PlaceRepositoryCustom {
                         .where(builder)
                         .fetchOne()
         ).orElse(0L);
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<Place> searchPlaceList(String cityCode, Type type, Pageable pageable) {
+        QPlace place = QPlace.place;
+        QPlaceCategory placeCategory = QPlaceCategory.placeCategory;
+        QCategory category = QCategory.category;
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        // cityCode 조건
+        if (StringUtils.hasText(cityCode)) {
+            builder.and(place.cityCode.eq(cityCode));
+        }
+
+        if (type != null) {
+            builder.and(category.type.eq(type));
+        }
+
+        // 조회 쿼리
+        List<Place> content = queryFactory
+                .selectDistinct(place)
+                .from(place)
+                .leftJoin(placeCategory).on(place.eq(placeCategory.place))
+                .leftJoin(category).on(placeCategory.category.eq(category))
+                .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(place.id.desc())
+                .fetch();
+
+        // count 쿼리
+        Long total = queryFactory
+                .select(place.countDistinct())
+                .from(place)
+                .leftJoin(placeCategory).on(place.eq(placeCategory.place))
+                .leftJoin(category).on(placeCategory.category.eq(category))
+                .where(builder)
+                .fetchOne();
 
         return new PageImpl<>(content, pageable, total);
     }
