@@ -44,4 +44,4 @@ jobs:
           key: ${{ secrets.PI_SSH_PRIVATE_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/oreum:latest
-            docker compose -f /home/pi/oreum/docker-compose.yml --env-file /home/pi/oreum/.env up -d
+            docker compose -f /home/pi/oreum/compose.yml --env-file /home/pi/oreum/.env up -d
