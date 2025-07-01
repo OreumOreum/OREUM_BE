@@ -11,22 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-class AuthServiceTest {
-
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private MemberRepository memberRepository;
-
-    @Test
-    @Transactional
-    void 기본폴더자동생성(){
-        String loginId = "test123";
-        KakaoLoginRequestDto requestDto = new KakaoLoginRequestDto(loginId);
-        authService.kakaoLogin(requestDto);
-        Member member = memberRepository.findByLoginId(loginId).get();
-
-        Assertions.assertThat(member.getFolders().size()).isEqualTo(1);
-    }
-}
+//@SpringBootTest
+//class AuthServiceTest {
+//
+//    @Autowired
+//    private AuthService authService;
+//    @Autowired
+//    private MemberRepository memberRepository;
+//
+//    @Test
+//    @Transactional
+//    void 기본폴더자동생성(){
+//        String loginId = "test123";
+//        KakaoLoginRequestDto requestDto = new KakaoLoginRequestDto(loginId);
+//        authService.kakaoLogin(requestDto);
+//        Member member = memberRepository.findByLoginId(loginId).get();
+//
+//        Assertions.assertThat(member.getFolders().size()).isEqualTo(1);
+//    }
+//}

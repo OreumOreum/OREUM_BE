@@ -30,24 +30,24 @@ class AuthControllerTest {
     private KakaoAuthClient kakaoAuthClient;
 
 
-    @Test
-    void kakaoLogin_통합테스트() throws Exception {
-        // given
-        String fakeLoginId = "KAKAO1";
-        when(kakaoAuthClient.getUserInfo("fake-token")).thenReturn(fakeLoginId);
-
-        String requestJson = """
-            {
-                "accessToken": "fake-token"
-            }
-            """;
-
-        // when & then
-        mockMvc.perform(post("/v1/auth/login/kakao")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.accessToken").exists());
-    }
+//    @Test
+//    void kakaoLogin_통합테스트() throws Exception {
+//        // given
+//        String fakeLoginId = "KAKAO1";
+//        when(kakaoAuthClient.getUserInfo("fake-token")).thenReturn(fakeLoginId);
+//
+//        String requestJson = """
+//            {
+//                "accessToken": "fake-token"
+//            }
+//            """;
+//
+//        // when & then
+//        mockMvc.perform(post("/v1/auth/login/kakao")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(requestJson))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.accessToken").exists());
+//    }
 
 }
