@@ -8,7 +8,13 @@ public record CourseResponseDto(
         String originImage
 ) {
 
-
+    public static CourseResponseDto from(Course course) {
+        return new CourseResponseDto(
+                course.getId(),
+                course.getTitle(),
+                course.getOriginImage()
+        );
+    }
 
 
 }
