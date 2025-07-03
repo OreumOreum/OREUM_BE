@@ -2,6 +2,7 @@ package com.zzarit.oreum.place.domain;
 
 import com.zzarit.oreum.folder.domain.FolderPlace;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
+import com.zzarit.oreum.place.domain.detail.*;
 import com.zzarit.oreum.planner.domain.PlannerPlace;
 import com.zzarit.oreum.spot.domain.Spot;
 import jakarta.persistence.*;
@@ -104,5 +105,26 @@ public class Place extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
+
+    @OneToOne(mappedBy = "place")
+    private CultureDetail cultureDetail;
+
+    @OneToOne(mappedBy = "place")
+    private FestivalDetail festivalDetail;
+
+    @OneToOne(mappedBy = "place")
+    private FoodDetail foodDetail;
+
+    @OneToOne(mappedBy = "place")
+    private LeportsDetail leportsDetail;
+
+    @OneToOne(mappedBy = "place")
+    private LodgeDetail lodgeDetail;
+
+    @OneToOne(mappedBy = "place")
+    private ShoppingDeatail shoppingDeatail;
+
+    @OneToOne(mappedBy = "place")
+    private TourDetail tourDetail;
 
 }

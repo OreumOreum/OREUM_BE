@@ -50,8 +50,6 @@ public class PlaceController {
 //    @Operation(summary = "단일코스 상세 검색 API", description = "요청한 코스의 상세보기를 제공합니다.")
 //    @GetMapping("/course/{courseId}")
 //    public ResponseEntity<Void> getCourseList(@PathVariable long courseId, Member member){
-//        List<CourseResponseDto> dtos = placeService.getCourseList(member);
-//        return ResponseEntity.ok(dtos);
 //    }
 
 
