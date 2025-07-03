@@ -1,11 +1,10 @@
-package com.zzarit.oreum.scheduler.client;
+package com.zzarit.oreum.scheduler.service;
 
 import com.zzarit.oreum.member.domain.repository.CategoryRepository;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.spot.domain.Badge;
 import com.zzarit.oreum.spot.domain.SpotCategorySummary;
 import com.zzarit.oreum.spot.domain.repository.BadgeRepository;
-import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.member.domain.Type;
 import com.zzarit.oreum.place.domain.Place;
