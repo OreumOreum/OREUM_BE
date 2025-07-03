@@ -2,7 +2,6 @@ package com.zzarit.oreum.member.domain;
 
 import com.zzarit.oreum.folder.domain.Folder;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
-import com.zzarit.oreum.place.domain.Rating;
 import com.zzarit.oreum.place.domain.Review;
 import com.zzarit.oreum.planner.domain.Planner;
 import com.zzarit.oreum.spot.domain.Badge;
@@ -65,9 +64,6 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<Rating> ratings = new ArrayList<>();
 
 
     @Builder

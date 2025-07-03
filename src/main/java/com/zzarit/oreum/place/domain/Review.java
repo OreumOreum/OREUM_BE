@@ -21,6 +21,9 @@ public class Review extends BaseTimeEntity {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "rating")
+    private Double rating;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
@@ -29,8 +32,9 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Review(String content, Place place, Member member) {
+    public Review(String content,Double rating, Place place, Member member) {
         this.content = content;
+        this.rating = rating;
         this.place = place;
         this.member = member;
     }

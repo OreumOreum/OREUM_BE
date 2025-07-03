@@ -10,7 +10,7 @@ public class MonthlySpotResponseDto {
     private final String title;
     private final String address;
     private final String thumbnailImage;
-    private final int sigunguCode;
+    private final Integer sigunguCode;
 
     public MonthlySpotResponseDto(Spot spot) {
         this.spotId = spot.getId();

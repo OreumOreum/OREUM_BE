@@ -48,7 +48,7 @@ public class Place extends BaseTimeEntity {
     @Column(name = "content_id")
     private String contentId;
 
-    @Comment("콘테츠타입 ID")
+    @Comment("관광타입 분류")
     @Column(name = "content_type_id")
     private String contentTypeId;
 
@@ -99,8 +99,6 @@ public class Place extends BaseTimeEntity {
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
-    private List<Rating> ratings = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
@@ -126,5 +124,19 @@ public class Place extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "place")
     private TourDetail tourDetail;
+
+
+    public Object getDetailInfo() {
+        return switch (this.getContentTypeId()) {
+            case "12" -> this.tourDetail;
+            case "14" -> this.cultureDetail;
+            case "15" -> this.festivalDetail;
+            case "28" -> this.leportsDetail;
+            case "32" -> this.lodgeDetail;
+            case "38" -> this.shoppingDeatail;
+            case "39" -> this.foodDetail;
+            default -> null;
+        };
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.zzarit.oreum.place.domain.detail;
 
+import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.place.domain.Place;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "shopping_deatail")
-public class ShoppingDeatail {
+public class ShoppingDeatail extends BaseTimeEntity {
 
     @Id
     private Long id;

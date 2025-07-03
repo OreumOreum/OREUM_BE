@@ -2,6 +2,7 @@ package com.zzarit.oreum.place.domain;
 
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.place.domain.detail.CourseDetail;
+import com.zzarit.oreum.place.service.dto.CourseDetailDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -32,7 +33,7 @@ public class Course extends BaseTimeEntity {
 
     @Comment("시군구코드:3-서귀포시/4-제주시")
     @Column(name = "sigungu_code")
-    private String sigunguCode;
+    private Integer sigunguCode;
 
     @Comment("대표이미지(원본)")
     @Column(name = "origin_image")

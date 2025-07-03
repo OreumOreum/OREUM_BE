@@ -2,6 +2,7 @@ package com.zzarit.oreum.place.domain.detail;
 
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.place.domain.Course;
+import com.zzarit.oreum.place.service.dto.CourseDetailDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,4 +40,15 @@ public class CourseDetail extends BaseTimeEntity {
     // 코스 테마
     @Column(name = "theme")
     private String theme;
+
+
+    public CourseDetailDto toDto() {
+        return new CourseDetailDto(
+                this.distance,
+                this.infocentertourcourse,
+                this.schedule,
+                this.taketime,
+                this.theme
+        );
+    }
 }
