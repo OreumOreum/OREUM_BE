@@ -205,7 +205,7 @@ INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order,
                                                                                                            (NOW(), NOW(), 1, 1, 10, 6);
 
 -- 23. 리뷰 테이블
-INSERT INTO review (created_at, updated_at, content, rating, member_id, place_id) VALUES
+INSERT INTO review (created_at, updated_at, content, rate, member_id, place_id) VALUES
                                                                                       (NOW(), NOW(), '일출이 정말 아름다웠어요! 새벽 일찍 올라가는 보람이 있습니다.', 4.8, 1, 1),
                                                                                       (NOW(), NOW(), '전통 가옥이 잘 보존되어 있고 설명도 자세해서 좋았어요.', 4.5, 1, 3),
                                                                                       (NOW(), NOW(), '곶자왈의 신비로운 분위기를 만끽할 수 있었습니다.', 4.7, 2, 7),

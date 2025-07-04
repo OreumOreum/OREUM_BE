@@ -55,10 +55,17 @@ public class PlaceController {
 
 
 
-    @Operation(summary = "별점,리뷰 생성 API", description = "DB에 별점 리뷰를 생성합니다.")
+    @Operation(summary = "단일 여행지 별점,리뷰 생성 API", description = "단일 여행지 별점/리뷰를 생성합니다.")
     @PostMapping("/review")
-    public ResponseEntity<Void> createReviewAndRating(Member member,@RequestBody ReviewCreateRequestDto request){
+    public ResponseEntity<Void> createReview(Member member,@RequestBody ReviewCreateRequestDto request){
         placeService.createReviewAndRating(member, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "코스 별점,리뷰 생성 API", description = "코스 별점/리뷰를 생성합니다.")
+    @PostMapping("/course/review")
+    public ResponseEntity<Void> createCourseReview(Member member,@RequestBody CourseReviewCreateRequestDto request){
+        placeService.createCourseReview(member, request);
         return ResponseEntity.noContent().build();
     }
 }

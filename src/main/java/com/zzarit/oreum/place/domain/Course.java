@@ -67,6 +67,10 @@ public class Course extends BaseTimeEntity {
     @OneToMany(mappedBy = "course")
     private List<CourseCategory> courseCategories = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews = new ArrayList<>();
+
     @OneToOne(mappedBy = "course")
     private CourseDetail courseDetail;
 }

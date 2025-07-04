@@ -9,10 +9,7 @@ import com.zzarit.oreum.place.domain.Review;
 import com.zzarit.oreum.place.domain.repository.CourseRepository;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.place.domain.repository.ReviewRepository;
-import com.zzarit.oreum.place.service.dto.CourseDetailResponseDto;
-import com.zzarit.oreum.place.service.dto.CourseResponseDto;
-import com.zzarit.oreum.place.service.dto.PlaceSearchConditionDto;
-import com.zzarit.oreum.place.service.dto.ReviewCreateRequestDto;
+import com.zzarit.oreum.place.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,7 +38,18 @@ public class PlaceService {
                 () -> new NotFoundException("장소")
         );
 
-        Review review = new Review(request.content(),request.rating(),place,member);
+        Review review = new Review(request.content(),request.rate(),place,member);
+
+        reviewRepository.save(review);
+    }
+
+    @Transactional
+    public void createCourseReview(Member member, CourseReviewCreateRequestDto request) {
+        Course course = courseRepository.findById(request.courseId()).orElseThrow(
+                () -> new NotFoundException("코스")
+        );
+
+        Review review = new Review(request.content(),request.rate(),course,member);
 
         reviewRepository.save(review);
     }
