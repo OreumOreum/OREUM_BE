@@ -71,6 +71,7 @@ public class Course extends BaseTimeEntity {
     @OneToMany(mappedBy = "course")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToOne(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_detial_id")
     private CourseDetail courseDetail;
 }

@@ -13,11 +13,11 @@ import lombok.Setter;
 public class FoodDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "foodDetail")
     private Place place;
 
     // 신용카드 가능 여부

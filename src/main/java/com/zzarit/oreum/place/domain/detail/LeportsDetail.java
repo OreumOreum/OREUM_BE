@@ -13,11 +13,11 @@ import lombok.Setter;
 public class LeportsDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "leportsDetail")
     private Place place;
 
 

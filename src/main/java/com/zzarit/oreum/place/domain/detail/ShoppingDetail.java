@@ -10,14 +10,14 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "shopping_deatail")
-public class ShoppingDeatail extends BaseTimeEntity {
+public class ShoppingDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "shoppingDetail")
     private Place place;
 
     // 유모차 대여 정보
