@@ -6,6 +6,7 @@ import com.zzarit.oreum.place.service.CourseService;
 import com.zzarit.oreum.place.service.dto.CourseDetailResponseDto;
 import com.zzarit.oreum.place.service.dto.CourseResponseDto;
 import com.zzarit.oreum.place.service.dto.CourseReviewCreateRequestDto;
+import com.zzarit.oreum.place.service.dto.ReviewPaginationResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,15 @@ public class CourseController {
     @GetMapping("/{courseId}")
     public ResponseEntity<CourseDetailResponseDto> getCourseList(@PathVariable long courseId){
         return ResponseEntity.ok(courseService.getCourseDetail(courseId));
+    }
+
+    @Operation(summary = "코스 리뷰 페이지네이션 조회", description = "코스에 대한 리뷰를 페이지네이션합니다.")
+    @GetMapping("/review/{courseId}")
+    public ResponseEntity<ReviewPaginationResponseDto> getReviewPagination(
+            @PathVariable long courseId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(courseService.getReviewPagination(courseId,page,size));
     }
 
     @Operation(summary = "코스 별점,리뷰 생성 API", description = "코스 별점/리뷰를 생성합니다.")

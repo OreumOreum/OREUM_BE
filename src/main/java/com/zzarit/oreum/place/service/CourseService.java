@@ -9,12 +9,13 @@ import com.zzarit.oreum.place.domain.Review;
 import com.zzarit.oreum.place.domain.repository.CourseRepository;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.place.domain.repository.ReviewRepository;
-import com.zzarit.oreum.place.service.dto.CourseDetailResponseDto;
-import com.zzarit.oreum.place.service.dto.CourseResponseDto;
-import com.zzarit.oreum.place.service.dto.CourseReviewCreateRequestDto;
-import com.zzarit.oreum.place.service.dto.RateSummary;
+import com.zzarit.oreum.place.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,5 +60,18 @@ public class CourseService {
         Course course = courseRepository.findById(id).orElseThrow(() -> new NotFoundException("코스"));
         RateSummary rateSummary = reviewRepository.getRateSummaryByCourseId(course.getId());
         return CourseDetailResponseDto.from(course,rateSummary);
+    }
+
+    @Transactional
+    public ReviewPaginationResponseDto getReviewPagination(long courseId, int page, int size){
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException("코스"));
+        Pageable pageable = PageRequest.of(page,size, Sort.by("createdAt").descending());
+        Page<Review> reviews = reviewRepository.findByCourse(course, pageable);
+
+        List<ReviewResponseDto> dtos = reviews.getContent().stream()
+                .map(ReviewResponseDto::from)
+                .toList();
+
+        return new ReviewPaginationResponseDto(dtos,reviews.getTotalElements(),reviews.isLast());
     }
 }

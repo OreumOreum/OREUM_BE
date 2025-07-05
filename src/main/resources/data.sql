@@ -11,12 +11,12 @@ INSERT INTO category (type) VALUES
 
 -- 2. 회원 테이블
 INSERT INTO member (created_at, updated_at, badge_count, email, fcm_token, login_id, name, phone_no, category_type) VALUES
-                                                                                                                        (NOW(), NOW(), 5, 'kim.jeju@gmail.com', 'fcm_token_001', 'kim_jeju', '배철현', '010-1234-5678', 'CULTURE'),
-                                                                                                                        (NOW(), NOW(), 3, 'lee.nature@naver.com', 'fcm_token_002', 'nature_lover', '양지원', '010-2345-6789', 'FOREST'),
-                                                                                                                        (NOW(), NOW(), 8, 'park.foodie@kakao.com', 'fcm_token_003', 'jeju_foodie', '주해찬', '010-3456-7890', 'FOOD'),
-                                                                                                                        (NOW(), NOW(), 2, 'choi.active@gmail.com', 'fcm_token_004', 'active_choi', '곽민철', '010-4567-8901', 'ACTIVITY'),
-                                                                                                                        (NOW(), NOW(), 6, 'jung.social@naver.com', 'fcm_token_005', 'social_jung', '김태현', '010-5678-9012', 'SOCIAL'),
-                                                                                                                        (NOW(), NOW(), 1, 'moon.mood@gmail.com', 'fcm_token_006', 'mood_moon', '김가명', '010-6789-0123', 'MOOD');
+                                                                                                                        (NOW(), NOW(), 5, 'kim.jeju@gmail.com', 'fcm_token_001', '111', '배철현', '010-1234-5678', 'CULTURE'),
+                                                                                                                        (NOW(), NOW(), 3, 'lee.nature@naver.com', 'fcm_token_002', '222', '양지원', '010-2345-6789', 'FOREST'),
+                                                                                                                        (NOW(), NOW(), 8, 'park.foodie@kakao.com', 'fcm_token_003', '333', '주해찬', '010-3456-7890', 'FOOD'),
+                                                                                                                        (NOW(), NOW(), 2, 'choi.active@gmail.com', 'fcm_token_004', '444', '곽민철', '010-4567-8901', 'ACTIVITY'),
+                                                                                                                        (NOW(), NOW(), 6, 'jung.social@naver.com', 'fcm_token_005', '555', '김태현', '010-5678-9012', 'SOCIAL'),
+                                                                                                                        (NOW(), NOW(), 1, 'moon.mood@gmail.com', 'fcm_token_006', '666', '김가명', '010-6789-0123', 'MOOD');
 
 -- 3. 인증 테이블
 INSERT INTO auth (refresh_token, session_id, member_id) VALUES

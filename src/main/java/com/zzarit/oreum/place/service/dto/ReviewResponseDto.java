@@ -12,7 +12,7 @@ public record ReviewResponseDto(
         Type type
 ) {
 
-    public ReviewResponseDto from(Review review){
+    public static ReviewResponseDto from(Review review){
         return new ReviewResponseDto(
                         review.getRate(),
                         review.getContent(),
