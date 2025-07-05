@@ -21,21 +21,32 @@ public class Review extends BaseTimeEntity {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "rating")
-    private Double rating;
+    @Column(name = "rate")
+    private Double rate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Review(String content,Double rating, Place place, Member member) {
+    public Review(String content,Double rate, Place place, Member member) {
         this.content = content;
-        this.rating = rating;
+        this.rate = rate;
         this.place = place;
+        this.member = member;
+    }
+
+    public Review(String content,Double rate, Course course, Member member) {
+        this.content = content;
+        this.rate = rate;
+        this.course = course;
         this.member = member;
     }
 }

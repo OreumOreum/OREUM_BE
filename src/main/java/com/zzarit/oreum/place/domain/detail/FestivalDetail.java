@@ -13,11 +13,11 @@ import lombok.Setter;
 public class FestivalDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "festivalDetail")
     private Place place;
 
     // 관람가능연령

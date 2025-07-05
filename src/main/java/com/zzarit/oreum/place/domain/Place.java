@@ -104,25 +104,32 @@ public class Place extends BaseTimeEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "culture_detail_id")
     private CultureDetail cultureDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "festival_detail_id")
     private FestivalDetail festivalDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_detail_id")
     private FoodDetail foodDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "leports_detail_id")
     private LeportsDetail leportsDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lodge_detail_id")
     private LodgeDetail lodgeDetail;
 
-    @OneToOne(mappedBy = "place")
-    private ShoppingDeatail shoppingDeatail;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopping_detail_id")
+    private ShoppingDetail shoppingDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tour_detail_id")
     private TourDetail tourDetail;
 
 
@@ -133,7 +140,7 @@ public class Place extends BaseTimeEntity {
             case "15" -> this.festivalDetail;
             case "28" -> this.leportsDetail;
             case "32" -> this.lodgeDetail;
-            case "38" -> this.shoppingDeatail;
+            case "38" -> this.shoppingDetail;
             case "39" -> this.foodDetail;
             default -> null;
         };

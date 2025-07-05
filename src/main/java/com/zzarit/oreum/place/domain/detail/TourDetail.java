@@ -13,11 +13,11 @@ import lombok.Setter;
 public class TourDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "tourDetail")
     private Place place;
 
     // 수용 인원

@@ -33,6 +33,9 @@ class PlaceServiceTest {
     private PlaceService placeService;
 
     @Autowired
+    private CourseService courseService;
+
+    @Autowired
     private PlaceRepository placeRepository;
 
     @Autowired
@@ -41,8 +44,6 @@ class PlaceServiceTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    @Autowired
-    private RatingRepository ratingRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -51,47 +52,7 @@ class PlaceServiceTest {
     @Autowired
     private CourseRepository courseRepository;
 
-    @Test
-    void name() {
-    }
 
-    @Test
-    public void 리뷰별점둘다저장(){
-        Member member = memberRepository.save(MemberFixture.member());
-        Place place = placeRepository.save(new Place());
-        String content = "좋은 장소입니다";
-        Double score = 4.5;
-
-        ReviewCreateRequestDto request = new ReviewCreateRequestDto(place.getId(), score, content);
-
-        placeService.createReviewAndRating(member,request);
-
-        Review review = reviewRepository.findByMemberAndPlace(member,place).get();
-        Rating rating = ratingRepository.findByMemberAndPlace(member,place).get();
-
-        Assertions.assertThat(review.getContent()).isEqualTo(content);
-        Assertions.assertThat(rating.getScore()).isEqualTo(score);
-    }
-
-    @Test
-    public void 리뷰만저장(){
-        Member member = memberRepository.save(MemberFixture.member());
-        Place place = placeRepository.save(new Place());
-        String content = null;
-        Double score = 4.5;
-
-        ReviewCreateRequestDto request = new ReviewCreateRequestDto(place.getId(), score, content);
-
-        placeService.createReviewAndRating(member,request);
-
-        Rating rating = ratingRepository.findByMemberAndPlace(member,place).get();
-        Optional<Review> review = reviewRepository.findByMemberAndPlace(member, place).toJavaUtil();
-
-
-        Assertions.assertThat(rating.getScore()).isEqualTo(score);
-        Assertions.assertThat(review).isEmpty();
-
-    }
 
     @Test
     @Transactional
@@ -104,7 +65,7 @@ class PlaceServiceTest {
         courseCategoryRepository.saveAll(cc);
 
 
-        List<CourseResponseDto> list = placeService.getCourseList(member);
+        List<CourseResponseDto> list = courseService.getCourseList(member);
 
         Assertions.assertThat(list.size()).isEqualTo(3);
     }
@@ -126,7 +87,7 @@ class PlaceServiceTest {
         courseCategoryRepository.saveAll(cc2);
 
 
-        List<CourseResponseDto> list = placeService.getCourseList(member);
+        List<CourseResponseDto> list = courseService.getCourseList(member);
 
         Assertions.assertThat(list.size()).isEqualTo(6);
     }

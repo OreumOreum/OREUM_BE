@@ -9,10 +9,7 @@ import com.zzarit.oreum.place.domain.Review;
 import com.zzarit.oreum.place.domain.repository.CourseRepository;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.place.domain.repository.ReviewRepository;
-import com.zzarit.oreum.place.service.dto.CourseDetailResponseDto;
-import com.zzarit.oreum.place.service.dto.CourseResponseDto;
-import com.zzarit.oreum.place.service.dto.PlaceSearchConditionDto;
-import com.zzarit.oreum.place.service.dto.ReviewCreateRequestDto;
+import com.zzarit.oreum.place.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,7 +26,6 @@ public class PlaceService {
 
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
-    private final CourseRepository courseRepository;
 
     public Page<Place> getSearchPlaces(PlaceSearchConditionDto condition, Pageable pageable) {
         return placeRepository.searchPlaces(condition, pageable);
@@ -41,29 +37,12 @@ public class PlaceService {
                 () -> new NotFoundException("장소")
         );
 
-        Review review = new Review(request.content(),request.rating(),place,member);
+        Review review = new Review(request.content(),request.rate(),place,member);
 
         reviewRepository.save(review);
     }
 
-    public List<CourseResponseDto> getCourseList(Member member){
-        List<Course> courses;
-        Category category = member.getCategory();
 
-        if (category == null) {
-            courses = courseRepository.findAll();
-        } else {
-            courses = courseRepository.findAllByCategoryType(category.getType());
-        }
 
-        return courses.stream()
-                .map(CourseResponseDto::from)
-                .toList();
-    }
 
-    @Transactional
-    public CourseDetailResponseDto getCourseDetail(Long id){
-        Course course = courseRepository.findById(id).orElseThrow(() -> new NotFoundException("코스"));
-        return CourseDetailResponseDto.from(course);
-    }
 }

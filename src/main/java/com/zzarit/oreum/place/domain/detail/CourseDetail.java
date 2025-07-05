@@ -14,11 +14,11 @@ import lombok.Setter;
 public class CourseDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "course_id")
+    @OneToOne(mappedBy = "courseDetail")
     private Course course;
 
     // 코스총거리
