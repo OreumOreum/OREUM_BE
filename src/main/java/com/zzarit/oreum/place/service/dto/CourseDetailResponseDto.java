@@ -4,13 +4,17 @@ import java.util.List;
 
 public record CourseDetailResponseDto(
         String title,
+        String middleCategory,
         Integer sigunguCode,
+        String overview,
+        Double averageRate,
+        Long reviewCount,
         CourseDetailDto detailInfo,
-        List<PlaceResponseDto> places,
-        String overview
+        List<PlaceResponseDto> places
+
 ) {
 
-    public static CourseDetailResponseDto from(Course course) {
+    public static CourseDetailResponseDto from(Course course,RateSummary rateSummary) {
         List<PlaceResponseDto> placeResponseDtoList = course.getPlaces().stream()
                 .map(place -> new PlaceResponseDto(
                         place.getTitle(),
@@ -22,12 +26,17 @@ public record CourseDetailResponseDto(
                 ))
                 .toList();
 
+
+
         return new CourseDetailResponseDto(
                 course.getTitle(),
+                course.getCategory2(),
                 course.getSigunguCode(),
+                course.getOverview(),
+                rateSummary.average(),
+                rateSummary.count(),
                 course.getCourseDetail().toDto(),
-                placeResponseDtoList,
-                course.getOverview()
+                placeResponseDtoList
         );
     }
 
@@ -40,12 +49,6 @@ public record CourseDetailResponseDto(
             String thumbnailImage
     ) {}
 
-    //    public static class ReviewResponseDto{
-//        private Double rating;
-//        private Type type;
-//        private String content;
-//        private LocalDateTime updatedAt;
-//    }
 }
 
 

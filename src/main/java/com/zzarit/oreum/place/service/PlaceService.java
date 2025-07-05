@@ -26,7 +26,6 @@ public class PlaceService {
 
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
-    private final CourseRepository courseRepository;
 
     public Page<Place> getSearchPlaces(PlaceSearchConditionDto condition, Pageable pageable) {
         return placeRepository.searchPlaces(condition, pageable);
@@ -43,35 +42,7 @@ public class PlaceService {
         reviewRepository.save(review);
     }
 
-    @Transactional
-    public void createCourseReview(Member member, CourseReviewCreateRequestDto request) {
-        Course course = courseRepository.findById(request.courseId()).orElseThrow(
-                () -> new NotFoundException("코스")
-        );
 
-        Review review = new Review(request.content(),request.rate(),course,member);
 
-        reviewRepository.save(review);
-    }
 
-    public List<CourseResponseDto> getCourseList(Member member){
-        List<Course> courses;
-        Category category = member.getCategory();
-
-        if (category == null) {
-            courses = courseRepository.findAll();
-        } else {
-            courses = courseRepository.findAllByCategoryType(category.getType());
-        }
-
-        return courses.stream()
-                .map(CourseResponseDto::from)
-                .toList();
-    }
-
-    @Transactional
-    public CourseDetailResponseDto getCourseDetail(Long id){
-        Course course = courseRepository.findById(id).orElseThrow(() -> new NotFoundException("코스"));
-        return CourseDetailResponseDto.from(course);
-    }
 }

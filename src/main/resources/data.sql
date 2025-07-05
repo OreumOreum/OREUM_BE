@@ -205,15 +205,15 @@ INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order,
                                                                                                            (NOW(), NOW(), 1, 1, 10, 6);
 
 -- 23. 리뷰 테이블
-INSERT INTO review (created_at, updated_at, content, rate, member_id, place_id) VALUES
-                                                                                      (NOW(), NOW(), '일출이 정말 아름다웠어요! 새벽 일찍 올라가는 보람이 있습니다.', 4.8, 1, 1),
-                                                                                      (NOW(), NOW(), '전통 가옥이 잘 보존되어 있고 설명도 자세해서 좋았어요.', 4.5, 1, 3),
-                                                                                      (NOW(), NOW(), '곶자왈의 신비로운 분위기를 만끽할 수 있었습니다.', 4.7, 2, 7),
-                                                                                      (NOW(), NOW(), '다양한 먹거리가 있어서 구경하는 재미가 쏠쏠해요.', 4.3, 3, 5),
-                                                                                      (NOW(), NOW(), '제주 흑돼지 맛이 정말 일품이에요! 강력 추천합니다.', 4.9, 3, 6),
-                                                                                      (NOW(), NOW(), '바다가 너무 깨끗하고 다이빙 체험도 재미있었어요.', 4.6, 4, 8),
-                                                                                      (NOW(), NOW(), '리조트 시설이 좋고 가족 여행하기에 최고예요.', 4.4, 5, 9),
-                                                                                      (NOW(), NOW(), '카페 분위기가 너무 좋고 바다 뷰가 환상적이에요.', 4.8, 6, 10);
+INSERT INTO review (created_at, updated_at, content, rate, member_id, place_id, course_id) VALUES
+                                                                                      (NOW(), NOW(), '일출이 정말 아름다웠어요! 새벽 일찍 올라가는 보람이 있습니다.', 4.8, 1, 1, NULL),
+                                                                                      (NOW(), NOW(), '전통 가옥이 잘 보존되어 있고 설명도 자세해서 좋았어요.', 4.5, 1, 3, NULL),
+                                                                                      (NOW(), NOW(), '곶자왈의 신비로운 분위기를 만끽할 수 있었습니다.', 4.7, 2, 7, NULL),
+                                                                                      (NOW(), NOW(), '다양한 먹거리가 있어서 구경하는 재미가 쏠쏠해요.', 4.3, 3, 5, NULL),
+                                                                                      (NOW(), NOW(), '제주 흑돼지 맛이 정말 일품이에요! 강력 추천합니다.', 4.9, 3, NULL, 1),
+                                                                                      (NOW(), NOW(), '바다가 너무 깨끗하고 다이빙 체험도 재미있었어요.', 4.6, 4, NULL, 1),
+                                                                                      (NOW(), NOW(), '리조트 시설이 좋고 가족 여행하기에 최고예요.', 4.4, 5, NULL, 1),
+                                                                                      (NOW(), NOW(), '카페 분위기가 너무 좋고 바다 뷰가 환상적이에요.', 4.8, 6, NULL, 1);
 
 -- 24. 축제 상세 테이블 (추가 데이터)
 INSERT INTO festival_detail (place_id, created_at, updated_at, agelimit, bookingplace, discountinfofestival, eventenddate, eventhomepage, eventplace, eventstartdate, festivalgrade, placeinfo, playtime, program, spendtimefestival, sponsor1, sponsor1tel, sponsor2, sponsor2tel, subevent, usetimefestival) VALUES
