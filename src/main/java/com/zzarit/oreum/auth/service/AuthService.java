@@ -45,9 +45,9 @@ public class AuthService {
     }
 
     private Member signUp(String loginId) {
-        Member member = memberRepository.save(Member.builder()
-                .loginId(loginId)
-                .build());
+        Member member = memberRepository.save(
+                new Member(loginId)
+        );
 
         return member;
     }

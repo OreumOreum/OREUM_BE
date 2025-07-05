@@ -50,7 +50,7 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "category_type")
     private Category category;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Folder> folders = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
@@ -65,12 +65,16 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
+    public void addFolder(Folder folder) {
+        this.folders.add(folder);
+        folder.setMember(this);
+    }
+
 
     @Builder
     public Member(String loginId){
         this.loginId =loginId;
-        Folder defaultFolder = new Folder("모든 저장됨", this);
-        this.folders.add(defaultFolder);
+        this.addFolder(new Folder("모든 저장됨", this));
         this.badgeCount = 0;
     }
 
