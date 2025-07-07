@@ -1,6 +1,6 @@
--- 제주도 관광 애플리케이션 목 데이터 삽입 SQL
+-- 제주도 관광 애플리케이션 임시 데이터 SQL
 
--- 1. 카테고리 테이블 (기본 참조 테이블)
+-- 1. 카테고리 기본 데이터
 INSERT INTO category (type) VALUES
                                 ('ACTIVITY'),
                                 ('CULTURE'),
@@ -9,212 +9,213 @@ INSERT INTO category (type) VALUES
                                 ('MOOD'),
                                 ('SOCIAL');
 
--- 2. 멤버 테이블
+-- 2. 회원 데이터
 INSERT INTO member (created_at, updated_at, badge_count, email, fcm_token, login_id, name, phone_no, category_type) VALUES
-                                                                                                                        (NOW(), NOW(), 5, 'kim.jeju@example.com', 'fcm_token_kim_123', '111', '김제주', '010-1234-5678', 'CULTURE'),
-                                                                                                                        (NOW(), NOW(), 3, 'lee.seogwipo@example.com', 'fcm_token_lee_456', '222', '이서귀포', '010-2345-6789', 'FOOD'),
-                                                                                                                        (NOW(), NOW(), 8, 'park.halla@example.com', 'fcm_token_park_789', '333', '박한라', '010-3456-7890', 'FOREST'),
-                                                                                                                        (NOW(), NOW(), 2, 'choi.udo@example.com', 'fcm_token_choi_012', '444', '최우도', '010-4567-8901', 'ACTIVITY'),
-                                                                                                                        (NOW(), NOW(), 6, 'jung.manjanggul@example.com', 'fcm_token_jung_345', '555', '정만장굴', '010-5678-9012', 'MOOD');
+                                                                                                                        (NOW(), NOW(), 0, 'user1@example.com', 'fcm_token_1', 'user1', '김제주', '010-1234-5678', 'CULTURE'),
+                                                                                                                        (NOW(), NOW(), 2, 'user2@example.com', 'fcm_token_2', 'user2', '박한라', '010-2345-6789', 'FOOD'),
+                                                                                                                        (NOW(), NOW(), 1, 'user3@example.com', 'fcm_token_3', 'user3', '이바다', '010-3456-7890', 'ACTIVITY'),
+                                                                                                                        (NOW(), NOW(), 0, 'user4@example.com', 'fcm_token_4', 'user4', '최돌하르방', '010-4567-8901', 'FOREST'),
+                                                                                                                        (NOW(), NOW(), 3, 'user5@example.com', 'fcm_token_5', 'user5', '정감귤', '010-5678-9012', 'MOOD');
 
--- 3. 코스 상세 정보 테이블
-INSERT INTO course_detail (created_at, updated_at, distance, infocentertourcourse, schedule, taketime, theme) VALUES
-                                                                                                                  (NOW(), NOW(), '12.5km', '제주관광공사 064-740-6000', '오전 9시 ~ 오후 5시', '6시간', '해안둘레길'),
-                                                                                                                  (NOW(), NOW(), '8.3km', '서귀포시청 관광과 064-760-2000', '오전 10시 ~ 오후 4시', '4시간', '오름탐방'),
-                                                                                                                  (NOW(), NOW(), '15.2km', '제주시청 관광진흥과 064-728-2000', '오전 8시 ~ 오후 6시', '8시간', '문화유적지'),
-                                                                                                                  (NOW(), NOW(), '6.7km', '한라산국립공원 064-713-9950', '오전 9시 ~ 오후 3시', '5시간', '자연생태'),
-                                                                                                                  (NOW(), NOW(), '10.1km', '제주올레 064-762-2190', '오전 9시 ~ 오후 5시', '6시간', '전통마을');
+-- -- 3. 인증 정보
+-- INSERT INTO auth (refresh_token, session_id, member_id) VALUES
+--                                                             ('refresh_token_1', 'session_1', 1),
+--                                                             ('refresh_token_2', 'session_2', 2),
+--                                                             ('refresh_token_3', 'session_3', 3),
+--                                                             ('refresh_token_4', 'session_4', 4),
+--                                                             ('refresh_token_5', 'session_5', 5);
+--
+-- -- 4. 코스 상세 정보
+-- INSERT INTO course_detail (created_at, updated_at, distance, infocentertourcourse, schedule, taketime, theme) VALUES
+--                                                                                                                   (NOW(), NOW(), '15km', '제주관광정보센터 064-740-6000', '오전 9시~오후 5시', '6시간', '해안 드라이브 코스'),
+--                                                                                                                   (NOW(), NOW(), '25km', '서귀포관광정보센터 064-760-3031', '오전 8시~오후 6시', '8시간', '한라산 등반 코스'),
+--                                                                                                                   (NOW(), NOW(), '10km', '제주시관광안내소 064-728-2751', '오전 10시~오후 4시', '4시간', '문화유적 탐방'),
+--                                                                                                                   (NOW(), NOW(), '20km', '중문관광안내소 064-739-1330', '오전 9시~오후 5시', '5시간', '맛집 투어'),
+--                                                                                                                   (NOW(), NOW(), '30km', '성산관광안내소 064-782-2810', '오전 7시~오후 7시', '10시간', '일출 명소 코스');
+--
+-- -- 5. 코스 정보
+-- INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, content_id, origin_image, overview, sigungu_code, thumbnail_image, title, course_detail_id) VALUES
+--                                                                                                                                                                                 (NOW(), NOW(), '관광지', '자연', '해안경관', 'course_001', 'https://example.com/course1_origin.jpg', '제주 해안도로를 따라 아름다운 바다 경관을 감상할 수 있는 드라이브 코스', 4, 'https://example.com/course1_thumb.jpg', '제주 해안 드라이브 코스', 1),
+--                                                                                                                                                                                 (NOW(), NOW(), '관광지', '자연', '산', 'course_002', 'https://example.com/course2_origin.jpg', '한라산 등반을 통해 제주의 자연을 만끽할 수 있는 코스', 3, 'https://example.com/course2_thumb.jpg', '한라산 등반 코스', 2),
+--                                                                                                                                                                                 (NOW(), NOW(), '문화시설', '역사', '문화재', 'course_003', 'https://example.com/course3_origin.jpg', '제주의 역사와 문화를 체험할 수 있는 문화유적 탐방 코스', 4, 'https://example.com/course3_thumb.jpg', '제주 문화유적 탐방 코스', 3),
+--                                                                                                                                                                                 (NOW(), NOW(), '음식점', '한식', '향토음식', 'course_004', 'https://example.com/course4_origin.jpg', '제주 대표 음식들을 맛볼 수 있는 맛집 투어 코스', 3, 'https://example.com/course4_thumb.jpg', '제주 맛집 투어 코스', 4),
+--                                                                                                                                                                                 (NOW(), NOW(), '관광지', '자연', '일출명소', 'course_005', 'https://example.com/course5_origin.jpg', '제주 동쪽 일출 명소들을 둘러보는 코스', 3, 'https://example.com/course5_thumb.jpg', '제주 일출 명소 코스', 5);
+--
+-- -- 6. 문화시설 상세 정보
+-- INSERT INTO culture_detail (created_at, updated_at, accomcountculture, chkbabycarriageculture, chkcreditcardculture, chkpetculture, discountinfo, infocenterculture, parkingculture, parkingfee, restdateculture, scale, spendtime, usefee, usetimeculture) VALUES
+--                                                                                                                                                                                                                                                                 (NOW(), NOW(), '200명', '가능', '가능', '불가능', '단체 10% 할인', '064-710-7701', '가능', '무료', '매주 월요일', '지상 3층', '1시간 30분', '성인 3000원', '09:00~18:00'),
+--                                                                                                                                                                                                                                                                 (NOW(), NOW(), '150명', '가능', '가능', '가능', '경로우대 50% 할인', '064-720-8000', '가능', '무료', '매주 화요일', '지상 2층', '2시간', '성인 5000원', '09:00~17:00'),
+--                                                                                                                                                                                                                                                                 (NOW(), NOW(), '100명', '가능', '가능', '불가능', '학생 20% 할인', '064-730-9000', '가능', '2시간 무료', '매주 수요일', '지상 1층', '1시간', '성인 2000원', '10:00~18:00');
+--
+-- -- 7. 음식점 상세 정보
+-- INSERT INTO food_detail (created_at, updated_at, chkcreditcardfood, discountinfofood, firstmenu, infocenterfood, kidsfacility, lcnsno, opendatefood, opentimefood, packing, parkingfood, reservationfood, restdatefood, scalefood, seat, smoking, treatmenu) VALUES
+--                                                                                                                                                                                                                                                                  (NOW(), NOW(), '가능', '현금결제 5% 할인', '흑돼지 구이', '064-750-1234', '아기의자 제공', '123-45-67890', '2010-03-15', '11:00~22:00', '가능', '가능', '가능', '매주 일요일', '120석', '120석', '금연', '흑돼지구이, 갈치조림, 전복죽'),
+--                                                                                                                                                                                                                                                                  (NOW(), NOW(), '가능', '단체 10% 할인', '해물칼국수', '064-760-2345', '놀이방 완비', '234-56-78901', '2015-07-20', '10:00~21:00', '가능', '가능', '불가능', '매주 월요일', '80석', '80석', '금연', '해물칼국수, 성게미역국, 전복라면'),
+--                                                                                                                                                                                                                                                                  (NOW(), NOW(), '가능', '생일자 20% 할인', '돌솥비빔밥', '064-770-3456', '유아용 식기 제공', '345-67-89012', '2018-12-01', '12:00~21:00', '가능', '가능', '가능', '매주 화요일', '60석', '60석', '금연', '돌솥비빔밥, 오메기떡, 한라봉주스');
+--
+-- -- 8. 관광지 상세 정보
+-- INSERT INTO tour_detail (created_at, updated_at, accomcount, chkbabycarriage, chkcreditcard, chkpet, expagerange, expguide, heritage1, heritage2, heritage3, infocenter, opendate, parking, restdate, useseason, usetime) VALUES
+--                                                                                                                                                                                                                               (NOW(), NOW(), '1000명', '가능', '가능', '가능', '전 연령', '가능', 1, '천연기념물 제182호', '성산일출봉', '064-783-0959', '연중무휴', '가능', '없음', '연중', '일출 1시간 전~일몰'),
+--                                                                                                                                                                                                                               (NOW(), NOW(), '500명', '가능', '가능', '불가능', '전 연령', '가능', 0, '', '', '064-728-3918', '연중무휴', '가능', '없음', '연중', '24시간'),
+--                                                                                                                                                                                                                               (NOW(), NOW(), '300명', '가능', '가능', '가능', '전 연령', '가능', 1, '천연기념물 제442호', '만장굴', '064-783-4818', '연중무휴', '가능', '없음', '연중', '09:00~18:00');
+--
+-- -- 9. 레저스포츠 상세 정보
+-- INSERT INTO leports_detail (created_at, updated_at, accomcountleports, chkbabycarriageleports, chkcreditcardleports, chkpetleports, expagerangeleports, infocenterleports, openperiod, parkingfeeleports, parkingleports, reservation, restdateleports, scaleleports, usefeeleports, usetimeleports) VALUES
+--                                                                                                                                                                                                                                                                                                          (NOW(), NOW(), 50, '불가능', '가능', '불가능', '만 12세 이상', '064-740-6000', '3월~11월', '무료', '가능', '필수', '12월~2월', '해상', '성인 80000원', '09:00~17:00'),
+--                                                                                                                                                                                                                                                                                                          (NOW(), NOW(), 30, '불가능', '가능', '불가능', '만 16세 이상', '064-750-1000', '연중', '무료', '가능', '필수', '없음', '해상', '성인 120000원', '08:00~18:00');
+--
+-- -- 10. 숙박 상세 정보
+-- INSERT INTO lodge_detail (created_at, updated_at, accomcountlodging, barbecue, beauty, beverage, bicycle, campfire, checkintime, checkouttime, chkcooking, fitness, foodplace, infocenterlodging, karaoke, parkinglodging, pickup, publicbath, publicpc, refundregulation, reservationlodging, reservationurl, roomcount, roomtype, sauna, scalelodging, seminar, sports, subfacility) VALUES
+--                                                                                                                                                                                                                                                                                                                                                                                            (NOW(), NOW(), '200명', '가능', '불가능', '가능', '가능', '불가능', '15:00', '11:00', '가능', '가능', '가능', '064-730-8000', '가능', '가능', '가능', '가능', '불가능', '당일취소 50% 환불', '가능', 'https://reservation.example.com', '100실', '온돌, 침대', '가능', '지상 10층', '가능', '가능', '수영장, 스파'),
+--                                                                                                                                                                                                                                                                                                                                                                                            (NOW(), NOW(), '50명', '가능', '가능', '가능', '가능', '가능', '16:00', '10:00', '가능', '불가능', '가능', '064-740-9000', '불가능', '가능', '불가능', '불가능', '가능', '3일전 취소 무료', '가능', 'https://pension.example.com', '20실', '독채', '불가능', '지상 2층', '불가능', '불가능', '바베큐장, 캠프파이어');
+--
+-- -- 11. 쇼핑 상세 정보
+-- INSERT INTO shopping_deatail (created_at, updated_at, chkbabycarriageshopping, chkcreditcardshopping, chkpetshopping, culturecenter, fairday, infocentershopping, opendateshopping, opentime, parkingshopping, restdateshopping, restroom, saleitem, saleitemcost, scaleshopping, shopguide) VALUES
+--                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '가능', '가능', '불가능', '가능', '매주 토요일', '064-750-2000', '2005-05-01', '09:00~21:00', '가능', '매월 첫째주 월요일', '가능', '한라봉, 감귤, 흑돼지 가공품', '10000원~50000원', '지상 3층', '가능'),
+--                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '가능', '가능', '가능', '불가능', '매주 일요일', '064-760-3000', '2010-12-15', '10:00~22:00', '가능', '매월 둘째주 화요일', '가능', '전통공예품, 돌하르방', '5000원~100000원', '지상 2층', '가능');
+--
+-- -- 12. 축제 상세 정보
+-- INSERT INTO festival_detail (created_at, updated_at, agelimit, bookingplace, discountinfofestival, eventenddate, eventhomepage, eventplace, eventstartdate, festivalgrade, placeinfo, playtime, program, spendtimefestival, sponsor1, sponsor1tel, sponsor2, sponsor2tel, subevent, usetimefestival) VALUES
+--                                                                                                                                                                                                                                                                                                          (NOW(), NOW(), '전체관람가', '제주시청', '단체 20% 할인', '2024-04-20', 'https://jejucherry.com', '제주시 전역', '2024-04-01', '우수축제', '제주시 벚꽃길 일대', '120분', '벚꽃 사진 콘테스트, 문화공연', '3시간', '제주시청', '064-728-2751', '제주관광공사', '064-740-6000', '야간조명 점등식', '19:00~21:00'),
+--                                                                                                                                                                                                                                                                                                          (NOW(), NOW(), '전체관람가', '서귀포시청', '경로우대 50% 할인', '2024-11-15', 'https://jejutangerine.com', '서귀포시 감귤농장', '2024-11-01', '우수축제', '서귀포시 남원읍 일대', '180분', '감귤 수확 체험, 감귤 요리 시연', '4시간', '서귀포시청', '064-760-2000', '제주감귤농협', '064-760-5000', '감귤 품평대회', '09:00~17:00');
+--
+-- -- 13. 장소 정보
+-- INSERT INTO place (created_at, updated_at, address, category_1, category_2, category_3, city_code, content_id, content_type_id, copyright_type, detail_address, mapx, mapy, origin_image, sigungucode, tel, thumbnail_image, title, course_id, culture_detail_id, festival_detail_id, food_detail_id, leports_detail_id, lodge_detail_id, shopping_detail_id, tour_detail_id) VALUES
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리', '관광지', '자연', '일출명소', '130', 'place_001', '12', 'TYPE1', '성산일출봉', 126.942, 33.458, 'https://example.com/seongsan_origin.jpg', 3, '064-783-0959', 'https://example.com/seongsan_thumb.jpg', '성산일출봉', 5, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 제주시 한림읍 협재리', '관광지', '자연', '해수욕장', '110', 'place_002', '12', 'TYPE1', '협재해수욕장', 126.239, 33.394, 'https://example.com/hyeopjae_origin.jpg', 4, '064-728-3918', 'https://example.com/hyeopjae_thumb.jpg', '협재해수욕장', 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 제주시 구좌읍 김녕리', '관광지', '자연', '동굴', '110', 'place_003', '12', 'TYPE1', '만장굴', 126.771, 33.527, 'https://example.com/manjanggul_origin.jpg', 4, '064-783-4818', 'https://example.com/manjanggul_thumb.jpg', '만장굴', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 제주시 건입동', '문화시설', '박물관', '역사', '110', 'place_004', '14', 'TYPE1', '제주국립박물관', 126.516, 33.509, 'https://example.com/museum_origin.jpg', 4, '064-720-8000', 'https://example.com/museum_thumb.jpg', '제주국립박물관', 3, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 제주시 이도이동', '음식점', '한식', '향토음식', '110', 'place_005', '39', 'TYPE1', '올래국수', 126.530, 33.499, 'https://example.com/restaurant_origin.jpg', 4, '064-750-1234', 'https://example.com/restaurant_thumb.jpg', '올래국수', 4, NULL, NULL, 1, NULL, NULL, NULL, NULL),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 서귀포시 중문동', '숙박', '호텔', '특급호텔', '130', 'place_006', '32', 'TYPE1', '제주 신라호텔', 126.412, 33.248, 'https://example.com/hotel_origin.jpg', 3, '064-735-5114', 'https://example.com/hotel_thumb.jpg', '제주 신라호텔', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 서귀포시 대정읍 상모리', '레저스포츠', '수상레저', '스쿠버다이빙', '130', 'place_007', '28', 'TYPE1', '사계해안', 126.165, 33.231, 'https://example.com/diving_origin.jpg', 3, '064-794-7130', 'https://example.com/diving_thumb.jpg', '사계해안 다이빙센터', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 제주시 연동', '쇼핑', '전통시장', '농수산물', '110', 'place_008', '38', 'TYPE1', '동문시장', 126.518, 33.513, 'https://example.com/market_origin.jpg', 4, '064-752-3001', 'https://example.com/market_thumb.jpg', '동문시장', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+--                                                                                                                                                                                                                                                                                                                                                                                   (NOW(), NOW(), '제주특별자치도 제주시 연돈 돈까스', '음', '오', '이', '110', 'place_008', '38', 'TYPE1', '동문시장', 126.518, 33.513, 'https://example.com/market_origin.jpg', 3, '064-752-3001', 'https://example.com/market_thumb.jpg', '음오오', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+--
+--
+-- ;
+--
+-- -- 14. 장소 카테고리 연결
+-- INSERT INTO place_category (created_at, updated_at, category_type, place_id) VALUES
+--                                                                                  (NOW(), NOW(), 'MOOD', 1),
+--                                                                                  (NOW(), NOW(), 'ACTIVITY', 2),
+--                                                                                  (NOW(), NOW(), 'CULTURE', 3),
+--                                                                                  (NOW(), NOW(), 'CULTURE', 4),
+--                                                                                  (NOW(), NOW(), 'CULTURE', 9),
+--                                                                                  (NOW(), NOW(), 'FOOD', 5),
+--                                                                                  (NOW(), NOW(), 'MOOD', 6),
+--                                                                                  (NOW(), NOW(), 'ACTIVITY', 7),
+--                                                                                  (NOW(), NOW(), 'SOCIAL', 8);
+--
+--
+-- -- 15. 코스 카테고리 연결
+-- INSERT INTO course_category (category_type, course_id) VALUES
+--                                                            ('MOOD', 1),
+--                                                            ('ACTIVITY', 2),
+--                                                            ('CULTURE', 3),
+--                                                            ('FOOD', 4),
+--                                                            ('MOOD', 5);
+--
+-- -- 16. 폴더 생성
+-- INSERT INTO folder (created_at, updated_at, name, member_id) VALUES
+--                                                                  (NOW(), NOW(), '제주 가볼만한 곳', 1),
+--                                                                  (NOW(), NOW(), '제주 맛집 리스트', 2),
+--                                                                  (NOW(), NOW(), '제주 액티비티', 3),
+--                                                                  (NOW(), NOW(), '제주 문화체험', 4),
+--                                                                  (NOW(), NOW(), '제주 힐링 스팟', 5);
+--
+-- -- 17. 폴더-장소 연결
+-- INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
+--                                                                            (NOW(), NOW(), 1, 1),
+--                                                                            (NOW(), NOW(), 1, 3),
+--                                                                            (NOW(), NOW(), 2, 5),
+--                                                                            (NOW(), NOW(), 3, 2),
+--                                                                            (NOW(), NOW(), 3, 7),
+--                                                                            (NOW(), NOW(), 4, 4),
+--                                                                            (NOW(), NOW(), 5, 6);
+--
+-- -- 18. 플래너 생성
+-- INSERT INTO planner (created_at, updated_at, name, member_id) VALUES
+--                                                                   (NOW(), NOW(), '2박3일 제주 여행', 1),
+--                                                                   (NOW(), NOW(), '제주 맛집 투어', 2),
+--                                                                   (NOW(), NOW(), '제주 액티비티 체험', 3),
+--                                                                   (NOW(), NOW(), '제주 문화 탐방', 4),
+--                                                                   (NOW(), NOW(), '제주 힐링 여행', 5);
+--
+-- -- 19. 플래너-장소 연결
+-- INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order, place_id, planner_id) VALUES
+--                                                                                                            (NOW(), NOW(), 1, 1, 1, 1),
+--                                                                                                            (NOW(), NOW(), 1, 2, 2, 1),
+--                                                                                                            (NOW(), NOW(), 2, 1, 3, 1),
+--                                                                                                            (NOW(), NOW(), 2, 2, 4, 1),
+--                                                                                                            (NOW(), NOW(), 3, 1, 5, 1),
+--                                                                                                            (NOW(), NOW(), 1, 1, 5, 2),
+--                                                                                                            (NOW(), NOW(), 1, 2, 8, 2),
+--                                                                                                            (NOW(), NOW(), 1, 1, 7, 3),
+--                                                                                                            (NOW(), NOW(), 1, 2, 2, 3),
+--                                                                                                            (NOW(), NOW(), 1, 1, 4, 4),
+--                                                                                                            (NOW(), NOW(), 1, 2, 3, 4),
+--                                                                                                            (NOW(), NOW(), 1, 1, 6, 5),
+--                                                                                                            (NOW(), NOW(), 1, 2, 1, 5);
+--
+-- -- 20. 스팟 생성
+-- INSERT INTO spot (created_at, updated_at, date, place_id) VALUES
+--                                                               (NOW(), NOW(), '2024-03-01', 1),
+--                                                               (NOW(), NOW(), '2024-03-02', 2),
+--                                                               (NOW(), NOW(), '2024-03-03', 3),
+--                                                               (NOW(), NOW(), '2024-03-04', 4),
+--                                                               (NOW(), NOW(), '2024-03-05', 5),
+--                                                               (NOW(), NOW(), '2024-03-06', 6),
+--                                                               (NOW(), NOW(), '2024-03-07', 7),
+--                                                               (NOW(), NOW(), '2024-03-08', 8);
+--
+-- -- 21. 배지 생성
+-- INSERT INTO badge (created_at, updated_at, rank, member_id, spot_id) VALUES
+--                                                                          (NOW(), NOW(), 'BRONZE', 2, 1),
+--                                                                          (NOW(), NOW(), 'SILVER', 2, 2),
+--                                                                          (NOW(), NOW(), 'GOLD', 3, 3),
+--                                                                          (NOW(), NOW(), 'BRONZE', 5, 4),
+--                                                                          (NOW(), NOW(), 'SILVER', 5, 5),
+--                                                                          (NOW(), NOW(), 'GOLD', 5, 6);
+--
+-- -- 22. 방문 로그
+-- INSERT INTO visit_log (created_at, updated_at, member_id, spot_id) VALUES
+--                                                                        (NOW(), NOW(), 1, 1),
+--                                                                        (NOW(), NOW(), 1, 2),
+--                                                                        (NOW(), NOW(), 2, 3),
+--                                                                        (NOW(), NOW(), 2, 4),
+--                                                                        (NOW(), NOW(), 3, 5),
+--                                                                        (NOW(), NOW(), 3, 6),
+--                                                                        (NOW(), NOW(), 4, 7),
+--                                                                        (NOW(), NOW(), 5, 8);
+--
+-- -- 23. 스팟 카테고리 요약
+-- INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
+--                                                                                                     (NOW(), NOW(), 15, 'MOOD', 1),
+--                                                                                                     (NOW(), NOW(), 23, 'ACTIVITY', 2),
+--                                                                                                     (NOW(), NOW(), 18, 'CULTURE', 3),
+--                                                                                                     (NOW(), NOW(), 12, 'CULTURE', 4),
+--                                                                                                     (NOW(), NOW(), 31, 'FOOD', 5),
+--                                                                                                     (NOW(), NOW(), 8, 'MOOD', 6),
+--                                                                                                     (NOW(), NOW(), 19, 'ACTIVITY', 7),
+--                                                                                                     (NOW(), NOW(), 27, 'SOCIAL', 8);
+--
+-- -- 24. 리뷰 생성
+-- INSERT INTO review (created_at, updated_at, content, rate, course_id, member_id, place_id) VALUES
+--                                                                                                (NOW(), NOW(), '성산일출봉 일출이 정말 장관이었습니다! 꼭 한번 가보세요.', 4.8, NULL, 1, 1),
+--                                                                                                (NOW(), NOW(), '협재해수욕장 물이 너무 깨끗하고 예뻐요. 가족 여행으로 추천!', 4.5, NULL, 2, 2),
+--                                                                                                (NOW(), NOW(), '만장굴 내부가 정말 신비로워요. 시원하고 좋았습니다.', 4.3, NULL, 3, 3),
+--                                                                                                (NOW(), NOW(), '제주국립박물관에서 제주 역사를 많이 배웠어요.', 4.1, NULL, 4, 4),
+--                                                                                                (NOW(), NOW(), '올래국수 맛이 정말 좋아요. 제주 와서 꼭 먹어야 할 음식!', 4.7, NULL, 5, 5),
+--                                                                                                (NOW(), NOW(), '제주 해안 드라이브 코스가 정말 좋았어요. 경치가 환상적!', 4.6, 1, 1, NULL),
+--                                                                                                (NOW(), NOW(), '한라산 등반 코스 힘들었지만 정상에서 본 경치는 최고였어요.', 4.4, 2, 2, NULL),
+--                                                                                                (NOW(), NOW(), '제주 문화유적 탐방 코스로 제주 역사를 깊이 알 수 있었어요.', 4.2, 3, 3, NULL),
+--                                                                                                (NOW(), NOW(), '제주 맛집 투어 코스 덕분에 맛있는 집들을 많이 찾았어요.', 4.8, 4, 4, NULL),
+--                                                                                                (NOW(), NOW(), '제주 일출 명소 코스 정말 추천합니다. 일출이 너무 아름다워요.', 4.9, 5, 5, NULL);
 
--- 4. 코스 테이블
-INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, content_id, origin_image, overview, sigungu_code, thumbnail_image, title, course_detial_id) VALUES
-                                                                                                                                                                                (NOW(), NOW(), '자연', '해안', '해안둘레길', 'C001', 'https://example.com/course1_origin.jpg', '제주 해안을 따라 걷는 아름다운 둘레길 코스', 4, 'https://example.com/course1_thumb.jpg', '제주 해안 둘레길', 1),
-                                                                                                                                                                                (NOW(), NOW(), '자연', '산', '오름', 'C002', 'https://example.com/course2_origin.jpg', '제주의 대표 오름들을 탐방하는 코스', 3, 'https://example.com/course2_thumb.jpg', '서귀포 오름 탐방', 2),
-                                                                                                                                                                                (NOW(), NOW(), '문화', '유적지', '전통', 'C003', 'https://example.com/course3_origin.jpg', '제주의 전통 문화유적지를 둘러보는 코스', 4, 'https://example.com/course3_thumb.jpg', '제주 문화유적 투어', 3),
-                                                                                                                                                                                (NOW(), NOW(), '자연', '숲', '생태', 'C004', 'https://example.com/course4_origin.jpg', '한라산 자연 생태계를 체험하는 코스', 4, 'https://example.com/course4_thumb.jpg', '한라산 생태 체험', 4),
-                                                                                                                                                                                (NOW(), NOW(), '문화', '마을', '전통', 'C005', 'https://example.com/course5_origin.jpg', '제주 전통 마을의 삶을 체험하는 코스', 3, 'https://example.com/course5_thumb.jpg', '제주 전통마을 체험', 5);
-
--- 5. 각종 상세 정보 테이블들
--- 관광지 상세 정보
-INSERT INTO tour_detail (created_at, updated_at, accomcount, chkbabycarriage, chkcreditcard, chkpet, expagerange, expguide, heritage1, heritage2, heritage3, infocenter, opendate, parking, restdate, useseason, usetime) VALUES
-                                                                                                                                                                                                                              (NOW(), NOW(), '500명', '가능', '가능', '불가능', '전연령', '가능', 1, '제주 화산섬과 용암동굴', '세계자연유산', '064-710-7777', '1970-01-01', '가능(무료)', '연중무휴', '사계절', '09:00~18:00'),
-                                                                                                                                                                                                                              (NOW(), NOW(), '200명', '가능', '가능', '가능', '전연령', '가능', 0, '', '', '064-783-0959', '1988-05-15', '가능(유료)', '매주 월요일', '사계절', '09:00~17:00'),
-                                                                                                                                                                                                                              (NOW(), NOW(), '300명', '가능', '가능', '불가능', '12세이상', '가능', 1, '제주 해녀문화', '무형문화유산', '064-782-0114', '1995-03-10', '가능(무료)', '연중무휴', '사계절', '08:00~19:00');
-
--- 문화시설 상세 정보
-INSERT INTO culture_detail (created_at, updated_at, accomcountculture, chkbabycarriageculture, chkcreditcardculture, chkpetculture, discountinfo, infocenterculture, parkingculture, parkingfee, restdateculture, scale, spendtime, usefee, usetimeculture) VALUES
-                                                                                                                                                                                                                                                                (NOW(), NOW(), '200명', '가능', '가능', '불가능', '단체할인 10%', '064-720-8000', '가능', '무료', '매주 월요일', '지상 3층 규모', '2시간', '성인 3000원, 청소년 2000원', '09:00~18:00'),
-                                                                                                                                                                                                                                                                (NOW(), NOW(), '150명', '가능', '가능', '불가능', '경로우대 50%', '064-760-4000', '가능', '무료', '매주 화요일', '지상 2층 규모', '1.5시간', '성인 2000원, 청소년 1500원', '09:00~17:00'),
-                                                                                                                                                                                                                                                                (NOW(), NOW(), '100명', '가능', '가능', '가능', '제주도민 무료', '064-750-3000', '가능', '1시간 무료', '연중무휴', '단층 규모', '1시간', '성인 1000원, 청소년 500원', '10:00~18:00');
-
--- 음식점 상세 정보
-INSERT INTO food_detail (created_at, updated_at, chkcreditcardfood, discountinfofood, firstmenu, infocenterfood, kidsfacility, lcnsno, opendatefood, opentimefood, packing, parkingfood, reservationfood, restdatefood, scalefood, seat, smoking, treatmenu) VALUES
-                                                                                                                                                                                                                                                                 (NOW(), NOW(), '가능', '단체할인 10%', '흑돼지구이', '064-742-1234', '가능', '제주-음식-2020-001', '2015-03-15', '11:00~22:00', '가능', '가능', '가능', '매주 일요일', '80석', '80석', '금연', '흑돼지구이, 갈치조림, 전복죽'),
-                                                                                                                                                                                                                                                                 (NOW(), NOW(), '가능', '제주도민 5%', '고등어회', '064-783-5678', '가능', '제주-음식-2018-042', '2018-07-20', '10:00~21:00', '가능', '가능', '가능', '매월 첫째주 월요일', '60석', '60석', '금연', '고등어회, 성게국, 해물라면'),
-                                                                                                                                                                                                                                                                 (NOW(), NOW(), '가능', '현금결제시 5%', '보말죽', '064-752-9012', '가능', '제주-음식-2019-083', '2019-11-10', '07:00~20:00', '가능', '가능', '불가능', '매주 화요일', '40석', '40석', '금연', '보말죽, 자리물회, 멸치국수');
-
--- 숙박시설 상세 정보
-INSERT INTO lodge_detail (created_at, updated_at, accomcountlodging, barbecue, beauty, beverage, bicycle, campfire, checkintime, checkouttime, chkcooking, fitness, foodplace, infocenterlodging, karaoke, parkinglodging, pickup, publicbath, publicpc, refundregulation, reservationlodging, reservationurl, roomcount, roomtype, sauna, scalelodging, seminar, sports, subfacility) VALUES
-                                                                                                                                                                                                                                                                                                                                                                                           (NOW(), NOW(), '100명', '가능', '불가능', '가능', '가능', '가능', '15:00', '11:00', '가능', '가능', '가능', '064-730-1000', '가능', '가능', '가능', '가능', '가능', '3일전 100%환불', '가능', 'https://resort.jeju.com', '50실', '스위트룸, 스탠다드룸', '가능', '지상 5층', '가능', '가능', '수영장, 스파'),
-                                                                                                                                                                                                                                                                                                                                                                                           (NOW(), NOW(), '80명', '가능', '가능', '가능', '대여가능', '가능', '16:00', '10:00', '가능', '불가능', '가능', '064-740-2000', '불가능', '가능', '불가능', '가능', '불가능', '당일 50%환불', '가능', 'https://pension.jeju.com', '20실', '복층펜션, 스탠다드', '불가능', '지상 2층', '불가능', '불가능', '바베큐장');
-
--- 레포츠 상세 정보
-INSERT INTO leports_detail (created_at, updated_at, accomcountleports, chkbabycarriageleports, chkcreditcardleports, chkpetleports, expagerangeleports, infocenterleports, openperiod, parkingfeeleports, parkingleports, reservation, restdateleports, scaleleports, usefeeleports, usetimeleports) VALUES
-                                                                                                                                                                                                                                                                                                         (NOW(), NOW(), 50, '불가능', '가능', '불가능', '12세이상', '064-780-1234', '연중', '무료', '가능', '필수', '악천후시', '대형', '성인 30000원', '09:00~18:00'),
-                                                                                                                                                                                                                                                                                                         (NOW(), NOW(), 30, '불가능', '가능', '불가능', '16세이상', '064-790-5678', '4월~10월', '무료', '가능', '필수', '동절기', '중형', '성인 25000원', '10:00~17:00');
-
--- 쇼핑 상세 정보
-INSERT INTO shopping_deatail (created_at, updated_at, chkbabycarriageshopping, chkcreditcardshopping, chkpetshopping, culturecenter, fairday, infocentershopping, opendateshopping, opentime, parkingshopping, restdateshopping, restroom, saleitem, saleitemcost, scaleshopping, shopguide) VALUES
-                                                                                                                                                                                                                                                                                                 (NOW(), NOW(), '가능', '가능', '불가능', '가능', '매주 토요일', '064-720-3000', '2010-05-01', '09:00~21:00', '가능', '매월 첫째주 월요일', '가능', '제주 특산품, 한라봉, 흑돼지', '한라봉 1kg 15000원', '대형', '가능'),
-                                                                                                                                                                                                                                                                                                 (NOW(), NOW(), '가능', '가능', '불가능', '불가능', '매주 일요일', '064-760-4000', '2015-08-15', '10:00~20:00', '가능', '연중무휴', '가능', '전통차, 꿀, 갈옷', '전통차 세트 25000원', '중형', '가능');
-
--- 축제 상세 정보
-INSERT INTO festival_detail (created_at, updated_at, agelimit, bookingplace, discountinfofestival, eventenddate, eventhomepage, eventplace, eventstartdate, festivalgrade, placeinfo, playtime, program, spendtimefestival, sponsor1, sponsor1tel, sponsor2, sponsor2tel, subevent, usetimefestival) VALUES
-                                                                                                                                                                                                                                                                                                         (NOW(), NOW(), '전연령', '제주관광공사', '조기예약 20%', '2024-12-31', 'https://jejufestival.com', '제주월드컵경기장', '2024-12-28', 'A급', '야외무대', '19:00~22:00', '전통공연, 불꽃축제', '3시간', '제주특별자치도', '064-710-2000', '제주관광공사', '064-740-6000', '먹거리장터', '19:00~22:00'),
-                                                                                                                                                                                                                                                                                                         (NOW(), NOW(), '전연령', '서귀포문화원', '단체할인 10%', '2024-08-15', 'https://seogwipofest.com', '서귀포매일올레시장', '2024-08-10', 'B급', '시장 내', '10:00~18:00', '전통시장 체험', '6시간', '서귀포시', '064-760-2000', '서귀포상인회', '064-762-1234', '전통음식 체험', '10:00~18:00');
-
--- 6. 장소 테이블
-INSERT INTO place (created_at, updated_at, address, category_1, category_2, category_3, city_code, content_id, content_type_id, copyright_type, detail_address, mapx, mapy, origin_image, sigungucode, tel, thumbnail_image, title, course_id, culture_detail_id, festival_detail_id, food_detail_id, leports_detail_id, lodge_detail_id, shopping_detail_id, tour_detail_id) VALUES
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 제주시 조천읍 만장굴길 182', '자연', '동굴', '용암동굴', '110', 'P001', '12', 'TYPE1', '만장굴 입구', 126.771523, 33.527411, 'https://example.com/manjanggul_origin.jpg', 4, '064-783-0959', 'https://example.com/manjanggul_thumb.jpg', '만장굴', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림로 300', '문화', '박물관', '미술관', '110', 'P002', '14', 'TYPE1', '한림공원 내', 126.240089, 33.395756, 'https://example.com/museum_origin.jpg', 4, '064-796-0001', 'https://example.com/museum_thumb.jpg', '제주민속자연사박물관', 3, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 서귀포시 남원읍 태위로 522', '음식', '한식', '제주향토음식', '130', 'P003', '39', 'TYPE1', '남원읍 소재', 126.680556, 33.302778, 'https://example.com/restaurant_origin.jpg', 3, '064-764-1234', 'https://example.com/restaurant_thumb.jpg', '제주흑돼지전문점', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 일주서로 2454-32', '숙박', '리조트', '특급호텔', '130', 'P004', '32', 'TYPE1', '중문관광단지 내', 126.416667, 33.246389, 'https://example.com/resort_origin.jpg', 3, '064-738-1234', 'https://example.com/resort_thumb.jpg', '제주신라호텔', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 제주시 건입동 1436-1', '쇼핑', '전통시장', '특산품', '110', 'P005', '38', 'TYPE1', '동문시장 내', 126.525278, 33.515556, 'https://example.com/market_origin.jpg', 4, '064-752-3001', 'https://example.com/market_thumb.jpg', '제주동문시장', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리 1', '레포츠', '수상스포츠', '스쿠버다이빙', '130', 'P006', '28', 'TYPE1', '성산포항 인근', 126.927778, 33.460556, 'https://example.com/diving_origin.jpg', 3, '064-782-5678', 'https://example.com/diving_thumb.jpg', '성산포다이빙센터', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 제주시 애월읍 애월리 1181', '문화', '공연장', '전통공연', '110', 'P007', '15', 'TYPE1', '애월해안도로변', 126.310556, 33.460833, 'https://example.com/culture_origin.jpg', 4, '064-799-1234', 'https://example.com/culture_thumb.jpg', '제주전통문화센터', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 서귀포시 표선면 표선리 40', '음식', '해산물', '회센터', '130', 'P008', '39', 'TYPE1', '표선해변 인근', 126.831944, 33.324167, 'https://example.com/seafood_origin.jpg', 3, '064-787-9012', 'https://example.com/seafood_thumb.jpg', '표선해산물센터', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 서귀포시 중문동 2624-1', '축제', '문화행사', '전통축제', '130', 'P009', '85', 'TYPE1', '중문색달해수욕장', 126.411944, 33.245278, 'https://example.com/festival_origin.jpg', 3, '064-739-1234', 'https://example.com/festival_thumb.jpg', '제주겨울축제', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-                                                                                                                                                                                                                                                                                                                                                                                  (NOW(), NOW(), '제주특별자치도 제주시 조천읍 조천리 1880', '음식', '한식', '죽전문', '110', 'P010', '39', 'TYPE1', '조천해변가', 126.642222, 33.542222, 'https://example.com/porridge_origin.jpg', 4, '064-784-3456', 'https://example.com/porridge_thumb.jpg', '조천보말죽집', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL);
-
--- 7. 스팟 테이블
-INSERT INTO spot (created_at, updated_at, date, place_id) VALUES
-                                                              (NOW(), NOW(), '2024-01-15', 1),
-                                                              (NOW(), NOW(), '2024-01-16', 2),
-                                                              (NOW(), NOW(), '2024-01-17', 3),
-                                                              (NOW(), NOW(), '2024-01-18', 4),
-                                                              (NOW(), NOW(), '2024-01-19', 5),
-                                                              (NOW(), NOW(), '2024-01-20', 6),
-                                                              (NOW(), NOW(), '2024-01-21', 7),
-                                                              (NOW(), NOW(), '2024-01-22', 8),
-                                                              (NOW(), NOW(), '2024-01-23', 9),
-                                                              (NOW(), NOW(), '2024-01-24', 10);
-
--- 8. 배지 테이블
-INSERT INTO badge (created_at, updated_at, rank, member_id, spot_id) VALUES
-                                                                         (NOW(), NOW(), 'GOLD', 1, 1),
-                                                                         (NOW(), NOW(), 'SILVER', 1, 2),
-                                                                         (NOW(), NOW(), 'BRONZE', 2, 3),
-                                                                         (NOW(), NOW(), 'GOLD', 3, 4),
-                                                                         (NOW(), NOW(), 'SILVER', 3, 5),
-                                                                         (NOW(), NOW(), 'BRONZE', 4, 6),
-                                                                         (NOW(), NOW(), 'GOLD', 5, 7),
-                                                                         (NOW(), NOW(), 'SILVER', 5, 8),
-                                                                         (NOW(), NOW(), 'BRONZE', 1, 9),
-                                                                         (NOW(), NOW(), 'GOLD', 2, 10);
-
--- 9. 폴더 테이블
-INSERT INTO folder (created_at, updated_at, name, member_id) VALUES
-                                                                 (NOW(), NOW(), '내가 가고 싶은 곳', 1),
-                                                                 (NOW(), NOW(), '맛집 리스트', 2),
-                                                                 (NOW(), NOW(), '힐링 스팟', 3),
-                                                                 (NOW(), NOW(), '액티비티 장소', 4),
-                                                                 (NOW(), NOW(), '문화 체험', 5);
-
--- 10. 폴더-장소 테이블
-INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
-                                                                           (NOW(), NOW(), 1, 1),
-                                                                           (NOW(), NOW(), 1, 2),
-                                                                           (NOW(), NOW(), 2, 3),
-                                                                           (NOW(), NOW(), 2, 8),
-                                                                           (NOW(), NOW(), 3, 4),
-                                                                           (NOW(), NOW(), 3, 7),
-                                                                           (NOW(), NOW(), 4, 6),
-                                                                           (NOW(), NOW(), 4, 9),
-                                                                           (NOW(), NOW(), 5, 2),
-                                                                           (NOW(), NOW(), 5, 7);
-
--- 11. 플래너 테이블
-INSERT INTO planner (created_at, updated_at, name, member_id) VALUES
-                                                                  (NOW(), NOW(), '제주도 2박3일 여행', 1),
-                                                                  (NOW(), NOW(), '서귀포 당일치기', 2),
-                                                                  (NOW(), NOW(), '제주 힐링 여행', 3),
-                                                                  (NOW(), NOW(), '제주 액티비티 투어', 4),
-                                                                  (NOW(), NOW(), '제주 문화 탐방', 5);
-
--- 12. 플래너-장소 테이블
-INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order, place_id, planner_id) VALUES
-                                                                                                           (NOW(), NOW(), 1, 1, 1, 1),
-                                                                                                           (NOW(), NOW(), 1, 2, 2, 1),
-                                                                                                           (NOW(), NOW(), 2, 1, 3, 1),
-                                                                                                           (NOW(), NOW(), 2, 2, 4, 1),
-                                                                                                           (NOW(), NOW(), 1, 1, 8, 2),
-                                                                                                           (NOW(), NOW(), 1, 2, 9, 2),
-                                                                                                           (NOW(), NOW(), 1, 1, 4, 3),
-                                                                                                           (NOW(), NOW(), 1, 2, 7, 3),
-                                                                                                           (NOW(), NOW(), 1, 1, 6, 4),
-                                                                                                           (NOW(), NOW(), 1, 2, 9, 4);
-
--- 13. 리뷰 테이블
-INSERT INTO review (created_at, updated_at, content, rate, course_id, member_id, place_id) VALUES
-                                                                                               (NOW(), NOW(), '정말 아름다운 용암동굴이에요! 자연의 신비를 느낄 수 있어요.', 4.5, NULL, 1, 1),
-                                                                                               (NOW(), NOW(), '제주 문화를 잘 보여주는 박물관입니다.', 4.0, NULL, 2, 2),
-                                                                                               (NOW(), NOW(), '흑돼지가 정말 맛있어요! 제주 여행 필수 코스', 4.8, NULL, 3, 3),
-                                                                                               (NOW(), NOW(), '숙박 시설이 깔끔하고 서비스가 좋아요.', 4.2, NULL, 4, 4),
-                                                                                               (NOW(), NOW(), '전통시장의 정취를 느낄 수 있어요.', 3.8, NULL, 5, 5),
-                                                                                               (NOW(), NOW(), '해안 둘레길 코스가 정말 좋아요!', 4.7, 1, 1, NULL),
-                                                                                               (NOW(), NOW(), '오름 탐방 코스 추천합니다!', 4.3, 2, 2, NULL),
-                                                                                               (NOW(), NOW(), '문화유적 투어가 알차네요.', 4.1, 3, 3, NULL);
-
--- 14. 인증 테이블
-INSERT INTO auth (refresh_token, session_id, member_id) VALUES
-                                                            ('refresh_token_kim_abc123', 'session_kim_def456', 1),
-                                                            ('refresh_token_lee_ghi789', 'session_lee_jkl012', 2),
-                                                            ('refresh_token_park_mno345', 'session_park_pqr678', 3),
-                                                            ('refresh_token_choi_stu901', 'session_choi_vwx234', 4),
-                                                            ('refresh_token_jung_yzab567', 'session_jung_cdef890', 5);
-
--- 15. 방문 로그 테이블
-INSERT INTO visit_log (created_at, updated_at, member_id, spot_id) VALUES
-                                                                       (NOW(), NOW(), 1, 1),
-                                                                       (NOW(), NOW(), 1, 2),
-                                                                       (NOW(), NOW(), 2, 3),
-                                                                       (NOW(), NOW(), 3, 4),
-                                                                       (NOW(), NOW(), 3, 5),
-                                                                       (NOW(), NOW(), 4, 6),
-                                                                       (NOW(), NOW(), 5, 7),
-                                                                       (NOW(), NOW(), 5, 8),
-                                                                       (NOW(), NOW(), 1, 9),
-                                                                       (NOW(), NOW(), 2, 10);
-
--- 16. 코스 카테고리 테이블
-INSERT INTO course_category (category_type, course_id) VALUES
-                                                           ('FOREST', 1),
-                                                           ('CULTURE', 2),
-                                                           ('CULTURE', 3),
-                                                           ('FOREST', 4),
-                                                           ('CULTURE', 5);
-
--- 17. 장소 카테고리 테이블
-INSERT INTO place_category (created_at, updated_at, category_type, place_id) VALUES
-                                                                                 (NOW(), NOW(), 'FOREST', 1),
-                                                                                 (NOW(), NOW(), 'CULTURE', 2),
-                                                                                 (NOW(), NOW(), 'FOOD', 3),
-                                                                                 (NOW(), NOW(), 'MOOD', 4),
-                                                                                 (NOW(), NOW(), 'SOCIAL', 5),
-                                                                                 (NOW(), NOW(), 'ACTIVITY', 6),
-                                                                                 (NOW(), NOW(), 'CULTURE', 7),
-                                                                                 (NOW(), NOW(), 'FOOD', 8),
-                                                                                 (NOW(), NOW(), 'SOCIAL', 9),
-                                                                                 (NOW(), NOW(), 'FOOD', 10);
-
--- 18. 스팟 카테고리 요약 테이블
-INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
-                                                                                                    (NOW(), NOW(), 15, 'FOREST', 1),
-                                                                                                    (NOW(), NOW(), 12, 'CULTURE', 2),
-                                                                                                    (NOW(), NOW(), 25, 'FOOD', 3),
-                                                                                                    (NOW(), NOW(), 8, 'MOOD', 4),
-                                                                                                    (NOW(), NOW(), 20, 'SOCIAL', 5),
-                                                                                                    (NOW(), NOW(), 18, 'ACTIVITY', 6),
-                                                                                                    (NOW(), NOW(), 10, 'CULTURE', 7),
-                                                                                                    (NOW(), NOW(), 22, 'FOOD', 8),
-                                                                                                    (NOW(), NOW(), 5, 'SOCIAL', 9),
-                                                                                                    (NOW(), NOW(), 28, 'FOOD', 10);
+-- 데이터 확인용 쿼리
+-- SELECT '회원' as 테이블명, COUNT(*) as 개수 FROM member
+-- UNION ALL SELECT '장소', COUNT(*) FROM place
+-- UNION ALL SELECT '코스', COUNT(*) FROM course
+-- UNION ALL SELECT '리뷰', COUNT(*) FROM review
+-- UNION ALL SELECT '폴더', COUNT(*) FROM folder
+-- UNION ALL SELECT '플래너', COUNT(*) FROM planner;

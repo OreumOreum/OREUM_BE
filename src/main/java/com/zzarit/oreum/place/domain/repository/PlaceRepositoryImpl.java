@@ -55,43 +55,37 @@ public class PlaceRepositoryImpl implements PlaceRepositoryCustom {
     }
 
     @Override
-    public Page<Place> searchPlaceList(String cityCode, Type type, Pageable pageable) {
+    public Page<Place> findPlaceList(Integer sigunguCode, Type type, Pageable pageable) {
         QPlace place = QPlace.place;
         QPlaceCategory placeCategory = QPlaceCategory.placeCategory;
         QCategory category = QCategory.category;
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        // cityCode 조건
-        if (StringUtils.hasText(cityCode)) {
-            builder.and(place.cityCode.eq(cityCode));
+        if (sigunguCode != null) {
+            builder.and(place.sigunguCode.eq(sigunguCode));
         }
-
         if (type != null) {
             builder.and(category.type.eq(type));
         }
 
-        // 조회 쿼리
         List<Place> content = queryFactory
                 .selectDistinct(place)
                 .from(place)
-                .leftJoin(placeCategory).on(place.eq(placeCategory.place))
-                .leftJoin(category).on(placeCategory.category.eq(category))
+                .join(place.placeCategories, placeCategory)
+                .join(placeCategory.category, category)
                 .where(builder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(place.id.desc())
                 .fetch();
 
-        // count 쿼리
-        Long total = queryFactory
-                .select(place.countDistinct())
-                .from(place)
-                .leftJoin(placeCategory).on(place.eq(placeCategory.place))
-                .leftJoin(category).on(placeCategory.category.eq(category))
+        long count = queryFactory
+                .selectFrom(place)
+                .join(place.placeCategories, placeCategory)
+                .join(placeCategory.category, category)
                 .where(builder)
-                .fetchOne();
+                .fetchCount();
 
-        return new PageImpl<>(content, pageable, total);
+        return new PageImpl<>(content, pageable, count);
     }
 }
