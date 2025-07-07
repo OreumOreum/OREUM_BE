@@ -63,5 +63,18 @@ public class PlaceService {
         return new PlacesResponseDto(dtos,placeList.isLast());
     }
 
+    @Transactional
+    public ReviewPaginationResponseDto getReviewPaginationByPlace(long placeId, int page, int size){
+        Place place = placeRepository.findById(placeId).orElseThrow(() -> new NotFoundException("장소"));
+        Pageable pageable = PageRequest.of(page,size, Sort.by("createdAt").descending());
+        Page<Review> reviews = reviewRepository.findByPlace(place, pageable);
+
+        List<ReviewResponseDto> dtos = reviews.getContent().stream()
+                .map(ReviewResponseDto::from)
+                .toList();
+
+        return new ReviewPaginationResponseDto(dtos,reviews.getTotalElements(),reviews.isLast());
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.zzarit.oreum.place.controller;
 
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
+import com.zzarit.oreum.place.service.CourseService;
 import com.zzarit.oreum.place.service.PlaceService;
 import com.zzarit.oreum.place.service.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,6 +49,15 @@ public class PlaceController {
             @RequestParam(defaultValue = "10") int size,
             Member member){
         return ResponseEntity.ok(placeService.getPlacePagination(sigunguCode,page,size,member));
+    }
+
+    @Operation(summary = "단일 여행지 리뷰 페이지네이션 조회", description = "여행지에 대한 리뷰를 페이지네이션합니다.")
+    @GetMapping("/review/{placeId}")
+    public ResponseEntity<ReviewPaginationResponseDto> getReviewPagination(
+            @PathVariable long placeId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(placeService.getReviewPaginationByPlace(placeId,page,size));
     }
 
 

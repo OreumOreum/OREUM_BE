@@ -1,6 +1,7 @@
 package com.zzarit.oreum.place.domain.repository;
 
 import com.zzarit.oreum.place.domain.Course;
+import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.Review;
 import com.zzarit.oreum.place.service.dto.RateSummary;
 import org.springframework.data.domain.Page;
@@ -21,4 +22,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     RateSummary getRateSummaryByCourseId(Long courseId);
 
     Page<Review> findByCourse(Course course, Pageable pageable);
+
+    Page<Review> findByPlace(Place place, Pageable pageable);
 }
