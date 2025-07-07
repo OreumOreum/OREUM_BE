@@ -40,6 +40,16 @@ public class PlaceController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "여행지 페이지네이션 조회", description = "유형에 맞는 단일 여행지 추천.")
+    @GetMapping()
+    public ResponseEntity<PlacesResponseDto> getReviewPagination(
+            @RequestParam(required = false) Integer sigunguCode,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Member member){
+        return ResponseEntity.ok(placeService.getPlacePagination(sigunguCode,page,size,member));
+    }
+
 
 
 
