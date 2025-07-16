@@ -41,6 +41,15 @@ public class PlaceController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "단일 여행지 상세보기", description = "여행지 상세정보 조회합니다.")
+    @GetMapping("/{placeId}")
+    public ResponseEntity<PlaceDetailResponseDto> searchPlaces(
+            @PathVariable long placeId,
+            Member member
+    ) {
+        return ResponseEntity.ok(placeService.getPlaceDetail(placeId,member));
+    }
+
     @Operation(summary = "여행지 페이지네이션 조회", description = "유형에 맞는 단일 여행지 추천.")
     @GetMapping()
     public ResponseEntity<PlacesResponseDto> getReviewPagination(

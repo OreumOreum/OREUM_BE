@@ -1,5 +1,7 @@
 package com.zzarit.oreum.place.service.dto;
 
+import com.zzarit.oreum.place.domain.detail.TourDetail;
+
 public record TourDetailDto(
     String accomcount, // 수용인원
     String chkbabycarriage, // 유모차대여정보
@@ -16,4 +18,24 @@ public record TourDetailDto(
     String restdate, // 쉬는날
     String useseason, // 이용시기
     String usetime // 이용시간
-) {}
+) {
+    public static TourDetailDto from(TourDetail detail) {
+        return new TourDetailDto(
+                detail.getAccomcount(),
+                detail.getChkbabycarriage(),
+                detail.getChkcreditcard(),
+                detail.getChkpet(),
+                detail.getExpagerange(),
+                detail.getExpguide(),
+                detail.getHeritage1(),
+                detail.getHeritage2(),
+                detail.getHeritage3(),
+                detail.getInfocenter(),
+                detail.getOpendate(),
+                detail.getParking(),
+                detail.getRestdate(),
+                detail.getUseseason(),
+                detail.getUsetime()
+        );
+    }
+}
