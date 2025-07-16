@@ -1,4 +1,6 @@
-package com.zzarit.oreum.place.dto;
+package com.zzarit.oreum.place.service.dto;
+
+import com.zzarit.oreum.place.domain.detail.LodgeDetail;
 
 public record LodgeDetailDto(
     String accomcountlodging, // 수용가능인원
@@ -28,4 +30,36 @@ public record LodgeDetailDto(
     String seminar, // 세미나실여부
     String sports, // 스포츠시설여부
     String refundregulation // 환불규정
-) {}
+) {
+    public static LodgeDetailDto from(LodgeDetail detail) {
+        return new LodgeDetailDto(
+                detail.getAccomcountlodging(),
+                detail.getCheckintime(),
+                detail.getCheckouttime(),
+                detail.getChkcooking(),
+                detail.getFoodplace(),
+                detail.getInfocenterlodging(),
+                detail.getParkinglodging(),
+                detail.getPickup(),
+                detail.getRoomcount(),
+                detail.getReservationlodging(),
+                detail.getReservationurl(),
+                detail.getRoomtype(),
+                detail.getScalelodging(),
+                detail.getSubfacility(),
+                detail.getBarbecue(),
+                detail.getBeauty(),
+                detail.getBeverage(),
+                detail.getBicycle(),
+                detail.getCampfire(),
+                detail.getFitness(),
+                detail.getKaraoke(),
+                detail.getPublicbath(),
+                detail.getPublicpc(),
+                detail.getSauna(),
+                detail.getSeminar(),
+                detail.getSports(),
+                detail.getRefundregulation()
+        );
+    }
+}

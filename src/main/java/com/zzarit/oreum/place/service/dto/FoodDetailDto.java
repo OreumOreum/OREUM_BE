@@ -1,5 +1,7 @@
 package com.zzarit.oreum.place.service.dto;
 
+import com.zzarit.oreum.place.domain.detail.FoodDetail;
+
 public record FoodDetailDto(
     String chkcreditcardfood, // 신용카드가능정보
     String discountinfofood, // 할인정보
@@ -17,4 +19,25 @@ public record FoodDetailDto(
     String smoking, // 금연/흡연여부
     String treatmenu, // 취급메뉴
     String lcnsno // 인허가번호
-) {}
+) {
+    public static FoodDetailDto from(FoodDetail detail) {
+        return new FoodDetailDto(
+                detail.getChkcreditcardfood(),
+                detail.getDiscountinfofood(),
+                detail.getFirstmenu(),
+                detail.getInfocenterfood(),
+                detail.getKidsfacility(),
+                detail.getOpendatefood(),
+                detail.getOpentimefood(),
+                detail.getPacking(),
+                detail.getParkingfood(),
+                detail.getReservationfood(),
+                detail.getRestdatefood(),
+                detail.getScalefood(),
+                detail.getSeat(),
+                detail.getSmoking(),
+                detail.getTreatmenu(),
+                detail.getLcnsno()
+        );
+    }
+}

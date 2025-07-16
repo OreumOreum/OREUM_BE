@@ -12,6 +12,7 @@ import com.zzarit.oreum.place.domain.repository.ReviewRepository;
 import com.zzarit.oreum.place.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ public class CourseService {
 
     private final ReviewRepository reviewRepository;
     private final CourseRepository courseRepository;
+
 
     @Transactional
     public void createCourseReview(Member member, CourseReviewCreateRequestDto request) {

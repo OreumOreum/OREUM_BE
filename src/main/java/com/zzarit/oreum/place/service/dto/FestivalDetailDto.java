@@ -1,5 +1,7 @@
 package com.zzarit.oreum.place.service.dto;
 
+import com.zzarit.oreum.place.domain.detail.FestivalDetail;
+
 public record FestivalDetailDto(
     String agelimit,
     String bookingplace,
@@ -19,4 +21,27 @@ public record FestivalDetailDto(
     String sponsor2tel,
     String subevent,
     String usetimefestival
-) {}
+) {
+    public static FestivalDetailDto from(FestivalDetail detail) {
+        return new FestivalDetailDto(
+                detail.getAgelimit(),
+                detail.getBookingplace(),
+                detail.getDiscountinfofestival(),
+                detail.getEventenddate(),
+                detail.getEventhomepage(),
+                detail.getEventplace(),
+                detail.getEventstartdate(),
+                detail.getFestivalgrade(),
+                detail.getPlaceinfo(),
+                detail.getPlaytime(),
+                detail.getProgram(),
+                detail.getSpendtimefestival(),
+                detail.getSponsor1(),
+                detail.getSponsor1tel(),
+                detail.getSponsor2(),
+                detail.getSponsor2tel(),
+                detail.getSubevent(),
+                detail.getUsetimefestival()
+        );
+    }
+}

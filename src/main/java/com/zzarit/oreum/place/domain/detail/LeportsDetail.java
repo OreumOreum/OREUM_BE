@@ -23,7 +23,7 @@ public class LeportsDetail extends BaseTimeEntity {
 
     // 수용 인원
     @Column(name = "accomcountleports")
-    private Integer accomcountleports;
+    private String accomcountleports;
 
     // 유모차 대여 정보
     @Column(name = "chkbabycarriageleports")
