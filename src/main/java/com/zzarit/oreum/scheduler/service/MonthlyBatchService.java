@@ -1,5 +1,6 @@
 package com.zzarit.oreum.scheduler.service;
 
+import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.repository.CategoryRepository;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.spot.domain.Badge;
@@ -134,8 +135,9 @@ public class MonthlyBatchService {
         List<Place> jejuPicks = pickRandomPlaces(JEJU_SI_CODE, 2, excludedPlaceIds);
         List<Place> seogwipoPicks = pickRandomPlaces(SEOGWIPO_SI_CODE, 2, excludedPlaceIds);
 
+        AtomicInteger order = new AtomicInteger();
         List<Spot> newSpots = Stream.concat(jejuPicks.stream(), seogwipoPicks.stream())
-                .map(place -> new Spot(firstDayOfMonth, place))
+                .map(place -> new Spot(firstDayOfMonth, place, order.getAndIncrement()))
                 .collect(Collectors.toList());
 
         spotRepository.saveAll(newSpots);
@@ -143,10 +145,14 @@ public class MonthlyBatchService {
     }
 
     private List<Place> pickRandomPlaces(int sigunguCode, int count, List<Long> excludedIds) {
-        List<Place> candidates = placeRepository.findBySigunguCodeAndIdNotIn(sigunguCode, excludedIds.isEmpty() ? null : excludedIds);
+        List<Place> candidates = excludedIds.isEmpty()
+                ? placeRepository.findBySigunguCode(sigunguCode)
+                : placeRepository.findBySigunguCodeAndIdNotIn(sigunguCode, excludedIds);
+
+
         if (candidates.size() < count) {
             log.warn("{} 지역에 추천할 장소가 부족합니다. (요청: {}, 후보: {})", sigunguCode, count, candidates.size());
-            return new ArrayList<>();
+            throw new NotFoundException("추천할 장소");
         }
         Collections.shuffle(candidates);
         return candidates.subList(0, count);

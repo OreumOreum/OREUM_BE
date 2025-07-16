@@ -13,4 +13,6 @@ public interface VisitLogRepository extends JpaRepository<VisitLog, Long> {
     boolean existsByMemberAndSpot(Member member, Spot spot);
     @Query("select v.member from VisitLog v where v.spot.id = :spotId")
     List<Member> findMembersBySpotId(@Param("spotId") Long spotId);
+
+
 }

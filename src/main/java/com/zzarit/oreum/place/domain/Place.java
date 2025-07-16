@@ -7,8 +7,7 @@ import com.zzarit.oreum.place.service.dto.*;
 import com.zzarit.oreum.planner.domain.PlannerPlace;
 import com.zzarit.oreum.spot.domain.Spot;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.util.ArrayList;
@@ -17,6 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "place")
 public class Place extends BaseTimeEntity {
     @Id
@@ -89,18 +91,23 @@ public class Place extends BaseTimeEntity {
     @Column(name = "city_code")
     private String cityCode;
 
+    @Builder.Default
     @OneToMany(mappedBy = "place")
     private List<PlaceCategory> placeCategories = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "place")
     private List<Spot> spots = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<FolderPlace> folderPlaces = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<PlannerPlace> plannerPlaces = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
@@ -136,6 +143,7 @@ public class Place extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tour_detail_id")
     private TourDetail tourDetail;
+
 
 
     public Object getDetailInfo() {

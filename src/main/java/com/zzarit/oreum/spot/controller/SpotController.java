@@ -4,6 +4,7 @@ import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.spot.service.SpotService; // 서비스 주입 변경
 import com.zzarit.oreum.spot.service.dto.MonthlySpotResponseDto;
 import com.zzarit.oreum.spot.service.dto.RankResponseDto;
+import com.zzarit.oreum.spot.service.dto.StampReponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +36,18 @@ public class SpotController {
     public ResponseEntity<List<MonthlySpotResponseDto>> getCurrentMonthlySpots() {
         List<MonthlySpotResponseDto> spots = spotService.getCurrentMonthlySpots();
         return ResponseEntity.ok(spots);
+    }
+
+    @Operation(summary = "방문 이달의 여행지 스탬프 리스트 API", description = "해당년도에 이달의 여행지 방문기록(스탬프)를 모두 조회합니다.(order: 0,1 = 제주시 / 2,3 = 서귀포시)")
+    @GetMapping("/stamp/{year}")
+    public ResponseEntity<List<StampReponseDto>> getStampList(Member member, @PathVariable int year) {
+        return ResponseEntity.ok(spotService.getStampList(member,year));
+    }
+
+    @Operation(summary = "이달의 여행지 리스트보기 API", description = "해당 달에 이달의 여행지 리스트를 조회합니다.")
+    @GetMapping("/stamp/{year}/{month}")
+    public ResponseEntity<List<StampReponseDto>> getStampList(Member member, @PathVariable int year,@PathVariable int month ) {
+        return ResponseEntity.ok(spotService.getStampList(member,year));
     }
 
     @Operation(summary = "스팟 방문 기록 생성 API", description = "사용자가 특정 스팟에 방문했음을 기록합니다.")

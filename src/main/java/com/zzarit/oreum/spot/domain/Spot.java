@@ -26,6 +26,9 @@ public class Spot extends BaseTimeEntity{
     @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "order_index")
+    private Integer order;
+
     @OneToMany(mappedBy = "spot")
     private List<Badge> badges = new ArrayList<>();
 
@@ -35,8 +38,10 @@ public class Spot extends BaseTimeEntity{
 
     @OneToMany(mappedBy = "spot")
     private List<VisitLog> visitLogs = new ArrayList<>();
-    public Spot(LocalDate date, Place place) {
+
+    public Spot(LocalDate date, Place place,int order) {
         this.date = date;
         this.place = place;
+        this.order = order;
     }
 }

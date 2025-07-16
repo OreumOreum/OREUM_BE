@@ -11,7 +11,7 @@ INSERT INTO category (type) VALUES
 
 -- 2. member 테이블
 INSERT INTO member (created_at, updated_at, badge_count, email, fcm_token, login_id, name, phone_no, category_type) VALUES
-                                                                                                                        (NOW(), NOW(), 5, 'kim.jeju@email.com', 'fcm_token_001', 'kim_jeju', '김제주', '010-1234-5678', 'CULTURE'),
+                                                                                                                        (NOW(), NOW(), 5, 'kim.jeju@email.com', 'fcm_token_001', '1111', '김제주', '010-1234-5678', 'CULTURE'),
                                                                                                                         (NOW(), NOW(), 3, 'lee.seogwipo@email.com', 'fcm_token_002', 'lee_seogwipo', '이서귀포', '010-2345-6789', 'FOOD'),
                                                                                                                         (NOW(), NOW(), 7, 'park.hallasan@email.com', 'fcm_token_003', 'park_hallasan', '박한라산', '010-3456-7890', 'FOREST'),
                                                                                                                         (NOW(), NOW(), 2, 'choi.seongeup@email.com', 'fcm_token_004', 'choi_seongeup', '최성읍', '010-4567-8901', 'ACTIVITY'),
@@ -97,6 +97,41 @@ INSERT INTO place (created_at, updated_at, address, category_1, category_2, cate
                                                                                                                                                                                                                                                                                                                                                                                             (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리', '레포츠', '해양스포츠', '스쿠버다이빙', '130', 'place_007', '28', 'TYPE1', '사계로 216', 126.2916, 33.2282, 'https://example.com/place7_origin.jpg', '제주 최고의 다이빙 포인트 중 하나입니다.', 3, '064-794-5678', 'https://example.com/place7_thumb.jpg', '사계 다이빙센터', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL);
 
 -- 15. place_category 테이블
+-- INSERT INTO badge (created_at, updated_at, rank, member_id, spot_id) VALUES
+--                                                                          (NOW(), NOW(), 'GOLD', 1, 1),
+--                                                                          (NOW(), NOW(), 'SILVER', 1, 2),
+--                                                                          (NOW(), NOW(), 'BRONZE', 2, 3),
+--                                                                          (NOW(), NOW(), 'GOLD', 3, 4),
+--                                                                          (NOW(), NOW(), 'SILVER', 3, 5),
+--                                                                          (NOW(), NOW(), 'BRONZE', 4, 6),
+--                                                                          (NOW(), NOW(), 'GOLD', 5, 7);
+
+-- 16. spot 테이블
+INSERT INTO spot (created_at, updated_at, date,order_index, place_id) VALUES
+                                                              (NOW(), NOW(), '2025-07-01',1, 1),
+                                                              (NOW(), NOW(), '2025-07-01',2, 2),
+                                                              (NOW(), NOW(), '2025-07-01',3, 3),
+                                                              (NOW(), NOW(), '2025-07-01',4, 4),
+                                                              (NOW(), NOW(), '2025-06-01',1, 5),
+                                                              (NOW(), NOW(), '2025-06-01',2, 6),
+                                                              (NOW(), NOW(), '2025-06-01',3, 7),
+                                                              (NOW(), NOW(), '2025-06-01',4, 1),
+                                                              (NOW(), NOW(), '2024-03-01',1, 2);
+--
+--
+-- -- 17. spot_category_summary 테이블
+INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
+                                                                                                    (NOW(), NOW(), 25, 'FOREST', 1),
+                                                                                                    (NOW(), NOW(), 18, 'CULTURE', 2),
+                                                                                                    (NOW(), NOW(), 32, 'FOOD', 3),
+                                                                                                    (NOW(), NOW(), 41, 'MOOD', 4),
+                                                                                                    (NOW(), NOW(), 15, 'SOCIAL', 5),
+                                                                                                    (NOW(), NOW(), 28, 'FOOD', 6),
+                                                                                                    (NOW(), NOW(), 22, 'ACTIVITY', 7),
+                                                                                                    (NOW(), NOW(), 19, 'ACTIVITY', 8);
+
+
+-- 18. badge 테이블
 INSERT INTO place_category (created_at, updated_at, category_type, place_id) VALUES
                                                                                  (NOW(), NOW(), 'FOREST', 1),
                                                                                  (NOW(), NOW(), 'CULTURE', 2),
@@ -108,48 +143,17 @@ INSERT INTO place_category (created_at, updated_at, category_type, place_id) VAL
                                                                                  (NOW(), NOW(), 'ACTIVITY', 1),
                                                                                  (NOW(), NOW(), 'SOCIAL', 2);
 
--- 16. spot 테이블
-INSERT INTO spot (created_at, updated_at, date, place_id) VALUES
-                                                              (NOW(), NOW(), '2024-01-15', 1),
-                                                              (NOW(), NOW(), '2024-01-16', 2),
-                                                              (NOW(), NOW(), '2024-01-17', 3),
-                                                              (NOW(), NOW(), '2024-01-18', 4),
-                                                              (NOW(), NOW(), '2024-01-19', 5),
-                                                              (NOW(), NOW(), '2024-01-20', 6),
-                                                              (NOW(), NOW(), '2024-01-21', 7),
-                                                              (NOW(), NOW(), '2024-01-22', 1),
-                                                              (NOW(), NOW(), '2024-01-23', 2);
-
--- 17. spot_category_summary 테이블
-INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
-                                                                                                    (NOW(), NOW(), 25, 'FOREST', 1),
-                                                                                                    (NOW(), NOW(), 18, 'CULTURE', 2),
-                                                                                                    (NOW(), NOW(), 32, 'FOOD', 3),
-                                                                                                    (NOW(), NOW(), 41, 'MOOD', 4),
-                                                                                                    (NOW(), NOW(), 15, 'SOCIAL', 5),
-                                                                                                    (NOW(), NOW(), 28, 'FOOD', 6),
-                                                                                                    (NOW(), NOW(), 22, 'ACTIVITY', 7),
-                                                                                                    (NOW(), NOW(), 19, 'ACTIVITY', 8),
-                                                                                                    (NOW(), NOW(), 35, 'SOCIAL', 9);
-
--- 18. badge 테이블
-INSERT INTO badge (created_at, updated_at, rank, member_id, spot_id) VALUES
-                                                                         (NOW(), NOW(), 'GOLD', 1, 1),
-                                                                         (NOW(), NOW(), 'SILVER', 1, 2),
-                                                                         (NOW(), NOW(), 'BRONZE', 2, 3),
-                                                                         (NOW(), NOW(), 'GOLD', 3, 4),
-                                                                         (NOW(), NOW(), 'SILVER', 3, 5),
-                                                                         (NOW(), NOW(), 'BRONZE', 4, 6),
-                                                                         (NOW(), NOW(), 'GOLD', 5, 7);
-
 -- 19. visit_log 테이블
 INSERT INTO visit_log (created_at, updated_at, member_id, spot_id) VALUES
                                                                        (NOW(), NOW(), 1, 1),
                                                                        (NOW(), NOW(), 1, 2),
                                                                        (NOW(), NOW(), 1, 4),
-                                                                       (NOW(), NOW(), 2, 3),
-                                                                       (NOW(), NOW(), 2, 6),
-                                                                       (NOW(), NOW(), 3, 4),
+                                                                       (NOW(), NOW(), 1, 5),
+                                                                       (NOW(), NOW(), 1, 6),
+                                                                       (NOW(), NOW(), 1, 7),
+                                                                       (NOW(), NOW(), 1, 8),
+                                                                       (NOW(), NOW(), 1, 9),
+
                                                                        (NOW(), NOW(), 3, 5),
                                                                        (NOW(), NOW(), 3, 7),
                                                                        (NOW(), NOW(), 4, 6),

@@ -10,12 +10,14 @@ import com.zzarit.oreum.spot.domain.repository.SpotRepository;
 import com.zzarit.oreum.spot.domain.repository.VisitLogRepository;
 import com.zzarit.oreum.spot.service.dto.MonthlySpotResponseDto;
 import com.zzarit.oreum.spot.service.dto.RankResponseDto;
+import com.zzarit.oreum.spot.service.dto.StampReponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -75,5 +77,13 @@ public class SpotService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public List<StampReponseDto> getStampList(Member member,int year){
+        List<Spot> visitedSpot = spotRepository.findVisitedSpotsByMemberAndYear(member, year);
+        return visitedSpot.stream()
+                .map(StampReponseDto::from)
+                .toList();
+    }
+
 
 }
