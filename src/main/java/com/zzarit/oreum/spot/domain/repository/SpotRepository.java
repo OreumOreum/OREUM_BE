@@ -14,7 +14,7 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
     boolean existsByDate(LocalDate date);
     List<Spot> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
 
-    @Query("SELECT s FROM Spot s JOIN FETCH s.place WHERE s.date = :date")
+    @Query("SELECT s FROM Spot s JOIN FETCH s.place WHERE s.date = :date ORDER BY s.order ASC")
     List<Spot> findAllByDateWithPlace(@Param("date") LocalDate date);
 
     @Query("select s.place.id from Spot s")
@@ -43,5 +43,6 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
             @Param("member") Member member,
             @Param("year")   int year);
 
-    List<Spot> Date(LocalDate date);
+
+
 }

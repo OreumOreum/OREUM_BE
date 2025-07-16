@@ -10,6 +10,7 @@ import com.zzarit.oreum.spot.domain.repository.SpotRepository;
 import com.zzarit.oreum.spot.domain.repository.VisitLogRepository;
 import com.zzarit.oreum.spot.service.dto.MonthlySpotResponseDto;
 import com.zzarit.oreum.spot.service.dto.RankResponseDto;
+import com.zzarit.oreum.spot.service.dto.SpotPlaceResponseDto;
 import com.zzarit.oreum.spot.service.dto.StampReponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -82,6 +84,20 @@ public class SpotService {
         List<Spot> visitedSpot = spotRepository.findVisitedSpotsByMemberAndYear(member, year);
         return visitedSpot.stream()
                 .map(StampReponseDto::from)
+                .toList();
+    }
+
+    @Transactional
+    public List<SpotPlaceResponseDto> getSpotList(Member member,int year,int month){
+        LocalDate searchDate = LocalDate.of(year, month, 1);
+        List<Spot> monthlySpots = spotRepository.findAllByDateWithPlace(searchDate);
+        Set<Long> visitedIds = visitLogRepository.findVisitedSpotIdsByMember(member);
+
+        return monthlySpots.stream()
+                .map((spot) ->{
+                    boolean visited = visitedIds.contains(spot.getId());
+                    return SpotPlaceResponseDto.from(spot,visited);
+                })
                 .toList();
     }
 
