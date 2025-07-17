@@ -3,6 +3,7 @@ package com.zzarit.oreum.place.domain;
 import com.zzarit.oreum.folder.domain.FolderPlace;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
 import com.zzarit.oreum.place.domain.detail.*;
+import com.zzarit.oreum.place.service.dto.*;
 import com.zzarit.oreum.planner.domain.PlannerPlace;
 import com.zzarit.oreum.spot.domain.Spot;
 import jakarta.persistence.*;
@@ -80,6 +81,10 @@ public class Place extends BaseTimeEntity {
     @Column(name = "title")
     private String title;
 
+    @Comment("상세설명")
+    @Column(name = "overview")
+    private String overview ;
+
     @Comment("법정동 시군구코드 - 제주도시(110)/서귀포시(130)")
     @Column(name = "city_code")
     private String cityCode;
@@ -104,37 +109,44 @@ public class Place extends BaseTimeEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "culture_detail_id")
     private CultureDetail cultureDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "festival_detail_id")
     private FestivalDetail festivalDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_detail_id")
     private FoodDetail foodDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "leports_detail_id")
     private LeportsDetail leportsDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lodge_detail_id")
     private LodgeDetail lodgeDetail;
 
-    @OneToOne(mappedBy = "place")
-    private ShoppingDeatail shoppingDeatail;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopping_detail_id")
+    private ShoppingDetail shoppingDetail;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tour_detail_id")
     private TourDetail tourDetail;
 
 
     public Object getDetailInfo() {
         return switch (this.getContentTypeId()) {
-            case "12" -> this.tourDetail;
-            case "14" -> this.cultureDetail;
-            case "15" -> this.festivalDetail;
-            case "28" -> this.leportsDetail;
-            case "32" -> this.lodgeDetail;
-            case "38" -> this.shoppingDeatail;
-            case "39" -> this.foodDetail;
+            case "12" -> TourDetailDto.from(this.tourDetail);
+            case "14" -> CultureDetailDto.from(this.cultureDetail);
+            case "15" -> FestivalDetailDto.from(this.festivalDetail);
+            case "28" -> LeportsDetailDto.from(this.leportsDetail);
+            case "32" -> LodgeDetailDto.from(this.lodgeDetail);
+            case "38" -> ShoppingDetailDto.from(this.shoppingDetail);
+            case "39" -> FoodDetailDto.from(this.foodDetail);
             default -> null;
         };
     }

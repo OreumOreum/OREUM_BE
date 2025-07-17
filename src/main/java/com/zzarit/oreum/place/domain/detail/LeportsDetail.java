@@ -13,17 +13,17 @@ import lombok.Setter;
 public class LeportsDetail extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "leportsDetail")
     private Place place;
 
 
     // 수용 인원
     @Column(name = "accomcountleports")
-    private Integer accomcountleports;
+    private String accomcountleports;
 
     // 유모차 대여 정보
     @Column(name = "chkbabycarriageleports")

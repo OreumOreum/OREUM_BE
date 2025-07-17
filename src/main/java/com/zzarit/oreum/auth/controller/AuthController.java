@@ -4,10 +4,12 @@ package com.zzarit.oreum.auth.controller;
 import com.zzarit.oreum.auth.service.AuthService;
 import com.zzarit.oreum.auth.service.dto.*;
 import com.zzarit.oreum.member.domain.Member;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "AUTH", description = "인증 API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/auth")

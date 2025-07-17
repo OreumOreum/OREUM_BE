@@ -2,6 +2,7 @@ package com.zzarit.oreum.place.controller;
 
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
+import com.zzarit.oreum.place.service.CourseService;
 import com.zzarit.oreum.place.service.PlaceService;
 import com.zzarit.oreum.place.service.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,25 +41,44 @@ public class PlaceController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "코스 리스트 검색 API", description = "유형에 맞는 코스 리스트를 제공합니다.")
-    @GetMapping("/course")
-    public ResponseEntity<List<CourseResponseDto>> getCourseList(Member member){
-        List<CourseResponseDto> dtos = placeService.getCourseList(member);
-        return ResponseEntity.ok(dtos);
+    @Operation(summary = "단일 여행지 상세보기", description = "여행지 상세정보 조회합니다.")
+    @GetMapping("/{placeId}")
+    public ResponseEntity<PlaceDetailResponseDto> searchPlaces(
+            @PathVariable long placeId,
+            Member member
+    ) {
+        return ResponseEntity.ok(placeService.getPlaceDetail(placeId,member));
     }
 
-    @Operation(summary = "코스 상세 검색 API", description = "요청한 코스의 상세보기를 제공합니다.")
-    @GetMapping("/course/{courseId}")
-    public ResponseEntity<CourseDetailResponseDto> getCourseList(@PathVariable long courseId){
-        return ResponseEntity.ok(placeService.getCourseDetail(courseId));
+    @Operation(summary = "여행지 페이지네이션 조회", description = "유형에 맞는 단일 여행지 추천.")
+    @GetMapping()
+    public ResponseEntity<PlacesResponseDto> getReviewPagination(
+            @RequestParam(required = false) Integer sigunguCode,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Member member){
+        return ResponseEntity.ok(placeService.getPlacePagination(sigunguCode,page,size,member));
+    }
+
+    @Operation(summary = "단일 여행지 리뷰 페이지네이션 조회", description = "여행지에 대한 리뷰를 페이지네이션합니다.")
+    @GetMapping("/review/{placeId}")
+    public ResponseEntity<ReviewPaginationResponseDto> getReviewPagination(
+            @PathVariable long placeId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(placeService.getReviewPaginationByPlace(placeId,page,size));
     }
 
 
 
-    @Operation(summary = "별점,리뷰 생성 API", description = "DB에 별점 리뷰를 생성합니다.")
+
+
+    @Operation(summary = "단일 여행지 별점,리뷰 생성 API", description = "단일 여행지 별점/리뷰를 생성합니다.")
     @PostMapping("/review")
-    public ResponseEntity<Void> createReviewAndRating(Member member,@RequestBody ReviewCreateRequestDto request){
+    public ResponseEntity<Void> createReview(Member member,@RequestBody ReviewCreateRequestDto request){
         placeService.createReviewAndRating(member, request);
         return ResponseEntity.noContent().build();
     }
+
+
 }

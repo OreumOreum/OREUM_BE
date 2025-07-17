@@ -1,5 +1,7 @@
 package com.zzarit.oreum.place.service.dto;
 
+import com.zzarit.oreum.place.domain.detail.ShoppingDetail;
+
 public record ShoppingDetailDto(
     String chkbabycarriageshopping, // 유모차대여정보
     String chkcreditcardshopping, // 신용카드가능정보
@@ -16,4 +18,24 @@ public record ShoppingDetailDto(
     String saleitemcost, // 판매품목별가격
     String scaleshopping, // 규모
     String shopguide // 매장안내
-) {}
+) {
+    public static ShoppingDetailDto from(ShoppingDetail detail) {
+        return new ShoppingDetailDto(
+                detail.getChkbabycarriageshopping(),
+                detail.getChkcreditcardshopping(),
+                detail.getChkpetshopping(),
+                detail.getCulturecenter(),
+                detail.getFairday(),
+                detail.getInfocentershopping(),
+                detail.getOpendateshopping(),
+                detail.getOpentime(),
+                detail.getParkingshopping(),
+                detail.getRestdateshopping(),
+                detail.getRestroom(),
+                detail.getSaleitem(),
+                detail.getSaleitemcost(),
+                detail.getScaleshopping(),
+                detail.getShopguide()
+        );
+    }
+}

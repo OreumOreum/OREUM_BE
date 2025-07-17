@@ -24,4 +24,11 @@ public interface FolderPlaceRepository extends JpaRepository<FolderPlace, Long> 
     boolean existsByMemberAndPlaceAndFolderNot(@Param("member") Member member,
                                                @Param("place") Place place,
                                                @Param("excludedFolder") Folder excludedFolder);
+
+    @Query("""
+    SELECT f FROM Folder f
+    LEFT JOIN FETCH f.folderPlaces fp
+    WHERE f.member.id = :memberId
+""")
+    List<Folder> findAllWithFolderPlacesByMember(@Param("memberId") Long memberId);
 }
