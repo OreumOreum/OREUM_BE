@@ -19,7 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -49,6 +51,27 @@ public class FolderPlaceService {
         folderPlaceRepository.save(folderPlace);
     }
 
+    public void addDefaultFolderPlace(FolderPlaceRequestDto request, Member member) {
+        Folder folder = folderRepository.findByNameAndMember("모든 저장됨", member)
+                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
+
+        Place place = placeRepository.findById(request.placeId())
+                .orElseThrow(() -> new NotFoundException("장소"));
+
+        Optional<FolderPlace> existing = folderPlaceRepository.findByFolderAndPlace(folder, place);
+
+        if (existing.isPresent()) {
+            ///UpdateAt을 갱신해야 한다면 덮어씌우기
+            return;
+        }
+
+        FolderPlace folderPlace = new FolderPlace();
+        folderPlace.setFolder(folder);
+        folderPlace.setPlace(place);
+
+        folderPlaceRepository.save(folderPlace);
+    }
+
     public List<FolderPlaceResponseDto> getMyFolderPlaces(Long folderId, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
                 .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
@@ -69,6 +92,30 @@ public class FolderPlaceService {
                 .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         folderPlaceRepository.delete(folderPlace);
+
+        Folder defaultFolder = folderRepository.findByNameAndMember("모든 저장됨", member)
+                .orElseThrow(() -> new UnauthorizedException("기본 폴더 없음"));
+
+        boolean placeExistsInOtherFolders = folderPlaceRepository.existsByMemberAndPlaceAndFolderNot(
+                member, place, defaultFolder
+        );
+
+        if (!placeExistsInOtherFolders) {
+            folderPlaceRepository.findByFolderAndPlace(defaultFolder, place)
+                    .ifPresent(folderPlaceRepository::delete);
+        }
+    }
+
+    @Transactional
+    public void deleteDefaultFolderPlace(FolderPlaceRequestDto request, Member member) {
+        Place place = placeRepository.findById(request.placeId())
+                .orElseThrow(() -> new NotFoundException("장소"));
+
+        List<Folder> folders = folderRepository.findAllByMember(member);
+
+        for (Folder folder : folders) {
+            folderPlaceRepository.deleteByFolderAndPlace(folder, place);
+        }
     }
 
     public void deleteMultipleFolderPlaces(Long folderId, FolderPlaceListRequestDto request, Member member) {

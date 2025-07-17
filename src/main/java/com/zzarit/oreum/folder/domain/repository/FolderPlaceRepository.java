@@ -17,6 +17,13 @@ public interface FolderPlaceRepository extends JpaRepository<FolderPlace, Long> 
     List<FolderPlace> findAllByFolder(Folder folder);
 
     boolean existsByFolderAndPlace(Folder folder, Place place);
+    void deleteByFolderAndPlace(Folder folder, Place place);
+
+    @Query("SELECT CASE WHEN COUNT(fp) > 0 THEN true ELSE false END " +
+            "FROM FolderPlace fp WHERE fp.folder.member = :member AND fp.place = :place AND fp.folder <> :excludedFolder")
+    boolean existsByMemberAndPlaceAndFolderNot(@Param("member") Member member,
+                                               @Param("place") Place place,
+                                               @Param("excludedFolder") Folder excludedFolder);
 
     @Query("""
     SELECT f FROM Folder f

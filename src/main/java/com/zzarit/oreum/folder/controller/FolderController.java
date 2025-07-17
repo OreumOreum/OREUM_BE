@@ -79,6 +79,14 @@ public class FolderController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "기본 폴더 장소 추가 API", description = "본인의 기본 폴더에 장소를 추가합니다.")
+    @PostMapping("default")
+    public ResponseEntity<Void> addDefaultFolderPlace(@RequestBody FolderPlaceRequestDto request, Member member) {
+        folderPlaceService.addDefaultFolderPlace(request, member);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @Operation(summary = "폴더 상세보기 API", description = "본인의 폴더에 추가된 장소를 조회합니다.")
     @GetMapping("/{folderId}")
     public ResponseEntity<List<FolderPlaceResponseDto>> getMyFolderPlaces(@PathVariable Long folderId, Member member) {
@@ -91,6 +99,14 @@ public class FolderController {
     @DeleteMapping("/place/{folderId}")
     public ResponseEntity<Void> deleteFolderPlace(@PathVariable Long folderId, @RequestBody FolderPlaceRequestDto request, Member member) {
         folderPlaceService.deleteFolderPlace(folderId, request, member);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "기본 폴더 삭제 API", description = "본인의 기본 폴더에 추가된 장소를 삭제합니다. (본인의 다른 폴더에 추가된 동일한 장소도 삭제됩니다.)")
+    @DeleteMapping("default")
+    public ResponseEntity<Void> deleteDefaultFolderPlace(@RequestBody FolderPlaceRequestDto request, Member member) {
+        folderPlaceService.deleteDefaultFolderPlace(request, member);
 
         return ResponseEntity.noContent().build();
     }
