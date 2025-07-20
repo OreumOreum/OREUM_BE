@@ -1,5 +1,6 @@
 package com.zzarit.oreum.spot.service;
 
+import com.zzarit.oreum.auth.domain.repository.RefreshTokenRepository;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.spot.domain.Spot;
@@ -8,15 +9,16 @@ import com.zzarit.oreum.spot.domain.VisitLog;
 import com.zzarit.oreum.spot.domain.repository.SpotCategorySummaryRepository;
 import com.zzarit.oreum.spot.domain.repository.SpotRepository;
 import com.zzarit.oreum.spot.domain.repository.VisitLogRepository;
-import com.zzarit.oreum.spot.service.dto.MonthlySpotResponseDto;
-import com.zzarit.oreum.spot.service.dto.RankResponseDto;
+import com.zzarit.oreum.spot.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -27,6 +29,7 @@ public class SpotService {
     private final SpotRepository spotRepository;
     private final VisitLogRepository visitLogRepository;
     private final SpotCategorySummaryRepository summaryRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public List<MonthlySpotResponseDto> getCurrentMonthlySpots() {
         LocalDate firstDayOfCurrentMonth = LocalDate.now().withDayOfMonth(1);
@@ -75,5 +78,31 @@ public class SpotService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public List<StampReponseDto> getStampList(Member member,int year){
+        List<Spot> visitedSpot = spotRepository.findVisitedSpotsByMemberAndYear(member, year);
+        return visitedSpot.stream()
+                .map(StampReponseDto::from)
+                .toList();
+    }
+
+    @Transactional
+    public List<SpotPlaceResponseDto> getSpotList(Member member,int year,int month){
+        LocalDate searchDate = LocalDate.of(year, month, 1);
+        List<Spot> monthlySpots = spotRepository.findAllByDateWithPlace(searchDate);
+        Set<Long> visitedIds = visitLogRepository.findVisitedSpotIdsByMember(member);
+
+        return monthlySpots.stream()
+                .map((spot) ->{
+                    boolean visited = visitedIds.contains(spot.getId());
+                    return SpotPlaceResponseDto.from(spot,visited);
+                })
+                .toList();
+    }
+
+    public TotalStampResponseDto getTotalStampList(Long memberId){
+        return new TotalStampResponseDto(visitLogRepository.findTotalStampNumber(memberId));
+    }
+
 
 }

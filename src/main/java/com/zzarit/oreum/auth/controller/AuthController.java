@@ -17,13 +17,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping()
-    public ResponseEntity<Void> test(Member member,
-            @RequestBody KakaoLoginRequestDto request) {
-        return ResponseEntity.noContent().build();
-    }
-
-
     @PostMapping("/login/kakao")
     public ResponseEntity<AuthTokenDto> kakaoLogin(
             @RequestBody KakaoLoginRequestDto request) {

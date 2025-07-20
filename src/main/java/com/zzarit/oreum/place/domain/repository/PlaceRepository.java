@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long>, PlaceRepositoryCustom {
+    List<Place> findBySigunguCode(Integer sigunguCode);
     List<Place> findBySigunguCodeAndIdNotIn(Integer sigunguCode, List<Long> ids);
     Page<Place> findPlaceList(Integer sigunguCode, Type type, Pageable pageable);
 }
