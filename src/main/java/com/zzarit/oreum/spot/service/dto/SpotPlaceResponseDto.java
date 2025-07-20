@@ -3,7 +3,8 @@ package com.zzarit.oreum.spot.service.dto;
 import com.zzarit.oreum.spot.domain.Spot;
 
 public record SpotPlaceResponseDto(
-        Long id,
+        Long spotId,
+        Long placeId,
         String title,
         String address,
         String detailAddress,
@@ -14,6 +15,7 @@ public record SpotPlaceResponseDto(
 {
     public static SpotPlaceResponseDto from(Spot spot,boolean visited){
         return new SpotPlaceResponseDto(
+                spot.getId(),
                 spot.getPlace().getId(),
                 spot.getPlace().getTitle(),
                 spot.getPlace().getAddress(),

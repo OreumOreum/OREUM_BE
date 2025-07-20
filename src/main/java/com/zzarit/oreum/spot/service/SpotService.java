@@ -1,5 +1,6 @@
 package com.zzarit.oreum.spot.service;
 
+import com.zzarit.oreum.auth.domain.repository.RefreshTokenRepository;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.spot.domain.Spot;
@@ -8,10 +9,7 @@ import com.zzarit.oreum.spot.domain.VisitLog;
 import com.zzarit.oreum.spot.domain.repository.SpotCategorySummaryRepository;
 import com.zzarit.oreum.spot.domain.repository.SpotRepository;
 import com.zzarit.oreum.spot.domain.repository.VisitLogRepository;
-import com.zzarit.oreum.spot.service.dto.MonthlySpotResponseDto;
-import com.zzarit.oreum.spot.service.dto.RankResponseDto;
-import com.zzarit.oreum.spot.service.dto.SpotPlaceResponseDto;
-import com.zzarit.oreum.spot.service.dto.StampReponseDto;
+import com.zzarit.oreum.spot.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +29,7 @@ public class SpotService {
     private final SpotRepository spotRepository;
     private final VisitLogRepository visitLogRepository;
     private final SpotCategorySummaryRepository summaryRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public List<MonthlySpotResponseDto> getCurrentMonthlySpots() {
         LocalDate firstDayOfCurrentMonth = LocalDate.now().withDayOfMonth(1);
@@ -99,6 +98,10 @@ public class SpotService {
                     return SpotPlaceResponseDto.from(spot,visited);
                 })
                 .toList();
+    }
+
+    public TotalStampResponseDto getTotalStampList(Long memberId){
+        return new TotalStampResponseDto(visitLogRepository.findTotalStampNumber(memberId));
     }
 
 

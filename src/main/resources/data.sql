@@ -147,6 +147,7 @@ INSERT INTO place_category (created_at, updated_at, category_type, place_id) VAL
 INSERT INTO visit_log (created_at, updated_at, member_id, spot_id) VALUES
                                                                        (NOW(), NOW(), 1, 1),
                                                                        (NOW(), NOW(), 1, 2),
+                                                                       (NOW(), NOW(), 1, 5),
 
 
                                                                        (NOW(), NOW(), 3, 5),
