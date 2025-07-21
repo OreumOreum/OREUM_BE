@@ -122,9 +122,9 @@ INSERT INTO spot (created_at, updated_at, date,order_index, place_id) VALUES
 -- -- 17. spot_category_summary 테이블
 INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
                                                                                                     (NOW(), NOW(), 25, 'FOREST', 1),
-                                                                                                    (NOW(), NOW(), 18, 'CULTURE', 2),
-                                                                                                    (NOW(), NOW(), 32, 'FOOD', 3),
-                                                                                                    (NOW(), NOW(), 41, 'MOOD', 4),
+                                                                                                    (NOW(), NOW(), 18, 'CULTURE', 1),
+                                                                                                    (NOW(), NOW(), 32, 'FOOD', 1),
+                                                                                                    (NOW(), NOW(), 41, 'MOOD', 1),
                                                                                                     (NOW(), NOW(), 15, 'SOCIAL', 5),
                                                                                                     (NOW(), NOW(), 28, 'FOOD', 6),
                                                                                                     (NOW(), NOW(), 22, 'ACTIVITY', 7),
