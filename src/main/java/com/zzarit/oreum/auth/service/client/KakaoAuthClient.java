@@ -1,10 +1,12 @@
 package com.zzarit.oreum.auth.service.client;
 
+import com.zzarit.oreum.auth.exception.KaKaoLoginFailException;
 import com.zzarit.oreum.auth.exception.KakaoLoginExceptionHandler;
 import com.zzarit.oreum.auth.service.dto.KakaoLoginResponseDto;
 import com.zzarit.oreum.member.domain.repository.AuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -25,7 +27,11 @@ public class KakaoAuthClient implements OAuthClient{
                 .uri(GET_KAKAO_USER_INFO_URI)
                 .header(HttpHeaders.AUTHORIZATION, createAuthorization(accessToken))
                 .retrieve()
-                .onStatus(new KakaoLoginExceptionHandler())
+                .onStatus(HttpStatusCode::isError, (request, response) -> {
+                    throw new KaKaoLoginFailException(
+                            "Kakao API error: " + response.getStatusCode()
+                    );
+                })
                 .body(KakaoLoginResponseDto.class);
 
         return AuthProvider.KAKAO.buildLoginId(responseDto.id().toString());
