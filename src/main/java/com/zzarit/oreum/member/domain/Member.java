@@ -74,7 +74,7 @@ public class Member extends BaseTimeEntity {
     @Builder
     public Member(String loginId){
         this.loginId =loginId;
-        this.addFolder(new Folder("모든 저장됨", this));
+        this.addFolder(new Folder("모든 저장됨", this, true));
         this.badgeCount = 0;
     }
 

@@ -63,10 +63,6 @@ public class Place extends BaseTimeEntity {
     @Column(name = "thumbnail_image")
     private String thumbnailImage;
 
-    @Comment("저작권 유형 - TYPE1/TYPE3")
-    @Column(name = "copyright_type")
-    private String copyrightType;
-
     @Comment("x좌표")
     @Column(name = "mapx")
     private Double mapx;
@@ -86,10 +82,6 @@ public class Place extends BaseTimeEntity {
     @Comment("상세설명")
     @Column(name = "overview")
     private String overview ;
-
-    @Comment("법정동 시군구코드 - 제주도시(110)/서귀포시(130)")
-    @Column(name = "city_code")
-    private String cityCode;
 
     @Builder.Default
     @OneToMany(mappedBy = "place")
