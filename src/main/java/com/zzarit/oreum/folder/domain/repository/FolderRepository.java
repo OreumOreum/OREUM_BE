@@ -3,6 +3,8 @@ package com.zzarit.oreum.folder.domain.repository;
 import com.zzarit.oreum.folder.domain.Folder;
 import com.zzarit.oreum.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +15,14 @@ public interface FolderRepository extends JpaRepository<Folder, Long> {
     List<Folder> findAllByMember(Member member);
     Optional<Folder> findByIdAndMember(Long id, Member member);
     Optional<Folder> findByNameAndMember(String name, Member member);
+
+    @Query("""
+       SELECT f
+       FROM Folder f
+       WHERE f.member = :member AND f.isDefault = true
+     
+""")
+    Optional<Folder> findDefaultFolder(@Param("member") Member member);
+
+
 }

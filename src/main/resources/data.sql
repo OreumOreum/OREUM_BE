@@ -158,13 +158,13 @@ INSERT INTO visit_log (created_at, updated_at, member_id, spot_id) VALUES
                                                                        (NOW(), NOW(), 5, 2);
 
 -- 20. folder 테이블
-INSERT INTO folder (created_at, updated_at, name, member_id) VALUES
-                                                                 (NOW(), NOW(), '제주 맛집 모음', 1),
-                                                                 (NOW(), NOW(), '문화유적지', 1),
-                                                                 (NOW(), NOW(), '오름 투어', 2),
-                                                                 (NOW(), NOW(), '가족 여행지', 3),
-                                                                 (NOW(), NOW(), '액티비티 스팟', 4),
-                                                                 (NOW(), NOW(), '힐링 장소', 5);
+INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
+                                                                 (NOW(), NOW(), '제주 맛집 모음', 1,true),
+                                                                 (NOW(), NOW(), '문화유적지', 1,false),
+                                                                 (NOW(), NOW(), '오름 투어', 2,true),
+                                                                 (NOW(), NOW(), '가족 여행지', 3,true),
+                                                                 (NOW(), NOW(), '액티비티 스팟', 4,true),
+                                                                 (NOW(), NOW(), '힐링 장소', 5,true);
 
 -- 21. folder_place 테이블
 INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
