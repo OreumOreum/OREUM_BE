@@ -52,7 +52,7 @@ public class FolderPlaceService {
     }
 
     public void addDefaultFolderPlace(FolderPlaceRequestDto request, Member member) {
-        Folder folder = folderRepository.findByNameAndMember("모든 저장됨", member)
+        Folder folder = folderRepository.findDefaultFolder(member)
                 .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
 
         Place place = placeRepository.findById(request.placeId())
@@ -93,7 +93,7 @@ public class FolderPlaceService {
 
         folderPlaceRepository.delete(folderPlace);
 
-        Folder defaultFolder = folderRepository.findByNameAndMember("모든 저장됨", member)
+        Folder defaultFolder = folderRepository.findDefaultFolder(member)
                 .orElseThrow(() -> new UnauthorizedException("기본 폴더 없음"));
 
         boolean placeExistsInOtherFolders = folderPlaceRepository.existsByMemberAndPlaceAndFolderNot(
