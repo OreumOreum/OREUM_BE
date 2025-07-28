@@ -46,6 +46,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "phone_no", unique = true)
     private String phoneNo;
 
+    @Column(name = "skip")
+    private Boolean skip = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_type")
     private Category category;
