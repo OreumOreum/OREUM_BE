@@ -1,5 +1,6 @@
 package com.zzarit.oreum.member.service;
 
+import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.member.domain.Type;
@@ -63,4 +64,18 @@ public class MemberService {
         }
         memberRepository.deleteById(memberId);
     }
+
+    @Transactional
+    public void skipTest(Long id){
+        Member m  = memberRepository.findById(id).get();
+        m.setSkip(true);
+        memberRepository.save(m);
+    }
+
+    @Transactional
+    public boolean getTest(Member member){
+        Member m  = memberRepository.findById(member.getId()).get();
+        return !member.getSkip() && m.getCategory() == null;
+    }
+
 }

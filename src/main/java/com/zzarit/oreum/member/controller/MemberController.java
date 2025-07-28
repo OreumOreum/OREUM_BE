@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "MEMBER", description = "사용자 정보 API")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/members")
+@RequestMapping("/api/v1/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -53,4 +53,19 @@ public class MemberController {
         memberService.deleteMember(member.getId());
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "유형검사 생략 API", description = "유형검사를 생략합니다.")
+    @PostMapping("skip/test")
+    public ResponseEntity<Void> skipTest(Member member) {
+        memberService.skipTest(member.getId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "유형검사 생략 조회 API", description = "홈화면에서 유형검사를 실행여부를 조회합니다(True: 검사실행)")
+    @GetMapping("test")
+    public ResponseEntity<Boolean> getTest(Member member) {
+        return ResponseEntity.ok(memberService.getTest(member));
+    }
+
+
 }

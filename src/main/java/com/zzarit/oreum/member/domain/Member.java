@@ -46,6 +46,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "phone_no", unique = true)
     private String phoneNo;
 
+    @Column(name = "skip")
+    private Boolean skip = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_type")
     private Category category;
@@ -74,7 +77,7 @@ public class Member extends BaseTimeEntity {
     @Builder
     public Member(String loginId){
         this.loginId =loginId;
-        this.addFolder(new Folder("모든 저장됨", this));
+        this.addFolder(new Folder("모든 저장됨", this, true));
         this.badgeCount = 0;
     }
 

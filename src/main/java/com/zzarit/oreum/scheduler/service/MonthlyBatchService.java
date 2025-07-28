@@ -52,10 +52,10 @@ public class MonthlyBatchService {
         log.info("월별 배치 작업을 시작합니다.");
 
         LocalDate today = LocalDate.now();
-        YearMonth lastMonth = YearMonth.from(today.minusMonths(1));
+//        YearMonth lastMonth = YearMonth.from(today.minusMonths(1));
 
         selectAndCreateSpotsFor(today);
-        processRewardsFor(lastMonth);
+//        processRewardsFor(lastMonth);
         log.info("월별 배치 작업이 성공적으로 완료되었습니다.");
     }
     private void processRewardsFor(YearMonth lastMonth) {
