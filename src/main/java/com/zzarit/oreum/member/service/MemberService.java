@@ -4,6 +4,7 @@ import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.member.domain.Type;
+import com.zzarit.oreum.member.service.dto.CheckTestResponseDto;
 import com.zzarit.oreum.member.service.dto.MemberResponseDto;
 import com.zzarit.oreum.member.service.dto.UpdateMemberProfileRequest;
 import com.zzarit.oreum.member.domain.repository.CategoryRepository;
@@ -73,9 +74,9 @@ public class MemberService {
     }
 
     @Transactional
-    public boolean getTest(Member member){
+    public CheckTestResponseDto getTest(Member member){
         Member m  = memberRepository.findById(member.getId()).get();
-        return !member.getSkip() && m.getCategory() == null;
+        return new CheckTestResponseDto(!member.getSkip() && m.getCategory() == null);
     }
 
 }

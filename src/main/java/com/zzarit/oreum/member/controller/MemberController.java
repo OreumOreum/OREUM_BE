@@ -1,6 +1,7 @@
 package com.zzarit.oreum.member.controller;
 
 import com.zzarit.oreum.member.domain.Member;
+import com.zzarit.oreum.member.service.dto.CheckTestResponseDto;
 import com.zzarit.oreum.member.service.dto.MemberResponseDto;
 import com.zzarit.oreum.member.service.dto.UpdateMemberCategoryRequest;
 import com.zzarit.oreum.member.service.dto.UpdateMemberProfileRequest;
@@ -63,7 +64,7 @@ public class MemberController {
 
     @Operation(summary = "유형검사 생략 조회 API", description = "홈화면에서 유형검사를 실행여부를 조회합니다(True: 검사실행)")
     @GetMapping("test")
-    public ResponseEntity<Boolean> getTest(Member member) {
+    public ResponseEntity<CheckTestResponseDto> getTest(Member member) {
         return ResponseEntity.ok(memberService.getTest(member));
     }
 
