@@ -3,13 +3,13 @@ package com.zzarit.oreum.place.domain;
 
 import com.zzarit.oreum.member.domain.Category;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "course_category")
+@NoArgsConstructor
 public class CourseCategory {
 
     @Id
@@ -25,4 +25,8 @@ public class CourseCategory {
     @JoinColumn(name = "category_type")
     private Category category;
 
+    public CourseCategory(Course course, Category category) {
+        this.course = course;
+        this.category = category;
+    }
 }

@@ -12,6 +12,6 @@ public class SyncRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        synchronizeService.savePlaceAndCourse();
+        synchronizeService.initialize();
     }
 }

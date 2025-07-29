@@ -27,7 +27,8 @@ public class OpenApiClient {
     public OpenApiResponseDto<AreaBasedDto> getAreaBasedList(int pageNo, int numOfRows) {
         URI uri = baseOpenApiBuilder(GET_AREA_BASED_URI)
                 .queryParam("pageNo",pageNo)
-                .queryParam("numOfRows",numOfRows).queryParam("areaCode", "39")
+                .queryParam("numOfRows",numOfRows)
+                .queryParam("areaCode", "39")
                 .build(true)
                 .toUri();
 
