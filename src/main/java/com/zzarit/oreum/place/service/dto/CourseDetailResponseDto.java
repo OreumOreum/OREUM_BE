@@ -9,7 +9,6 @@ public record CourseDetailResponseDto(
         String overview,
         Double averageRate,
         Long reviewCount,
-        CourseDetailDto detailInfo,
         List<PlaceResponseDto> places
 
 ) {
@@ -35,7 +34,6 @@ public record CourseDetailResponseDto(
                 course.getOverview(),
                 rateSummary.average(),
                 rateSummary.count(),
-                course.getCourseDetail().toDto(),
                 placeResponseDtoList
         );
     }
