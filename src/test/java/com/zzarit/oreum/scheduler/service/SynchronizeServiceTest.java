@@ -17,4 +17,9 @@ class SynchronizeServiceTest {
         synchronizeService.savePlaceAndCourse();
     }
 
+    @Test
+    void saveOverview(){
+        synchronizeService.saveOverviewBatch();
+    }
+
 }

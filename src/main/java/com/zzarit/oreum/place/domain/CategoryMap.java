@@ -1,11 +1,15 @@
-package com.zzarit.oreum.member.domain;
+package com.zzarit.oreum.place.domain;
 
+import com.zzarit.oreum.member.domain.Category;
+import com.zzarit.oreum.member.domain.SubCategory;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "category_map")
 @NoArgsConstructor
+@Getter
 public class CategoryMap {
 
     @EmbeddedId
