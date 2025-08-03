@@ -40,8 +40,12 @@ public class PlaceService {
     private final SpotRepository spotRepository;
     private final FolderRepository folderRepository;
 
-    public Page<Place> getSearchPlaces(PlaceSearchConditionDto condition, Pageable pageable) {
-        return placeRepository.searchPlaces(condition, pageable);
+    public Page<Place> getSearchPlaces(PlaceSearchConditionDto condition,
+                                       Integer sigunguCode,
+                                       int page,
+                                       int size ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return placeRepository.searchPlaces(condition, pageable,sigunguCode);
     }
 
     @Transactional
@@ -100,6 +104,14 @@ public class PlaceService {
 
         return PlaceDetailResponseDto.from(place, rateSummary, isSpot, isSaved);
 
+    }
+
+    public List<MyReviewResponseDto> getMyReviews(Member member){
+        List<Review> reviews = reviewRepository.findReviewsByMember(member);
+        return reviews.stream().map((review)->
+                new MyReviewResponseDto
+                        (review.getRate(),review.getContent(),review.getCreatedAt(),review.getUpdatedAt()))
+                .toList();
     }
 
 

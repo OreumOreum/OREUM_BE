@@ -6,6 +6,7 @@ import java.util.List;
 
 public record PlaceDetailResponseDto(
         String title,
+        String contentTypeId,
         String smallCategory,
         String middleCategory,
         String largeCategory,
@@ -14,6 +15,7 @@ public record PlaceDetailResponseDto(
         String overview,
         Double mapX,
         Double mapY,
+        String originImage,
         Double averageRate,
         Long reviewCount,
         boolean isSpot,
@@ -24,6 +26,7 @@ public record PlaceDetailResponseDto(
 
         return new PlaceDetailResponseDto(
                 place.getTitle(),
+                place.getContentTypeId(),
                 place.getCategory3(),
                 place.getCategory2(),
                 place.getCategory1(),
@@ -32,6 +35,7 @@ public record PlaceDetailResponseDto(
                 place.getOverview(),
                 place.getMapx(),
                 place.getMapy(),
+                place.getOriginImage(),
                 rateSummary.average(),
                 rateSummary.count(),
                 isSpot,

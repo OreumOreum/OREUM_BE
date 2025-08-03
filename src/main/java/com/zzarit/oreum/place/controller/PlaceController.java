@@ -27,10 +27,12 @@ public class PlaceController {
     @GetMapping("/search-places")
     public ResponseEntity<PlaceSearchResponseDto> searchPlaces(
             @RequestParam String keyword,
-            Pageable pageable
+            @RequestParam(required = false) Integer sigunguCode,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
         PlaceSearchConditionDto condition = new PlaceSearchConditionDto(keyword);
-        Page<Place> places = placeService.getSearchPlaces(condition, pageable);
+        Page<Place> places = placeService.getSearchPlaces(condition, sigunguCode,page,size);
 
         List<PlaceDto> content = places.getContent()
                 .stream()
@@ -58,6 +60,13 @@ public class PlaceController {
             @RequestParam(defaultValue = "10") int size,
             Member member){
         return ResponseEntity.ok(placeService.getPlacePagination(sigunguCode,page,size,member));
+    }
+
+    @Operation(summary = "내가 쓴 리뷰 조회", description = "내가 쓴 리뷰를 모두 조회합니다.")
+    @GetMapping("/review/me")
+    public ResponseEntity<List<MyReviewResponseDto>> getMyReviews(
+            Member member){
+        return ResponseEntity.ok(placeService.getMyReviews(member));
     }
 
     @Operation(summary = "단일 여행지 리뷰 페이지네이션 조회", description = "여행지에 대한 리뷰를 페이지네이션합니다.")
