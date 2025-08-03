@@ -33,9 +33,9 @@ public class FolderService {
     };
 
     public List<FolderResponseDto> getMyFolders(Member member) {
-        List<Folder> folders = folderRepository.findAllByMember(member);
+        List<Folder> folders = folderRepository.findAllByMemberWithFetch(member);
 
-        return folders.stream().map(folder -> new FolderResponseDto(folder.getId(), folder.getName())).toList();
+        return folders.stream().map(FolderResponseDto::from).toList();
     }
 
     public void updateFolderName(Long folderId, FolderNameRequestDto request, Member member) {

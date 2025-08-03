@@ -11,7 +11,7 @@ spring:
   application:
     name: oreum
   datasource:
-    url: jdbc:h2:mem:database
+    url: jdbc:h2:mem:database;DB_CLOSE_DELAY=-1;MODE=MySQL
     hikari:
       maximum-pool-size: 8
   sql:

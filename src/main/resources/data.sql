@@ -79,14 +79,14 @@ INSERT INTO tour_detail (created_at, updated_at, accomcount, chkbabycarriage, ch
                                                                                                                                                                                                                               (NOW(), NOW(), '500명', '가능', '가능', '불가능', '전연령', '한국어, 영어, 일본어', 1, '세계자연유산', '성산일출봉', '064-783-0959', '20071201', '가능', '연중무휴', '사계절', '05:00-19:00');
 
 -- 14. place 테이블
-INSERT INTO place (created_at, updated_at, address) VALUES
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리');
+INSERT INTO place (created_at, updated_at, address, origin_image) VALUES
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리','image2'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7');
 
 
 -- 16. spot 테이블
@@ -140,10 +140,15 @@ INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
 
 -- 21. folder_place 테이블
 INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
-                                                                           (NOW(), NOW(), 1, 3),
-                                                                           (NOW(), NOW(), 1, 6),
-                                                                           (NOW(), NOW(), 2, 2),
-                                                                           (NOW(), NOW(), 2, 4),
+                                                                           (CURRENT_TIMESTAMP,             CURRENT_TIMESTAMP,             1, 1),
+                                                                           (DATEADD('SECOND', 1, CURRENT_TIMESTAMP), DATEADD('SECOND', 1, CURRENT_TIMESTAMP), 1, 2),
+                                                                           (DATEADD('SECOND', 2, CURRENT_TIMESTAMP), DATEADD('SECOND', 2, CURRENT_TIMESTAMP), 1, 3),
+                                                                           (DATEADD('SECOND', 3, CURRENT_TIMESTAMP), DATEADD('SECOND', 3, CURRENT_TIMESTAMP), 1, 4),
+                                                                           (DATEADD('SECOND', 4, CURRENT_TIMESTAMP), DATEADD('SECOND', 4, CURRENT_TIMESTAMP), 1, 5),
+                                                                           (DATEADD('SECOND', 5, CURRENT_TIMESTAMP), DATEADD('SECOND', 5, CURRENT_TIMESTAMP), 1, 6),
+                                                                           (DATEADD('SECOND', 6, CURRENT_TIMESTAMP), DATEADD('SECOND', 6, CURRENT_TIMESTAMP), 1, 7),
+                                                                           (DATEADD('SECOND', 7, CURRENT_TIMESTAMP), DATEADD('SECOND', 7, CURRENT_TIMESTAMP), 2, 2),
+                                                                           (DATEADD('SECOND', 8, CURRENT_TIMESTAMP), DATEADD('SECOND', 8, CURRENT_TIMESTAMP), 2, 4),
                                                                            (NOW(), NOW(), 3, 1),
                                                                            (NOW(), NOW(), 3, 4),
                                                                            (NOW(), NOW(), 4, 2),
