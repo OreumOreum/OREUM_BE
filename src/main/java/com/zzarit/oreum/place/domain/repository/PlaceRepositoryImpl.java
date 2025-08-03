@@ -25,7 +25,7 @@ public class PlaceRepositoryImpl implements PlaceRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<Place> searchPlaces(PlaceSearchConditionDto condition, Pageable pageable) {
+    public Page<Place> searchPlaces(PlaceSearchConditionDto condition, Pageable pageable, Integer sigunguCode) {
         QPlace place = QPlace.place;
 
         BooleanBuilder builder = new BooleanBuilder();
@@ -34,6 +34,10 @@ public class PlaceRepositoryImpl implements PlaceRepositoryCustom {
             builder.or(place.title.containsIgnoreCase(condition.keyword()));
             builder.or(place.address.containsIgnoreCase(condition.keyword()));
             builder.or(place.tel.containsIgnoreCase(condition.keyword()));
+        }
+
+        if (sigunguCode != null) {
+            builder.and(place.sigunguCode.eq(sigunguCode));
         }
 
         List<Place> content = queryFactory

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PlaceRepositoryCustom {
-    Page<Place> searchPlaces(PlaceSearchConditionDto condition, Pageable pageable);
+    Page<Place> searchPlaces(PlaceSearchConditionDto condition, Pageable pageable, Integer sigunguCode);
 
     Page<Place> findPlaceList(Integer sigunguCode, Type type, Pageable pageable);
 }

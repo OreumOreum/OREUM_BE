@@ -27,10 +27,12 @@ public class PlaceController {
     @GetMapping("/search-places")
     public ResponseEntity<PlaceSearchResponseDto> searchPlaces(
             @RequestParam String keyword,
-            Pageable pageable
+            @RequestParam(required = false) Integer sigunguCode,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
         PlaceSearchConditionDto condition = new PlaceSearchConditionDto(keyword);
-        Page<Place> places = placeService.getSearchPlaces(condition, pageable);
+        Page<Place> places = placeService.getSearchPlaces(condition, sigunguCode,page,size);
 
         List<PlaceDto> content = places.getContent()
                 .stream()

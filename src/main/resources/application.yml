@@ -64,7 +64,7 @@ security:
       access-secret-key: testAccessSecretKeytestAccessSecretKeytestAccessSecretKeytestAccessSecretKeytest
       refresh-secret-key: testRefreshSecretKeytestRefreshSecretKeytestRefreshSecretKeytestRefreshSecretKeytest
       refresh-token-expired: 14d
-      access-token-expired: 30m
+      access-token-expired: 1d
 
 #auth:
 #  connect-timeout-length: 3s
