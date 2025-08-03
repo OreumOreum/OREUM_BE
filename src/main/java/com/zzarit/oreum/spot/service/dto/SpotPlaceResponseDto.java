@@ -10,6 +10,8 @@ public record SpotPlaceResponseDto(
         String detailAddress,
         double mapX,
         double mapY,
+        String originImage,
+        String thumbnailImage,
         boolean visited
 )
 {
@@ -22,6 +24,8 @@ public record SpotPlaceResponseDto(
                 spot.getPlace().getDetailAddress(),
                 spot.getPlace().getMapx(),
                 spot.getPlace().getMapy(),
+                spot.getPlace().getOriginImage(),
+                spot.getPlace().getThumbnailImage(),
                 visited
         );
     }

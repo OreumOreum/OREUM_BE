@@ -6,6 +6,7 @@ import java.util.List;
 
 public record PlaceDetailResponseDto(
         String title,
+        String contentTypeId,
         String smallCategory,
         String middleCategory,
         String largeCategory,
@@ -24,6 +25,7 @@ public record PlaceDetailResponseDto(
 
         return new PlaceDetailResponseDto(
                 place.getTitle(),
+                place.getContentTypeId(),
                 place.getCategory3(),
                 place.getCategory2(),
                 place.getCategory1(),
