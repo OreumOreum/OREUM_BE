@@ -106,5 +106,13 @@ public class PlaceService {
 
     }
 
+    public List<MyReviewResponseDto> getMyReviews(Member member){
+        List<Review> reviews = reviewRepository.findReviewsByMember(member);
+        return reviews.stream().map((review)->
+                new MyReviewResponseDto
+                        (review.getRate(),review.getContent(),review.getCreatedAt(),review.getUpdatedAt()))
+                .toList();
+    }
+
 
 }

@@ -62,6 +62,13 @@ public class PlaceController {
         return ResponseEntity.ok(placeService.getPlacePagination(sigunguCode,page,size,member));
     }
 
+    @Operation(summary = "내가 쓴 리뷰 조회", description = "내가 쓴 리뷰를 모두 조회합니다.")
+    @GetMapping("/review/me")
+    public ResponseEntity<List<MyReviewResponseDto>> getMyReviews(
+            Member member){
+        return ResponseEntity.ok(placeService.getMyReviews(member));
+    }
+
     @Operation(summary = "단일 여행지 리뷰 페이지네이션 조회", description = "여행지에 대한 리뷰를 페이지네이션합니다.")
     @GetMapping("/review/{placeId}")
     public ResponseEntity<ReviewPaginationResponseDto> getReviewPagination(

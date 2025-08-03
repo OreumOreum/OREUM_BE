@@ -11,6 +11,7 @@ import java.util.Optional;
 public record ReviewResponseDto(
         Double rate,
         String content,
+        LocalDateTime createdAt,
         LocalDateTime updatedAt,
         Type type
 ) {
@@ -24,6 +25,7 @@ public record ReviewResponseDto(
         return new ReviewResponseDto(
                         review.getRate(),
                         review.getContent(),
+                        review.getCreatedAt(),
                         review.getUpdatedAt(),
                         categoryType
         );
