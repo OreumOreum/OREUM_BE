@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public record FolderResponseDto(Long folderId, String folderName, List<String> originImages) {
+public record FolderResponseDto(Long folderId, String folderName, List<String> originImages, boolean isDefault) {
 
 
     public static FolderResponseDto from(Folder folder) {
@@ -23,7 +23,8 @@ public record FolderResponseDto(Long folderId, String folderName, List<String> o
         return new FolderResponseDto(
                 folder.getId(),
                 folder.getName(),
-                images
+                images,
+                folder.isDefault()
         );
     }
 

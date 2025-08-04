@@ -29,13 +29,13 @@ public interface FolderRepository extends JpaRepository<Folder, Long> {
 
 
     @Query("""
-        select f
+        select distinct f
         from Folder f
-        join fetch f.folderPlaces fp
+        left join fetch f.folderPlaces fp
         left join fetch fp.place p
         where f.member = :member
-        ORDER BY fp.createdAt ASC
-        """)
+        order by fp.createdAt asc
+""")
     List<Folder> findAllByMemberWithFetch(
             @Param("member") Member member
     );
