@@ -72,6 +72,7 @@ public class FolderPlaceService {
         folderPlaceRepository.save(folderPlace);
     }
 
+    @Transactional
     public List<FolderPlaceResponseDto> getMyFolderPlaces(Long folderId, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
                 .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
