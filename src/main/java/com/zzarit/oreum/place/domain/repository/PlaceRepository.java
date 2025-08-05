@@ -19,7 +19,7 @@ import java.util.Optional;
 public interface PlaceRepository extends JpaRepository<Place, Long>, PlaceRepositoryCustom {
     List<Place> findBySigunguCode(Integer sigunguCode);
     List<Place> findBySigunguCodeAndIdNotIn(Integer sigunguCode, List<Long> ids);
-    Page<Place> findPlaceList(Integer sigunguCode, Type type, Pageable pageable);
+    Page<Place> findPlaceList(String contentTypeId, Integer sigunguCode, Type type,Pageable pageable);
 
     @Query("select p.contentId from Place p where p.contentId in :ids")
     List<String> findAllContentIdIn(@Param("ids") Collection<String> ids);

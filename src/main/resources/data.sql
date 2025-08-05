@@ -38,6 +38,9 @@ INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, 
                                                                                                                                                                                 (NOW(), NOW(), '레포츠', '산악', '등반', 'course_002', 'https://example.com/course2_origin.jpg', '한라산 둘레길과 주변 오름을 탐방하는 트래킹 코스', 3, 'https://example.com/course2_thumb.jpg', '한라산 둘레길 트래킹', 2),
                                                                                                                                                                                 (NOW(), NOW(), '문화', '역사', '유적', 'course_003', 'https://example.com/course3_origin.jpg', '제주의 전통 문화와 역사 유적지를 둘러보는 코스', 4, 'https://example.com/course3_thumb.jpg', '제주 문화유적 탐방', 3),
                                                                                                                                                                                 (NOW(), NOW(), '음식', '향토', '맛집', 'course_004', 'https://example.com/course4_origin.jpg', '제주 대표 음식점들을 순서대로 방문하는 미식 코스', 3, 'https://example.com/course4_thumb.jpg', '제주 향토음식 투어', 4);
+INSERT INTO course_category (course_id,category_type) VALUES
+                                    (1,'CULTURE'),
+                                    (2,'CULTURE');
 
 
 -- 7. culture_detail 테이블
@@ -79,14 +82,14 @@ INSERT INTO tour_detail (created_at, updated_at, accomcount, chkbabycarriage, ch
                                                                                                                                                                                                                               (NOW(), NOW(), '500명', '가능', '가능', '불가능', '전연령', '한국어, 영어, 일본어', 1, '세계자연유산', '성산일출봉', '064-783-0959', '20071201', '가능', '연중무휴', '사계절', '05:00-19:00');
 
 -- 14. place 테이블
-INSERT INTO place (created_at, updated_at, address, origin_image) VALUES
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리','image2'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7');
+INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id) VALUES
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리','image2',4,1),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5',3,2),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6',4,2),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7',3,2);
 
 
 -- 16. spot 테이블
