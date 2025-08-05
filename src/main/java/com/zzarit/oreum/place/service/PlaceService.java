@@ -22,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,20 +61,29 @@ public class PlaceService {
     }
 
     @Transactional
-    public PlacesResponseDto getPlacePagination(Integer sigungucode,
-                                                int page,
-                                                int size,
-                                                Member member) {
-        Pageable pageable = PageRequest.of(page, size);
-        Type type = (member.getCategory() != null) ? member.getCategory().getType() : null;
-        Page<Place> placeList = placeRepositoryImpl.findPlaceList(sigungucode, type, pageable);
+    public PlacesResponseDto getPlacePagination(
+            String contentTypeId,
+            Integer sigungucode,
+            Pageable pageable,
+            Member member,
+            boolean typeFilter
+            ) {
+        Type type = typeFilter
+                ? (member.getCategory() != null ? member.getCategory().getType() : null)
+                : null;
+        Page<Place> placeList = placeRepository.findPlaceList(contentTypeId, sigungucode, type, pageable);
+
         List<PlacePaginationResponseDto> dtos = placeList.getContent()
                 .stream()
-                .map(PlacePaginationResponseDto::from)
+                .map((place) ->{
+                    boolean isSaved = folderPlaceRepository.existsByMemberAndPlace(member,place);
+                    return PlacePaginationResponseDto.from(place,isSaved);
+                })
                 .toList();
 
         return new PlacesResponseDto(dtos, placeList.isLast());
     }
+
 
     @Transactional
     public ReviewPaginationResponseDto getReviewPaginationByPlace(long placeId, int page, int size) {
@@ -92,12 +102,8 @@ public class PlaceService {
     public PlaceDetailResponseDto getPlaceDetail(long placeId, Member member) {
         Place place = placeRepository.findById(placeId).orElseThrow(() -> new NotFoundException("장소"));
         RateSummary rateSummary = reviewRepository.getRateSummaryByPlaceId(place.getId());
-        List<Folder> folders = folderPlaceRepository.findAllWithFolderPlacesByMember(member.getId());
 
-        boolean isSaved = folders.stream()
-                .flatMap(f -> f.getFolderPlaces().stream())
-                .anyMatch(fp -> fp.getPlace().getId().equals(placeId));
-
+        boolean isSaved = folderPlaceRepository.existsByMemberAndPlace(member,place);
 
         LocalDate now = LocalDate.now();
         boolean isSpot = spotRepository.existsThisMonthWithPlace(now.getYear(), now.getMonth().getValue(), place);

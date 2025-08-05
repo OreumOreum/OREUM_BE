@@ -16,7 +16,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
         FROM Course c
         JOIN c.courseCategories cc
         JOIN cc.category cat
-        WHERE cat.type = :type
+        WHERE (:type IS NULL OR cat.type = :type)
 """)
     public List<Course> findAllByCategoryType(Type type);
 

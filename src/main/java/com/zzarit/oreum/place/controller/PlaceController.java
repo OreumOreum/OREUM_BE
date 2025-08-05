@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,20 @@ import java.util.List;
 public class PlaceController {
 
     private final PlaceService placeService;
+
+    @Operation(summary = "여행지 페이지네이션 조회", description = "유형필터시 type=true, 리뷰좋은순 sort=review,DESC")
+    @GetMapping()
+    public ResponseEntity<PlacesResponseDto> getPlacePagination(
+            @RequestParam(required = false) String contentTypeId,
+            @RequestParam(required = false) Integer sigunguCode,
+            @RequestParam(name = "type", defaultValue = "false") boolean typeFilter,
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC)
+            Pageable pageable,
+            Member member
+            ){
+        return ResponseEntity.ok(placeService.getPlacePagination(contentTypeId,sigunguCode,pageable,member,typeFilter));
+    }
+
 
     @Operation(summary = "장소 검색 API", description = "DB에 등록된 장소를 검색합니다.")
     @GetMapping("/search-places")
@@ -52,15 +68,6 @@ public class PlaceController {
         return ResponseEntity.ok(placeService.getPlaceDetail(placeId,member));
     }
 
-    @Operation(summary = "여행지 페이지네이션 조회", description = "유형에 맞는 단일 여행지 추천.")
-    @GetMapping()
-    public ResponseEntity<PlacesResponseDto> getReviewPagination(
-            @RequestParam(required = false) Integer sigunguCode,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            Member member){
-        return ResponseEntity.ok(placeService.getPlacePagination(sigunguCode,page,size,member));
-    }
 
     @Operation(summary = "내가 쓴 리뷰 조회", description = "내가 쓴 리뷰를 모두 조회합니다.")
     @GetMapping("/review/me")

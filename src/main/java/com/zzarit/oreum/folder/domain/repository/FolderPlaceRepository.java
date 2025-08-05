@@ -19,6 +19,15 @@ public interface FolderPlaceRepository extends JpaRepository<FolderPlace, Long> 
     boolean existsByFolderAndPlace(Folder folder, Place place);
     void deleteByFolderAndPlace(Folder folder, Place place);
 
+    @Query("""
+            SELECT CASE WHEN COUNT(fp) > 0 THEN true ELSE false END
+            FROM FolderPlace fp
+            WHERE fp.folder.member = :member AND fp.place = :place
+          """)
+    boolean existsByMemberAndPlace(@Param("member") Member member,
+                                               @Param("place") Place place);
+
+
     @Query("SELECT CASE WHEN COUNT(fp) > 0 THEN true ELSE false END " +
             "FROM FolderPlace fp WHERE fp.folder.member = :member AND fp.place = :place AND fp.folder <> :excludedFolder")
     boolean existsByMemberAndPlaceAndFolderNot(@Param("member") Member member,
