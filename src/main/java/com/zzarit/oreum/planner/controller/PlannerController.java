@@ -38,6 +38,12 @@ public class PlannerController {
         return ResponseEntity.ok(planners);
     }
 
+    @Operation(summary = "플래너 여행코스 추천 API", description = "유형에 맞는 코스를 랜덤으로 추천합니다.")
+    @GetMapping("/recommend")
+    public ResponseEntity<PlannerCourseResponseDto> recommendCourse(Member member) {
+        return ResponseEntity.ok(plannerService.recommendCourse(member));
+    }
+
     @Operation(summary = "플래너 상세보기 API", description = "본인의 플래너에 추가된 장소와 일정을 조회합니다")
     @GetMapping("/{plannerId}")
     public ResponseEntity<List<PlannerPlaceResponseDto>> getMyPlannerPlaces(@PathVariable Long plannerId, Member member) {

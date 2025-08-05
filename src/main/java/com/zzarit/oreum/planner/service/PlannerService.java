@@ -6,8 +6,13 @@ import com.zzarit.oreum.folder.service.dto.FolderPlaceResponseDto;
 import com.zzarit.oreum.global.exception.ForbiddenException;
 import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.global.exception.UnauthorizedException;
+import com.zzarit.oreum.global.util.RandomUtils;
 import com.zzarit.oreum.member.domain.Member;
+import com.zzarit.oreum.member.domain.Type;
+import com.zzarit.oreum.member.domain.repository.MemberRepository;
+import com.zzarit.oreum.place.domain.Course;
 import com.zzarit.oreum.place.domain.Place;
+import com.zzarit.oreum.place.domain.repository.CourseRepository;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.planner.domain.Planner;
 import com.zzarit.oreum.planner.domain.PlannerPlace;
@@ -23,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -33,6 +40,8 @@ public class PlannerService {
     private final PlannerRepository plannerRepository;
     private final PlannerPlaceRepository plannerPlaceRepository;
     private final PlaceRepository placeRepository;
+    private final CourseRepository courseRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public void createPlanner(PlannerCreateRequestDto request, Member member) {
@@ -109,5 +118,48 @@ public class PlannerService {
     @Transactional
     public void deleteAllPlanners(Member member) {
         plannerRepository.deleteAllByMember(member);
+    }
+
+    @Transactional
+    public PlannerCourseResponseDto recommendCourse(Member member){
+        Type type = memberRepository.findTypeByMember(member.getId());
+        List<Course> courses = courseRepository.findAllByCategoryType(type);
+
+        Course course = RandomUtils.getRandomElement(courses);
+        if(course==null) throw new NotFoundException("유형의 코스");
+
+        List<Place> placeList = course.getPlaces();
+        String plannerName = generatePlannerName(member.getId());
+
+        return PlannerCourseResponseDto.of(plannerName,placeList);
+    }
+
+    @Transactional(readOnly = true)
+    public String generatePlannerName(Long memberId) {
+        String baseName = "오름오름 나만의 추천 여행코스";
+        // 1) baseName으로 시작하는 모든 이름을 조회
+        List<String> existing = plannerRepository.findNamesByNameStartingWith(baseName + "%", memberId);
+
+        // 2) 하나도 없으면 baseName 그대로 리턴
+        if (existing.isEmpty()) {
+            return baseName;
+        }
+
+        // 3) 정규식으로 뒤 숫자만 뽑아서 최대값 계산
+        Pattern p = Pattern.compile("^" + Pattern.quote(baseName) + "(\\d*)$");
+        int maxSuffix = existing.stream()
+                .map(name -> {
+                    Matcher m = p.matcher(name);
+                    if (m.matches() && !m.group(1).isEmpty()) {
+                        return Integer.parseInt(m.group(1));
+                    }
+                    // “숫자 없이 순수 baseName” 도 suffix=0 으로 처리
+                    return 0;
+                })
+                .max(Integer::compareTo)
+                .orElse(0);
+
+        // 4) 다음 숫자를 붙여서 리턴
+        return baseName + (maxSuffix + 1);
     }
 }
