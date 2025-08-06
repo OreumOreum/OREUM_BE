@@ -59,6 +59,7 @@ public class PlannerService {
         return planners.stream().map(planner -> new PlannerResponseDto(planner.getId(), planner.getName())).toList();
     }
 
+    @Transactional
     public List<PlannerPlaceResponseDto> getMyPlannerPlaces(Long plannerId, Member member) {
         Planner planner = plannerRepository.findByIdAndMember(plannerId, member)
                 .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
