@@ -7,6 +7,7 @@ public record CourseDetailResponseDto(
         String middleCategory,
         Integer sigunguCode,
         String overview,
+        String originImage,
         Double averageRate,
         Long reviewCount,
         List<PlaceResponseDto> places
@@ -16,6 +17,7 @@ public record CourseDetailResponseDto(
     public static CourseDetailResponseDto from(Course course,RateSummary rateSummary) {
         List<PlaceResponseDto> placeResponseDtoList = course.getPlaces().stream()
                 .map(place -> new PlaceResponseDto(
+                        place.getId(),
                         place.getTitle(),
                         place.getAddress(),
                         place.getMapx(),
@@ -32,6 +34,7 @@ public record CourseDetailResponseDto(
                 course.getCategory2(),
                 course.getSigunguCode(),
                 course.getOverview(),
+                course.getOriginImage(),
                 rateSummary.average(),
                 rateSummary.count(),
                 placeResponseDtoList
@@ -39,6 +42,7 @@ public record CourseDetailResponseDto(
     }
 
     public record PlaceResponseDto(
+            Long id,
             String title,
             String address,
             Double mapX,
