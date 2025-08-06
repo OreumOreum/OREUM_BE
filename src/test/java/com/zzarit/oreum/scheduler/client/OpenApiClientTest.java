@@ -16,9 +16,14 @@ class OpenApiClientTest {
     private OpenApiClient openApiClient;
 
     @Test
-    public void xyExistTest() {
+    public void detailCommonTest() {
         DetailCommonDto detailCommon = openApiClient.getDetailCommon("2755053");
         System.out.println(detailCommon.getOverview());
+    }
+
+    @Test
+    public void courseInfoTest() {
+        openApiClient.getDetailInfo("2372024");
     }
 
 

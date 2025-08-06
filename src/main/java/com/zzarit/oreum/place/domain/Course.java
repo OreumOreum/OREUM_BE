@@ -56,6 +56,7 @@ public class Course extends BaseTimeEntity {
     private String category3;
 
     @Comment("소개글")
+    @Lob
     @Column(name = "overview")
     private String overview;
 

@@ -10,7 +10,9 @@ import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import com.zzarit.oreum.scheduler.client.OpenApiClient;
 import com.zzarit.oreum.scheduler.client.dto.AreaBasedDto;
 import com.zzarit.oreum.scheduler.client.dto.DetailCommonDto;
+import com.zzarit.oreum.scheduler.client.dto.DetailInfoDto;
 import com.zzarit.oreum.scheduler.client.dto.OpenApiResponseDto;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.CrudRepository;
@@ -36,8 +38,12 @@ public class SynchronizeService {
     private int courseOverviewOffset = 0;
 
     public void initialize(){
+        log.info("1) Place,Course 데이터 저장 시작");
         savePlaceAndCourse();
+        log.info("2) PlaceCategory 매핑 시작");
         saveCategoryMap();
+        log.info("3) CoursePlace 매핑 시작");
+        saveCoursePlace();
     }
 
 
@@ -152,7 +158,7 @@ public class SynchronizeService {
     }
 
     /**
-     * 매일 낮 12시 900건씩 Place/Course Overview 갱신
+     * 매일 낮 12시 500건씩 Place/Course Overview 갱신
      */
     @Scheduled(cron = "0 0 12 * * ?")
     public void saveOverviewDaily() {
@@ -161,27 +167,72 @@ public class SynchronizeService {
 
     @Transactional
     public void saveOverviewBatch() {
-        int batchSize = 10;
+        int batchSize = 500;
 
         List<Place> places = placeRepository.findAll();
         int pTo = Math.min(placeOverviewOffset + batchSize, places.size());
         List<Place> subPlaces = places.subList(placeOverviewOffset, pTo);
-        subPlaces.forEach(place -> {
+        for (Place place : subPlaces) {
             DetailCommonDto dto = openApiClient.getDetailCommon(place.getContentId());
+            if (dto == null) {
+                continue;
+            }
             place.setOverview(dto.getOverview());
-        });
+        }
         placeRepository.saveAll(subPlaces);
         placeOverviewOffset = (pTo >= places.size()) ? 0 : pTo;
 
         List<Course> courses = courseRepository.findAll();
         int cTo = Math.min(courseOverviewOffset + batchSize, courses.size());
         List<Course> subCourses = courses.subList(courseOverviewOffset, cTo);
-        subCourses.forEach(course -> {
+        for (Course course : subCourses) {
             DetailCommonDto dto = openApiClient.getDetailCommon(course.getContentId());
+            if (dto == null) {
+                continue;
+            }
             course.setOverview(dto.getOverview());
-        });
+        }
         courseRepository.saveAll(subCourses);
         courseOverviewOffset = (cTo >= courses.size()) ? 0 : cTo;
+    }
+
+    @Transactional
+    public void saveCoursePlace() {
+        // 1) 모든 Course 순회
+        for (Course course : courseRepository.findAll()) {
+            List<DetailInfoDto> dtos = openApiClient.getDetailInfo(course.getContentId());
+
+            // 2) dtos가 null 이거나 비어 있으면 건너뛰기
+            if (dtos == null || dtos.isEmpty()) {
+                log.warn("Course에 해당하는 DetailInfo가 없습니다. contentId={}", course.getContentId());
+                continue;
+            }
+
+            // 3) 각 DTO마다 place 업데이트 또는 새로 저장
+            for (DetailInfoDto dto : dtos) {
+                placeRepository.findByContentId(dto.getContentId())
+                        .map(place -> {
+                            // 기존 place가 있으면 update
+                            log.debug("   진입 {}", place.getId());
+                            place.setCourse(course);
+                            place.setOrders(dto.getOrder());
+                            return placeRepository.save(place);
+                        })
+                        .orElseGet(() -> {
+                            // 없으면 새로 생성하여 저장
+                            log.warn("신규 Place 생성: contentId={}", dto.getContentId());
+                            Place newPlace = Place.builder()
+                                    .contentId(dto.getContentId())
+                                    .title(dto.getTitle())
+                                    .overview(dto.getOverview())
+                                    .orders(dto.getOrder())
+                                    .originImage(dto.getOriginImage())
+                                    .course(course)
+                                    .build();
+                            return placeRepository.save(newPlace);
+                        });
+            }
+        }
     }
 
 
