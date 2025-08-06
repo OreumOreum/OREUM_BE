@@ -23,4 +23,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long>, PlaceReposi
 
     @Query("select p.contentId from Place p where p.contentId in :ids")
     List<String> findAllContentIdIn(@Param("ids") Collection<String> ids);
+
+    Optional<Place> findByContentId(String contentId);
 }

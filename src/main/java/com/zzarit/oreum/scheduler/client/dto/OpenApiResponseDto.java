@@ -51,4 +51,11 @@ public class OpenApiResponseDto<T> {
                 .filter(list -> !list.isEmpty())
                 .map(list -> list.get(0));
     }
+
+    public Optional<List<T>> allItems() {
+        return Optional.ofNullable(response)
+                .map(Response::getBody)
+                .map(Body::getItems)
+                .map(Items::getItem);
+    }
 }

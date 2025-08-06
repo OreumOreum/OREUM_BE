@@ -48,7 +48,7 @@ public class Place extends BaseTimeEntity {
     private String category3;
 
     @Comment("콘텐츠 ID")
-    @Column(name = "content_id")
+    @Column(name = "content_id", unique = true)
     private String contentId;
 
     @Comment("관광타입 분류")
@@ -83,6 +83,9 @@ public class Place extends BaseTimeEntity {
     @Lob
     @Column(name = "overview")
     private String overview ;
+
+    @Column(name = "orders")
+    private Integer orders;
 
     @Builder.Default
     @OneToMany(mappedBy = "place")

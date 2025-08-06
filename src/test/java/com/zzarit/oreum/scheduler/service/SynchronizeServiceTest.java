@@ -22,4 +22,9 @@ class SynchronizeServiceTest {
         synchronizeService.saveOverviewBatch();
     }
 
+    @Test
+    void saveCoursePlace(){
+        synchronizeService.saveCoursePlace();
+    }
+
 }

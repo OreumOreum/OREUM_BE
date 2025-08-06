@@ -2,6 +2,7 @@ package com.zzarit.oreum.scheduler.client;
 
 import com.zzarit.oreum.scheduler.client.dto.AreaBasedDto;
 import com.zzarit.oreum.scheduler.client.dto.DetailCommonDto;
+import com.zzarit.oreum.scheduler.client.dto.DetailInfoDto;
 import com.zzarit.oreum.scheduler.client.dto.OpenApiResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -18,6 +20,7 @@ import java.net.URI;
 public class OpenApiClient {
     private static final String GET_AREA_BASED_URI = "https://apis.data.go.kr/B551011/KorService2/areaBasedList2";
     private static final String GET_DETAIL_COMMON_URI = "https://apis.data.go.kr/B551011/KorService2/detailCommon2";
+    private static final String GET_DETAIL_INFO_URL = "https://apis.data.go.kr/B551011/KorService2/detailInfo2";
 
     @Value("${OPEN_API_SECRET_KEY}")
     private String OPEN_API_SECRET_KEY;
@@ -51,14 +54,22 @@ public class OpenApiClient {
                 .retrieve()
                 .body(new ParameterizedTypeReference<OpenApiResponseDto<DetailCommonDto>>() {});
 
-        if (responseDto == null || responseDto.getResponse()==null
-                || responseDto.getResponse().getBody() == null || responseDto.getResponse().getBody().getItems()==null
-                || responseDto.getResponse().getBody().getItems().getItem().isEmpty()) {
-            log.error("API 호출 자체 실패: contentId={}", contentId);
-            return null;
-        }
-
         return responseDto.firstItem().orElse(null);
+    }
+
+    public List<DetailInfoDto> getDetailInfo(String contentId) {
+        URI uri = baseOpenApiBuilder(GET_DETAIL_INFO_URL)
+                .queryParam("contentId", contentId)
+                .queryParam("contentTypeId", 25)
+                .build(true)
+                .toUri();
+
+        OpenApiResponseDto<DetailInfoDto> responseDto=  restClient.get()
+                .uri(uri)
+                .retrieve()
+                .body(new ParameterizedTypeReference<OpenApiResponseDto<DetailInfoDto>>() {});
+
+        return responseDto.allItems().orElse(null);
     }
 
     private UriComponentsBuilder baseOpenApiBuilder(String uri) {
