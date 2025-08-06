@@ -80,6 +80,7 @@ public class Place extends BaseTimeEntity {
     private String title;
 
     @Comment("상세설명")
+    @Lob
     @Column(name = "overview")
     private String overview ;
 

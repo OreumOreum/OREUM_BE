@@ -51,7 +51,14 @@ public class OpenApiClient {
                 .retrieve()
                 .body(new ParameterizedTypeReference<OpenApiResponseDto<DetailCommonDto>>() {});
 
-        return responseDto.getResponse().getBody().getItems().getItem().get(0);
+        if (responseDto == null || responseDto.getResponse()==null
+                || responseDto.getResponse().getBody() == null || responseDto.getResponse().getBody().getItems()==null
+                || responseDto.getResponse().getBody().getItems().getItem().isEmpty()) {
+            log.error("API 호출 자체 실패: contentId={}", contentId);
+            return null;
+        }
+
+        return responseDto.firstItem().orElse(null);
     }
 
     private UriComponentsBuilder baseOpenApiBuilder(String uri) {

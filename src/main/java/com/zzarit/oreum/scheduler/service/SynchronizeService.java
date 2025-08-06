@@ -152,7 +152,7 @@ public class SynchronizeService {
     }
 
     /**
-     * 매일 낮 12시 900건씩 Place/Course Overview 갱신
+     * 매일 낮 12시 500건씩 Place/Course Overview 갱신
      */
     @Scheduled(cron = "0 0 12 * * ?")
     public void saveOverviewDaily() {
@@ -161,25 +161,31 @@ public class SynchronizeService {
 
     @Transactional
     public void saveOverviewBatch() {
-        int batchSize = 10;
+        int batchSize = 500;
 
         List<Place> places = placeRepository.findAll();
         int pTo = Math.min(placeOverviewOffset + batchSize, places.size());
         List<Place> subPlaces = places.subList(placeOverviewOffset, pTo);
-        subPlaces.forEach(place -> {
+        for (Place place : subPlaces) {
             DetailCommonDto dto = openApiClient.getDetailCommon(place.getContentId());
+            if (dto == null) {
+                continue;
+            }
             place.setOverview(dto.getOverview());
-        });
+        }
         placeRepository.saveAll(subPlaces);
         placeOverviewOffset = (pTo >= places.size()) ? 0 : pTo;
 
         List<Course> courses = courseRepository.findAll();
         int cTo = Math.min(courseOverviewOffset + batchSize, courses.size());
         List<Course> subCourses = courses.subList(courseOverviewOffset, cTo);
-        subCourses.forEach(course -> {
+        for (Course course : subCourses) {
             DetailCommonDto dto = openApiClient.getDetailCommon(course.getContentId());
+            if (dto == null) {
+                continue;
+            }
             course.setOverview(dto.getOverview());
-        });
+        }
         courseRepository.saveAll(subCourses);
         courseOverviewOffset = (cTo >= courses.size()) ? 0 : cTo;
     }

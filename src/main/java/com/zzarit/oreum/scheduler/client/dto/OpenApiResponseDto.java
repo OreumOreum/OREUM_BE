@@ -1,12 +1,16 @@
 package com.zzarit.oreum.scheduler.client.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.filters.AddDefaultCharsetFilter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenApiResponseDto<T> {
     private Response<T> response;
 
@@ -37,5 +41,14 @@ public class OpenApiResponseDto<T> {
     @NoArgsConstructor
     public static class Items<T> {
         private List<T> item;
+    }
+
+    public Optional<T> firstItem() {
+        return Optional.ofNullable(response)
+                .map(Response::getBody)
+                .map(Body::getItems)
+                .map(Items::getItem)
+                .filter(list -> !list.isEmpty())
+                .map(list -> list.get(0));
     }
 }
