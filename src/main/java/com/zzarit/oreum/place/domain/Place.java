@@ -9,6 +9,7 @@ import com.zzarit.oreum.spot.domain.Spot;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +81,10 @@ public class Place extends BaseTimeEntity {
     private String title;
 
     @Comment("상세설명")
-    @Lob
-    @Column(name = "overview")
+    @Column(
+            name             = "overview",
+            columnDefinition = "TEXT"     // ← MySQL TEXT 타입으로 강제
+    )
     private String overview ;
 
     @Column(name = "orders")
