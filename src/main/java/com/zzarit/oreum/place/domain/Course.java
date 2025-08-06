@@ -55,10 +55,13 @@ public class Course extends BaseTimeEntity {
     @Column(name = "category_3")
     private String category3;
 
+    @Comment("소개글")
+    @Lob
     @Column(
             name             = "overview",
-            columnDefinition = "TEXT"
+            columnDefinition = "TEXT"     // ← MySQL TEXT 타입으로 강제
     )
+    private String overview;
 
     @Builder.Default
     @OneToMany(mappedBy = "course")
