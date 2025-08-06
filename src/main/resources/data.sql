@@ -199,326 +199,264 @@ INSERT INTO review (created_at, updated_at, content, rate, course_id, member_id,
                                                                                                (NOW(), NOW(), '가격 대비 만족스러운 식사였습니다.', 4.1, 4, 4, 3);
 
 -- 데이터 삽입 완료
-INSERT INTO category_map (category3, category_type) VALUES
--- 자연 (A01)
-('A01010100', 'FOREST'),
-('A01010100', 'ACTIVITY'),
-('A01010200', 'FOREST'),
-('A01010200', 'MOOD'),
-('A01010300', 'FOREST'),
-('A01010400', 'FOREST'),
-('A01010400', 'ACTIVITY'),
-('A01010400', 'MOOD'),
-('A01010500', 'FOREST'),
-('A01010500', 'CULTURE'),
-('A01010600', 'FOREST'),
-('A01010600', 'MOOD'),
-('A01010700', 'FOREST'),
-('A01010700', 'CULTURE'),
-('A01010700', 'ACTIVITY'),
-('A01010800', 'FOREST'),
-('A01010800', 'MOOD'),
-('A01010900', 'FOREST'),
-('A01010900', 'ACTIVITY'),
-('A01011000', 'FOREST'),
-('A01011100', 'FOREST'),
-('A01011100', 'MOOD'),
-('A01011100', 'ACTIVITY'),
-('A01011200', 'ACTIVITY'),
-('A01011200', 'MOOD'),
-('A01011300', 'FOREST'),
-('A01011300', 'ACTIVITY'),
-('A01011400', 'CULTURE'),
-('A01011400', 'FOOD'),
-('A01011600', 'CULTURE'),
-('A01011600', 'MOOD'),
-('A01011700', 'FOREST'),
-('A01011700', 'MOOD'),
-('A01011800', 'FOREST'),
-('A01011800', 'ACTIVITY'),
-('A01011900', 'FOREST'),
-('A01011900', 'CULTURE'),
-('A01020100', 'FOREST'),
-('A01020100', 'CULTURE'),
-('A01020200', 'FOREST'),
-('A01020200', 'CULTURE'),
+INSERT INTO category_map (category3, category_type) VALUES ('A01010400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010800','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020500','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020600','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020800','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030600','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02040800','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A02050100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020300','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020700','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010600','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010900','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010600','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A04011200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020500','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020600','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021300','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021500','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021600','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021800','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022000','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022300','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022700','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020300','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030400','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030700','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030800','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010300','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03040100','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03040200','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03040300','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('A03040400','ACTIVITY');
+-- MOOD
+INSERT INTO category_map (category3, category_type) VALUES ('A01010500','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010500','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010800','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010900','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020800','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030400','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02050600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020100','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020400','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060500','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02061300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020900','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010100','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010500','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010100','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010400','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010600','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04011000','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022700','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03040400','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02070100','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02070200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080500','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080200','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080400','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080900','MOOD');
+-- FOOD
+INSERT INTO category_map (category3, category_type) VALUES ('A02081300','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011000','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A02040600','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020100','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020200','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020300','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020400','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020700','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010500','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010900','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011000','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010100','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010500','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010100','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010200','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010900','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021700','FOOD');
+--FOREST
+INSERT INTO category_map (category3, category_type) VALUES ('A01010200','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010400','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010500','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010600','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010800','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010900','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011000','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011100','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011200','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011300','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011600','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011800','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01011900','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01020100','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A01020200','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A02050500','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020100','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020200','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020300','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020400','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010100','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010500','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010900','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010100','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010200','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022700','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010200','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030600','FOREST');
+--CULTURE
+INSERT INTO category_map (category3, category_type) VALUES ('A01010200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A01010400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010500','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010700','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010800','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010900','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020300','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020500','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02020700','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02030600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02040400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02040900','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02050100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02050200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02050600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020300','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020700','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060300','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060500','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060700','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060800','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02060900','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02061000','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02061100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02061200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02061300','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02061400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011000','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010700','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010900','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02070100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02070200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080300','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080400','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080500','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080600','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080800','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02080900','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081000','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081100','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081200','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081300','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081400','CULTURE');
+--SOCIAL
+INSERT INTO category_map (category3, category_type) VALUES ('A01011200','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A02010900','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020100','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020200','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020300','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020400','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A05020700','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A05021000','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('B02010600','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011100','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('B02011200','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010300','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010400','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010700','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010100','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A04010200','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020600','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020700','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020800','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03020900','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021000','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021100','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021200','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03021700','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022000','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03022100','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030800','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010200','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03030300','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A03010300','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081300','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('A02081000','SOCIAL');
 
--- 인문(문화/예술/역사) (A02)
-('A02010100', 'CULTURE'),
-('A02010100', 'ACTIVITY'),
-('A02010200', 'CULTURE'),
-('A02010200', 'ACTIVITY'),
-('A02010300', 'CULTURE'),
-('A02010400', 'CULTURE'),
-('A02010400', 'MOOD'),
-('A02010500', 'CULTURE'),
-('A02010600', 'CULTURE'),
-('A02010600', 'ACTIVITY'),
-('A02010600', 'FOOD'),
-('A02010700', 'CULTURE'),
-('A02010700', 'ACTIVITY'),
-('A02010800', 'CULTURE'),
-('A02010800', 'MOOD'),
-('A02010900', 'CULTURE'),
-('A02010900', 'MOOD'),
-('A02011000', 'CULTURE'),
-('A02011000', 'ACTIVITY'),
-('A02020200', 'ACTIVITY'),
-('A02020200', 'FOOD'),
-('A02020200', 'MOOD'),
-('A02020300', 'MOOD'),
-('A02020300', 'FOREST'),
-('A02020400', 'MOOD'),
-('A02020400', 'SOCIAL'),
-('A02020500', 'MOOD'),
-('A02020500', 'ACTIVITY'),
-('A02020600', 'ACTIVITY'),
-('A02020600', 'MOOD'),
-('A02020600', 'SOCIAL'),
-('A02020700', 'MOOD'),
-('A02020700', 'ACTIVITY'),
-('A02020800', 'ACTIVITY'),
-('A02020800', 'CULTURE'),
-('A02030100', 'ACTIVITY'),
-('A02030100', 'CULTURE'),
-('A02030100', 'FOOD'),
-('A02030200', 'CULTURE'),
-('A02030200', 'ACTIVITY'),
-('A02030300', 'CULTURE'),
-('A02030300', 'MOOD'),
-('A02030400', 'ACTIVITY'),
-('A02030400', 'SOCIAL'),
-('A02030600', 'CULTURE'),
-('A02030600', 'SOCIAL'),
-('A02040400', 'CULTURE'),
-('A02040400', 'ACTIVITY'),
-('A02040600', 'FOOD'),
-('A02040600', 'CULTURE'),
-('A02040800', 'CULTURE'),
-('A02040800', 'ACTIVITY'),
-('A02040900', 'CULTURE'),
-('A02040900', 'ACTIVITY'),
-('A02041000', 'CULTURE'),
-('A02041000', 'ACTIVITY'),
-('A02050100', 'CULTURE'),
-('A02050100', 'ACTIVITY'),
-('A02050100', 'MOOD'),
-('A02050200', 'CULTURE'),
-('A02050200', 'MOOD'),
-('A02050300', 'CULTURE'),
-('A02050300', 'MOOD'),
-('A02050400', 'CULTURE'),
-('A02050500', 'CULTURE'),
-('A02050500', 'ACTIVITY'),
-('A02050600', 'CULTURE'),
-('A02050600', 'ACTIVITY'),
-('A02060100', 'CULTURE'),
-('A02060100', 'ACTIVITY'),
-('A02060200', 'CULTURE'),
-('A02060200', 'ACTIVITY'),
-('A02060300', 'CULTURE'),
-('A02060300', 'ACTIVITY'),
-('A02060400', 'CULTURE'),
-('A02060400', 'SOCIAL'),
-('A02060400', 'FOOD'),
-('A02060500', 'CULTURE'),
-('A02060500', 'MOOD'),
-('A02060600', 'CULTURE'),
-('A02060600', 'ACTIVITY'),
-('A02060700', 'CULTURE'),
-('A02060700', 'ACTIVITY'),
-('A02060800', 'CULTURE'),
-('A02060800', 'ACTIVITY'),
-('A02060900', 'CULTURE'),
-('A02060900', 'MOOD'),
-('A02061000', 'CULTURE'),
-('A02061000', 'MOOD'),
-('A02061100', 'CULTURE'),
-('A02061100', 'ACTIVITY'),
-('A02061200', 'CULTURE'),
-('A02061200', 'MOOD'),
-('A02061300', 'CULTURE'),
-('A02061300', 'ACTIVITY'),
-('A02061400', 'CULTURE'),
-('A02061400', 'ACTIVITY'),
-('A02070100', 'CULTURE'),
-('A02070100', 'SOCIAL'),
-('A02070100', 'ACTIVITY'),
-('A02070200', 'SOCIAL'),
-('A02070200', 'ACTIVITY'),
-('A02080100', 'CULTURE'),
-('A02080100', 'ACTIVITY'),
-('A02080200', 'CULTURE'),
-('A02080200', 'MOOD'),
-('A02080300', 'CULTURE'),
-('A02080300', 'MOOD'),
-('A02080400', 'CULTURE'),
-('A02080400', 'MOOD'),
-('A02080500', 'CULTURE'),
-('A02080500', 'ACTIVITY'),
-('A02080600', 'CULTURE'),
-('A02080600', 'ACTIVITY'),
-('A02080800', 'CULTURE'),
-('A02080800', 'ACTIVITY'),
-('A02080900', 'CULTURE'),
-('A02080900', 'MOOD'),
-('A02081000', 'CULTURE'),
-('A02081000', 'SOCIAL'),
-('A02081100', 'CULTURE'),
-('A02081100', 'MOOD'),
-('A02081200', 'ACTIVITY'),
-('A02081200', 'SOCIAL'),
-('A02081300', 'ACTIVITY'),
-('A02081300', 'SOCIAL'),
-('A02081400', 'CULTURE'),
-('A02081400', 'ACTIVITY'),
 
--- 추천코스 (C01)
-('C01120001', 'ACTIVITY'),
-('C01120001', 'SOCIAL'),
-('C01120001', 'MOOD'),
-('C01130001', 'MOOD'),
-('C01130001', 'CULTURE'),
-('C01140001', 'MOOD'),
-('C01140001', 'FOREST'),
-('C01150001', 'ACTIVITY'),
-('C01150001', 'MOOD'),
-('C01160001', 'ACTIVITY'),
-('C01160001', 'FOREST'),
-('C01170001', 'FOOD'),
-('C01170001', 'SOCIAL'),
 
--- 레포츠 (A03)
-('A03010200', 'ACTIVITY'),
-('A03010200', 'MOOD'),
-('A03010300', 'ACTIVITY'),
-('A03010300', 'MOOD'),
-('A03020200', 'ACTIVITY'),
-('A03020300', 'ACTIVITY'),
-('A03020300', 'SOCIAL'),
-('A03020400', 'ACTIVITY'),
-('A03020400', 'SOCIAL'),
-('A03020500', 'ACTIVITY'),
-('A03020500', 'FOREST'),
-('A03020600', 'ACTIVITY'),
-('A03020600', 'SOCIAL'),
-('A03020700', 'ACTIVITY'),
-('A03020700', 'SOCIAL'),
-('A03020800', 'ACTIVITY'),
-('A03020800', 'SOCIAL'),
-('A03020900', 'ACTIVITY'),
-('A03020900', 'SOCIAL'),
-('A03021000', 'ACTIVITY'),
-('A03021000', 'SOCIAL'),
-('A03021100', 'ACTIVITY'),
-('A03021100', 'FOREST'),
-('A03021200', 'ACTIVITY'),
-('A03021200', 'SOCIAL'),
-('A03021300', 'ACTIVITY'),
-('A03021300', 'SOCIAL'),
-('A03021400', 'ACTIVITY'),
-('A03021400', 'SOCIAL'),
-('A03021500', 'ACTIVITY'),
-('A03021500', 'FOREST'),
-('A03021600', 'ACTIVITY'),
-('A03021700', 'ACTIVITY'),
-('A03021700', 'FOREST'),
-('A03021700', 'SOCIAL'),
-('A03021800', 'ACTIVITY'),
-('A03021800', 'FOREST'),
-('A03022000', 'ACTIVITY'),
-('A03022000', 'SOCIAL'),
-('A03022100', 'ACTIVITY'),
-('A03022100', 'FOREST'),
-('A03022200', 'ACTIVITY'),
-('A03022200', 'FOREST'),
-('A03022300', 'ACTIVITY'),
-('A03022300', 'FOREST'),
-('A03022400', 'ACTIVITY'),
-('A03022400', 'MOOD'),
-('A03022700', 'ACTIVITY'),
-('A03022700', 'FOREST'),
-('A03030100', 'ACTIVITY'),
-('A03030100', 'MOOD'),
-('A03030200', 'ACTIVITY'),
-('A03030200', 'FOREST'),
-('A03030300', 'ACTIVITY'),
-('A03030300', 'MOOD'),
-('A03030400', 'ACTIVITY'),
-('A03030400', 'FOREST'),
-('A03030500', 'ACTIVITY'),
-('A03030500', 'MOOD'),
-('A03030600', 'ACTIVITY'),
-('A03030600', 'MOOD'),
-('A03030700', 'ACTIVITY'),
-('A03030700', 'MOOD'),
-('A03030800', 'ACTIVITY'),
-('A03030800', 'FOREST'),
-('A03040100', 'ACTIVITY'),
-('A03040100', 'MOOD'),
-('A03040200', 'ACTIVITY'),
-('A03040200', 'MOOD'),
-('A03040300', 'ACTIVITY'),
-('A03040300', 'MOOD'),
-('A03040400', 'ACTIVITY'),
-('A03040400', 'MOOD'),
-('A03050100', 'ACTIVITY'),
-('A03050100', 'SOCIAL'),
-
--- 숙박 (B02)
-('B02010100', 'MOOD'),
-('B02010100', 'SOCIAL'),
-('B02010500', 'MOOD'),
-('B02010500', 'SOCIAL'),
-('B02010600', 'SOCIAL'),
-('B02010600', 'ACTIVITY'),
-('B02010700', 'MOOD'),
-('B02010700', 'FOREST'),
-('B02010900', 'MOOD'),
-('B02011000', 'CULTURE'),
-('B02011000', 'MOOD'),
-('B02011100', 'SOCIAL'),
-('B02011100', 'CULTURE'),
-('B02011200', 'CULTURE'),
-('B02011200', 'SOCIAL'),
-('B02011300', 'MOOD'),
-('B02011300', 'SOCIAL'),
-('B02011600', 'CULTURE'),
-('B02011600', 'MOOD'),
-
--- 쇼핑 (A04)
-('A04010100', 'CULTURE'),
-('A04010100', 'FOOD'),
-('A04010200', 'CULTURE'),
-('A04010200', 'FOOD'),
-('A04010300', 'SOCIAL'),
-('A04010300', 'MOOD'),
-('A04010400', 'SOCIAL'),
-('A04010500', 'SOCIAL'),
-('A04010500', 'FOOD'),
-('A04010600', 'CULTURE'),
-('A04010600', 'SOCIAL'),
-('A04010700', 'CULTURE'),
-('A04010700', 'ACTIVITY'),
-('A04010900', 'CULTURE'),
-('A04010900', 'FOOD'),
-('A04011000', 'SOCIAL'),
-('A04011200', 'ACTIVITY'),
-
--- 음식 (A05)
-('A05020100', 'FOOD'),
-('A05020100', 'CULTURE'),
-('A05020200', 'FOOD'),
-('A05020200', 'SOCIAL'),
-('A05020300', 'FOOD'),
-('A05020300', 'CULTURE'),
-('A05020400', 'FOOD'),
-('A05020400', 'CULTURE'),
-('A05020700', 'FOOD'),
-('A05020700', 'SOCIAL'),
-('A05020900', 'FOOD'),
-('A05020900', 'MOOD'),
-('A05021000', 'SOCIAL'),
-('A05021000', 'MOOD');
 
 
