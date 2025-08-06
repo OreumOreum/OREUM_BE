@@ -47,13 +47,12 @@ public class MemberService {
 
 
     @Transactional
-    public void updateCategory(Long memberId, String categoryType) {
+    public void updateCategory(Long memberId, Type typeEnum) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 멤버를 찾을 수 없습니다. id=" + memberId));
 
-        Type typeEnum = Type.valueOf(categoryType.toUpperCase());
         Category category = categoryRepository.findById(typeEnum)
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리를 찾을 수 없습니다. type=" + categoryType));
+                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리를 찾을 수 없습니다. type=" + typeEnum));
 
         member.setCategory(category);
     }
