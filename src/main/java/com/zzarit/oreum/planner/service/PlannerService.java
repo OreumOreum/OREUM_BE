@@ -84,6 +84,18 @@ public class PlannerService {
         addPlannerPlaces(planner, request.places());
     }
 
+    @Transactional
+    public void updatePlannerName(Long plannerId, String name, Member member) {
+        Planner planner = plannerRepository.findById(plannerId)
+                .orElseThrow(() -> new NotFoundException("플래너"));
+
+        if (!planner.getMember().getId().equals(member.getId())) {
+            throw new UnauthorizedException("접근 권한이 없습니다");
+        }
+
+        planner.setName(name);
+    }
+
     private void addPlannerPlaces(Planner planner, List<PlannerPlaceRequestDto> placeDtos) {
         for (PlannerPlaceRequestDto placeDto : placeDtos) {
             Place place = placeRepository.findById(placeDto.placeId())

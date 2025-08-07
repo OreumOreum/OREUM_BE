@@ -132,14 +132,14 @@ INSERT INTO member (created_at, updated_at, badge_count, email, fcm_token, login
 --                                                                        (NOW(), NOW(), 5, 1),
 --                                                                        (NOW(), NOW(), 5, 2);
 --
--- -- 20. folder 테이블
--- INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
---                                                                  (NOW(), NOW(), '제주 맛집 모음', 1,true),
---                                                                  (NOW(), NOW(), '문화유적지', 1,false),
---                                                                  (NOW(), NOW(), '오름 투어', 2,true),
---                                                                  (NOW(), NOW(), '가족 여행지', 3,true),
---                                                                  (NOW(), NOW(), '액티비티 스팟', 4,true),
---                                                                  (NOW(), NOW(), '힐링 장소', 5,true);
+-- 20. folder 테이블
+INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
+                                                                 (NOW(), NOW(), '제주 맛집 모음', 1,true),
+                                                                 (NOW(), NOW(), '문화유적지', 1,false),
+                                                                 (NOW(), NOW(), '오름 투어', 2,true),
+                                                                 (NOW(), NOW(), '가족 여행지', 3,true),
+                                                                 (NOW(), NOW(), '액티비티 스팟', 4,true),
+                                                                 (NOW(), NOW(), '힐링 장소', 5,true);
 --
 -- -- 21. folder_place 테이블
 -- INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
@@ -161,13 +161,13 @@ INSERT INTO member (created_at, updated_at, badge_count, email, fcm_token, login
 --                                                                            (NOW(), NOW(), 6, 4),
 --                                                                            (NOW(), NOW(), 6, 5);
 --
--- -- 22. planner 테이블
--- INSERT INTO planner (created_at, updated_at, name, member_id) VALUES
---                                                                   (NOW(), NOW(), '제주 2박3일 여행', 1),
---                                                                   (NOW(), NOW(), '제주 맛집 투어', 2),
---                                                                   (NOW(), NOW(), '제주 문화 탐방', 3),
---                                                                   (NOW(), NOW(), '제주 액티비티 여행', 4),
---                                                                   (NOW(), NOW(), '제주 힐링 여행', 5);
+-- 22. planner 테이블
+INSERT INTO planner (created_at, updated_at, name, member_id) VALUES
+                                                                  (NOW(), NOW(), '제주 2박3일 여행', 1),
+                                                                  (NOW(), NOW(), '제주 맛집 투어', 2),
+                                                                  (NOW(), NOW(), '제주 문화 탐방', 3),
+                                                                  (NOW(), NOW(), '제주 액티비티 여행', 4),
+                                                                  (NOW(), NOW(), '제주 힐링 여행', 5);
 --
 -- -- 23. planner_place 테이블
 -- INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order, place_id, planner_id) VALUES
