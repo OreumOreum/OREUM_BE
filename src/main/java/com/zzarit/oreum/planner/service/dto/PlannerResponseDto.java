@@ -1,4 +1,4 @@
 package com.zzarit.oreum.planner.service.dto;
 
-public record PlannerResponseDto(Long plannerId, String plannerName) {
+public record PlannerResponseDto(Long plannerId, String plannerName, Integer day) {
 }
