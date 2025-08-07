@@ -1,8 +1,10 @@
 package com.zzarit.oreum.scheduler.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 @Data
 @NoArgsConstructor
@@ -34,4 +36,24 @@ public class AreaBasedDto {
     private String lclsSystm1;       // 분류체계 대분류
     private String lclsSystm2;       // 분류체계 중분류
     private String lclsSystm3;       // 분류체계 소분류
+
+    @JsonSetter("firstimage")
+    public void setFirstimage(String image) {
+        // 스프링 유틸을 쓰면 편리합니다.
+        if (image == null || !StringUtils.hasText(image.trim())) {
+            this.firstimage = null;
+        } else {
+            this.firstimage = image;
+        }
+    }
+
+    @JsonSetter("firstimage2")
+    public void setFirstimage2(String image) {
+        // 스프링 유틸을 쓰면 편리합니다.
+        if (image == null || !StringUtils.hasText(image.trim())) {
+            this.firstimage2 = null;
+        } else {
+            this.firstimage2 = image;
+        }
+    }
 }

@@ -10,6 +10,8 @@ public record PlacePaginationResponseDto(
         String originImage,
         String thumbnailImage,
         Integer sigunguCode,
+        String address,
+        String detailAddress,
         boolean isSaved
 
 ) {
@@ -23,6 +25,8 @@ public record PlacePaginationResponseDto(
                 place.getOriginImage(),
                 place.getThumbnailImage(),
                 place.getSigunguCode(),
+                place.getAddress(),
+                place.getDetailAddress(),
                 isSaved
         );
     }

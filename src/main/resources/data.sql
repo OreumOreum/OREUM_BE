@@ -31,14 +31,15 @@ INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, 
 
 --
 -- 14. place 테이블
-INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id) VALUES
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리','image2',4,1),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5',3,2),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6',4,2),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7',3,2);
+INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id, content_type_id) VALUES
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1,'12'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리','image2',4,1,'14'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1,'15'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1,'25'),
+
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5',3,2,'28'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6',4,2,'38'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7',3,2,'39');
 --
 --
 -- -- 16. spot 테이블
@@ -80,6 +81,17 @@ INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, c
 --                                                                        (NOW(), NOW(), 5, 7),
 --                                                                        (NOW(), NOW(), 5, 1),
 --                                                                        (NOW(), NOW(), 5, 2);
+
+
+INSERT INTO place_category (created_at, updated_at, place_id, category_type) VALUES
+                                                                       (NOW(), NOW(), 1, 'CULTURE'),
+                                                                       (NOW(), NOW(), 2, 'CULTURE'),
+                                                                       (NOW(), NOW(), 3, 'CULTURE'),
+                                                                       (NOW(), NOW(), 4, 'CULTURE'),
+                                                                       (NOW(), NOW(), 5, 'CULTURE'),
+                                                                       (NOW(), NOW(), 6, 'CULTURE'),
+                                                                       (NOW(), NOW(), 7, 'CULTURE');
+
 --
 -- 20. folder 테이블
 INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
