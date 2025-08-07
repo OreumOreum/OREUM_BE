@@ -65,6 +65,7 @@ public class Course extends BaseTimeEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "course")
+    @OrderBy("orders")
     private List<Place> places = new ArrayList<>();
 
     @Builder.Default

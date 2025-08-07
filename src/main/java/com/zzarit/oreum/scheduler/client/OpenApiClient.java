@@ -27,7 +27,7 @@ public class OpenApiClient {
 
     private final RestClient restClient;
 
-    public OpenApiResponseDto<AreaBasedDto> getAreaBasedList(int pageNo, int numOfRows) {
+    public List<AreaBasedDto> getAreaBasedList(int pageNo, int numOfRows) {
         URI uri = baseOpenApiBuilder(GET_AREA_BASED_URI)
                 .queryParam("pageNo",pageNo)
                 .queryParam("numOfRows",numOfRows)
@@ -40,7 +40,8 @@ public class OpenApiClient {
                 .retrieve()
                 .body(new ParameterizedTypeReference<OpenApiResponseDto<AreaBasedDto>>() {});
 
-        return response;
+
+        return response.allItems().orElse(null);
     }
 
     public DetailCommonDto getDetailCommon(String contentId) {

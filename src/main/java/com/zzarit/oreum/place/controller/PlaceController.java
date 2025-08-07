@@ -68,6 +68,14 @@ public class PlaceController {
         return ResponseEntity.ok(placeService.getPlaceDetail(placeId,member));
     }
 
+    @Operation(summary = "유형/관광타입별 추천 리스트", description = "모든 관광타입의 대표사진하나씩을 조회합니다.")
+    @GetMapping("/category/recommend")
+    public ResponseEntity<List<CategoryRecommendResponseDto>> recommendPlacesList(
+            Member member
+    ) {
+        return ResponseEntity.ok(placeService.getCategoryRecommend(member));
+    }
+
 
     @Operation(summary = "내가 쓴 리뷰 조회", description = "내가 쓴 리뷰를 모두 조회합니다.")
     @GetMapping("/review/me")

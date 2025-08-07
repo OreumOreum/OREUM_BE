@@ -51,10 +51,9 @@ public class SynchronizeService {
     public void savePlaceAndCourse() {
         int pageNo = 1;
         while (true) {
-            OpenApiResponseDto<AreaBasedDto> dto = openApiClient.getAreaBasedList(pageNo++, 1000);
-            if (dto.getResponse().getBody().getItems() == null) break;
+            List<AreaBasedDto> items = openApiClient.getAreaBasedList(pageNo++, 1000);
 
-            List<AreaBasedDto> items = dto.getResponse().getBody().getItems().getItem();
+            if (items == null) break;
 
             // 1) contentId 모으기
             List<String> placeIdsReq = new ArrayList<>();
@@ -81,7 +80,7 @@ public class SynchronizeService {
                 if (!COURSETYPE.equals(item.getCat1())) {
                     // Place 엔티티 생성
                     Place place = Place.builder()
-                            .address(item.getAddr1())
+                            .address(removePrefix(item.getAddr1()))
                             .detailAddress(item.getAddr2())
                             .sigunguCode(toIntOrNull(item.getSigungucode()))
                             .category1(item.getCat1())
@@ -233,6 +232,13 @@ public class SynchronizeService {
                         });
             }
         }
+    }
+
+    public static String removePrefix(String fullAddr) {
+        if(fullAddr == null) return null;
+
+        String[] token = fullAddr.split(" ");
+        return String.join(" ", Arrays.copyOfRange(token, 1, token.length));
     }
 
 

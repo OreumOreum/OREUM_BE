@@ -56,7 +56,11 @@ public class PlannerService {
     public List<PlannerResponseDto> getMyPlanners(Member member) {
         List<Planner> planners = plannerRepository.findAllByMember(member);
 
-        return planners.stream().map(planner -> new PlannerResponseDto(planner.getId(), planner.getName())).toList();
+        return planners.stream().map((planner) -> {
+                    Integer maxDay = plannerPlaceRepository.findMaxDayByMember(planner.getId()).orElse(0);
+                    return new PlannerResponseDto(planner.getId(), planner.getName(), maxDay);
+                }
+        ).toList();
     }
 
     @Transactional
@@ -82,6 +86,18 @@ public class PlannerService {
         plannerPlaceRepository.deleteAllByPlanner(planner);
 
         addPlannerPlaces(planner, request.places());
+    }
+
+    @Transactional
+    public void updatePlannerName(Long plannerId, String name, Member member) {
+        Planner planner = plannerRepository.findById(plannerId)
+                .orElseThrow(() -> new NotFoundException("플래너"));
+
+        if (!planner.getMember().getId().equals(member.getId())) {
+            throw new UnauthorizedException("접근 권한이 없습니다");
+        }
+
+        planner.setName(name);
     }
 
     private void addPlannerPlaces(Planner planner, List<PlannerPlaceRequestDto> placeDtos) {
@@ -122,17 +138,17 @@ public class PlannerService {
     }
 
     @Transactional
-    public PlannerCourseResponseDto recommendCourse(Member member){
+    public PlannerCourseResponseDto recommendCourse(Member member) {
         Type type = memberRepository.findTypeByMember(member.getId());
         List<Course> courses = courseRepository.findAllByCategoryType(type);
 
         Course course = RandomUtils.getRandomElement(courses);
-        if(course==null) throw new NotFoundException("유형의 코스");
+        if (course == null) throw new NotFoundException("유형의 코스");
 
         List<Place> placeList = course.getPlaces();
         String plannerName = generatePlannerName(member.getId());
 
-        return PlannerCourseResponseDto.of(plannerName,placeList);
+        return PlannerCourseResponseDto.of(plannerName, placeList);
     }
 
     @Transactional(readOnly = true)

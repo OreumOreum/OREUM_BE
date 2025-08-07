@@ -63,6 +63,17 @@ public class PlannerController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "플래너 이름수정 API", description = "본인의 플래너를 이름을 수정합니다.")
+    @PutMapping("/{plannerId}/name")
+    public ResponseEntity<Void> updatePlannerName(
+            @PathVariable Long plannerId,
+            @RequestBody PlannerNameUpdateRequest request,
+            Member member) {
+
+        plannerService.updatePlannerName(plannerId, request.name(), member);
+        return ResponseEntity.noContent().build();
+    }
+
     @Operation(summary = "플래너 단일 삭제 API", description = "본인의 플래너를 하나 삭제합니다.")
     @DeleteMapping("/{plannerId}")
     public ResponseEntity<Void> deletePlanner(@PathVariable Long plannerId, Member member) {

@@ -7,6 +7,7 @@ import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.member.domain.Type;
+import com.zzarit.oreum.place.domain.ContentType;
 import com.zzarit.oreum.place.domain.Course;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.Review;
@@ -27,7 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -118,6 +122,17 @@ public class PlaceService {
                 new MyReviewResponseDto
                         (review.getRate(),review.getContent(),review.getCreatedAt(),review.getUpdatedAt()))
                 .toList();
+    }
+
+    public List<CategoryRecommendResponseDto> getCategoryRecommend(Member member){
+        return ContentType.codes().stream()
+                .map(code -> placeRepository.findOneRandomByCategoryAndContentType(
+                        member.getCategory(), code))
+                .flatMap(Optional::stream)
+                .map(place -> new CategoryRecommendResponseDto(
+                        place.getContentTypeId(),
+                        place.getOriginImage()))
+                .collect(Collectors.toList());
     }
 
 
