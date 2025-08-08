@@ -3,10 +3,7 @@ package com.zzarit.oreum.folder.service.dto;
 import com.zzarit.oreum.folder.domain.Folder;
 import com.zzarit.oreum.folder.domain.FolderPlace;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public record FolderResponseDto(Long folderId, String folderName, List<String> originImages, boolean isDefault) {
@@ -29,9 +26,12 @@ public record FolderResponseDto(Long folderId, String folderName, List<String> o
     }
 
     private static List<String> extractImageUrls(List<FolderPlace> places, boolean isDefault, int limit) {
-        if (places.isEmpty()) {
+        boolean allNull = places.stream().allMatch(Objects::isNull);
+
+        if (places.isEmpty() || allNull) {
             return null;
         }
+
 
         // 전체 개수가 limit 미만일 땐, 기본 폴더면 마지막 한 장, 아니면 첫 장만
         if (places.size() < limit) {
