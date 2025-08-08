@@ -30,7 +30,7 @@ public record FolderResponseDto(Long folderId, String folderName, List<String> o
 
     private static List<String> extractImageUrls(List<FolderPlace> places, boolean isDefault, int limit) {
         if (places.isEmpty()) {
-            return Collections.emptyList();
+            return null;
         }
 
         // 전체 개수가 limit 미만일 땐, 기본 폴더면 마지막 한 장, 아니면 첫 장만
