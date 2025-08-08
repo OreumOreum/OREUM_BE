@@ -33,7 +33,7 @@ INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, 
 -- 14. place 테이블
 INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id, content_type_id) VALUES
                                                     (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1,'12'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리','image2',4,1,'14'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리',null,4,1,'14'),
                                                     (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1,'15'),
                                                     (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1,'25'),
 
@@ -102,25 +102,25 @@ INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
                                                                  (NOW(), NOW(), '액티비티 스팟', 4,true),
                                                                  (NOW(), NOW(), '힐링 장소', 5,true);
 --
--- -- 21. folder_place 테이블
--- INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
---                                                                            (CURRENT_TIMESTAMP,             CURRENT_TIMESTAMP,             1, 1),
---                                                                            (DATEADD('SECOND', 1, CURRENT_TIMESTAMP), DATEADD('SECOND', 1, CURRENT_TIMESTAMP), 1, 2),
---                                                                            (DATEADD('SECOND', 2, CURRENT_TIMESTAMP), DATEADD('SECOND', 2, CURRENT_TIMESTAMP), 1, 3),
---                                                                            (DATEADD('SECOND', 3, CURRENT_TIMESTAMP), DATEADD('SECOND', 3, CURRENT_TIMESTAMP), 1, 4),
---                                                                            (DATEADD('SECOND', 4, CURRENT_TIMESTAMP), DATEADD('SECOND', 4, CURRENT_TIMESTAMP), 1, 5),
---                                                                            (DATEADD('SECOND', 5, CURRENT_TIMESTAMP), DATEADD('SECOND', 5, CURRENT_TIMESTAMP), 1, 6),
---                                                                            (DATEADD('SECOND', 6, CURRENT_TIMESTAMP), DATEADD('SECOND', 6, CURRENT_TIMESTAMP), 1, 7),
---                                                                            (DATEADD('SECOND', 7, CURRENT_TIMESTAMP), DATEADD('SECOND', 7, CURRENT_TIMESTAMP), 2, 2),
---                                                                            (DATEADD('SECOND', 8, CURRENT_TIMESTAMP), DATEADD('SECOND', 8, CURRENT_TIMESTAMP), 2, 4),
---                                                                            (NOW(), NOW(), 3, 1),
---                                                                            (NOW(), NOW(), 3, 4),
---                                                                            (NOW(), NOW(), 4, 2),
---                                                                            (NOW(), NOW(), 4, 5),
---                                                                            (NOW(), NOW(), 5, 7),
---                                                                            (NOW(), NOW(), 5, 1),
---                                                                            (NOW(), NOW(), 6, 4),
---                                                                            (NOW(), NOW(), 6, 5);
+-- 21. folder_place 테이블
+INSERT INTO folder_place (created_at, updated_at, folder_id, place_id) VALUES
+                                                                           (CURRENT_TIMESTAMP,             CURRENT_TIMESTAMP,             1, 1),
+                                                                           (DATEADD('SECOND', 1, CURRENT_TIMESTAMP), DATEADD('SECOND', 1, CURRENT_TIMESTAMP), 1, 2),
+                                                                           (DATEADD('SECOND', 2, CURRENT_TIMESTAMP), DATEADD('SECOND', 2, CURRENT_TIMESTAMP), 1, 3),
+                                                                           (DATEADD('SECOND', 3, CURRENT_TIMESTAMP), DATEADD('SECOND', 3, CURRENT_TIMESTAMP), 1, 4),
+                                                                           (DATEADD('SECOND', 4, CURRENT_TIMESTAMP), DATEADD('SECOND', 4, CURRENT_TIMESTAMP), 1, 5),
+                                                                           (DATEADD('SECOND', 5, CURRENT_TIMESTAMP), DATEADD('SECOND', 5, CURRENT_TIMESTAMP), 1, 6),
+                                                                           (DATEADD('SECOND', 6, CURRENT_TIMESTAMP), DATEADD('SECOND', 6, CURRENT_TIMESTAMP), 1, 7),
+                                                                           (DATEADD('SECOND', 7, CURRENT_TIMESTAMP), DATEADD('SECOND', 7, CURRENT_TIMESTAMP), 2, 2),
+                                                                           (DATEADD('SECOND', 8, CURRENT_TIMESTAMP), DATEADD('SECOND', 8, CURRENT_TIMESTAMP), 2, 4),
+                                                                           (NOW(), NOW(), 3, 1),
+                                                                           (NOW(), NOW(), 3, 4),
+                                                                           (NOW(), NOW(), 4, 2),
+                                                                           (NOW(), NOW(), 4, 5),
+                                                                           (NOW(), NOW(), 5, 7),
+                                                                           (NOW(), NOW(), 5, 1),
+                                                                           (NOW(), NOW(), 6, 4),
+                                                                           (NOW(), NOW(), 6, 5);
 --
 -- 22. planner 테이블
 INSERT INTO planner (created_at, updated_at, name, member_id) VALUES
