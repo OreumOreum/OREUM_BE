@@ -6,8 +6,6 @@ server:
     accept-count: 242
 
 spring:
-  profiles:
-    active:
   application:
     name: oreum
   datasource:
