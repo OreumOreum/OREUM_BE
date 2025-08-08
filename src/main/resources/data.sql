@@ -416,6 +416,44 @@ INSERT INTO category_map (category3, category_type) VALUES ('A03030300','SOCIAL'
 INSERT INTO category_map (category3, category_type) VALUES ('A03010300','SOCIAL');
 INSERT INTO category_map (category3, category_type) VALUES ('A02081300','SOCIAL');
 INSERT INTO category_map (category3, category_type) VALUES ('A02081000','SOCIAL');
+--COURSE
+INSERT INTO category_map (category3, category_type) VALUES ('C01120001','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('C01130001','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('C01150001','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('C01160001','ACTIVITY');
+INSERT INTO category_map (category3, category_type) VALUES ('C01170001','ACTIVITY');
+
+INSERT INTO category_map (category3, category_type) VALUES ('C01120001','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01130001','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01140001','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01150001','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01160001','MOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01170001','MOOD');
+
+INSERT INTO category_map (category3, category_type) VALUES ('C01120001','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01130001','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01140001','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01160001','FOOD');
+INSERT INTO category_map (category3, category_type) VALUES ('C01170001','FOOD');
+
+INSERT INTO category_map (category3, category_type) VALUES ('C01120001','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('C01130001','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('C01140001','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('C01160001','FOREST');
+INSERT INTO category_map (category3, category_type) VALUES ('C01150001','FOREST');
+
+INSERT INTO category_map (category3, category_type) VALUES ('C01120001','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('C01130001','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('C01140001','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('C01160001','CULTURE');
+INSERT INTO category_map (category3, category_type) VALUES ('C01150001','CULTURE');
+
+INSERT INTO category_map (category3, category_type) VALUES ('C01120001','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('C01140001','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('C01150001','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('C01160001','SOCIAL');
+INSERT INTO category_map (category3, category_type) VALUES ('C01170001','SOCIAL');
+
 
 
 
