@@ -15,7 +15,10 @@ public record FolderResponseDto(Long folderId, String folderName, List<String> o
                 .orElse(Collections.emptyList());
 
         // 최대 4장의 이미지 URL을 추출
-        List<String> images = extractImageUrls(places, folder.isDefault(), 4);
+        List<String> images = Optional.ofNullable(extractImageUrls(places, folder.isDefault(), 4))
+                .filter(imgs -> imgs.stream().anyMatch(Objects::nonNull))
+                .orElse(null);
+
 
         return new FolderResponseDto(
                 folder.getId(),
@@ -26,12 +29,10 @@ public record FolderResponseDto(Long folderId, String folderName, List<String> o
     }
 
     private static List<String> extractImageUrls(List<FolderPlace> places, boolean isDefault, int limit) {
-        boolean allNull = places.stream().allMatch(Objects::isNull);
 
-        if (places.isEmpty() || allNull) {
+        if (places.isEmpty()) {
             return null;
         }
-
 
         // 전체 개수가 limit 미만일 땐, 기본 폴더면 마지막 한 장, 아니면 첫 장만
         if (places.size() < limit) {
