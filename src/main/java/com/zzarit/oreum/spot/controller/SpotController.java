@@ -16,7 +16,7 @@ import java.util.List;
 @Tag(name = "SPOT", description = "스팟 및 방문 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/spots")
+@RequestMapping("/v1/spots")
 public class SpotController {
 
     private final SpotService spotService; // SpotService 주입
