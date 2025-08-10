@@ -38,12 +38,12 @@ public class SynchronizeService {
     private int courseOverviewOffset = 0;
 
     public void initialize(){
-        log.info("1) Place,Course 데이터 저장 시작");
-        savePlaceAndCourse();
-        log.info("2) PlaceCategory 매핑 시작");
-        saveCategoryMap();
-        log.info("3) CoursePlace 매핑 시작");
-        saveCoursePlace();
+//        log.info("1) Place,Course 데이터 저장 시작");
+//        savePlaceAndCourse();
+//        log.info("2) PlaceCategory 매핑 시작");
+//        saveCategoryMap();
+//        log.info("3) CoursePlace 매핑 시작");
+//        saveCoursePlace();
     }
 
 

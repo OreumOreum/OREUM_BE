@@ -10,6 +10,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.openssl.PEMKeyPair;
+import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +19,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.security.Security;
 import java.time.LocalDateTime;
@@ -62,6 +67,8 @@ public class AppleClient implements OAuthClient {
                 .body(requestBody)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, (request, response) -> {
+                    String errorBody = new String(response.getBody().readAllBytes(), StandardCharsets.UTF_8);
+                    System.err.println("Apple OAuth Error Response: " + errorBody);
                     throw new InternalServerException("APPLE ID_TOKEN 요청 중 에러 발생 하였습니다.");
                 })
                 .body(AppleSocialTokenInfoResponseDto.class);
@@ -96,15 +103,19 @@ public class AppleClient implements OAuthClient {
      * @return PrivateKey
      */
     private PrivateKey getPrivateKey() {
-        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-        JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
+        try (PEMParser parser = new PEMParser(new StringReader(APPLE_PRIVATE_KEY.replace("\\n", "\n")))) {
+            Object obj = parser.readObject();
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter(); // 굳이 Provider 지정 안 해도 됨
 
-        try {
-            byte[] privateKeyBytes = Base64.getDecoder().decode(APPLE_PRIVATE_KEY);
-            PrivateKeyInfo privateKeyInfo = PrivateKeyInfo.getInstance(privateKeyBytes);
-            return converter.getPrivateKey(privateKeyInfo);
+            if (obj instanceof PrivateKeyInfo pkInfo) {
+                return converter.getPrivateKey(pkInfo);
+            } else if (obj instanceof PEMKeyPair kp) { // 혹시 BEGIN EC PRIVATE KEY 형태일 때
+                return converter.getKeyPair(kp).getPrivate();
+            } else {
+                throw new IllegalArgumentException("지원하지 않는 PEM 형식: " + (obj == null ? "null" : obj.getClass()));
+            }
         } catch (Exception e) {
-            throw new InternalServerException("private key convert 과정에서 오류발생: " + e.getMessage());
+            throw new InternalServerException("private key convert 오류: " + e.getMessage());
         }
     }
 
