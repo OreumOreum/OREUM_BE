@@ -6,6 +6,7 @@ public record MyReviewResponseDto(
         Double rate,
         String content,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        String placeTitle
 ) {
 }

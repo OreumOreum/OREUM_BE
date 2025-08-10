@@ -31,15 +31,15 @@ INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, 
 
 --
 -- 14. place 테이블
-INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id, content_type_id) VALUES
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1,'12'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리',null,4,1,'14'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1,'15'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1,'25'),
+INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id, content_type_id, title) VALUES
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1,'12', '장소1'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리',null,4,1,'14', '장소2'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1,'15', '장소3'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1,'25', '장소4'),
 
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5',3,2,'28'),
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6',4,2,'38'),
-                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7',3,2,'39');
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 중문동','image5',3,2,'28', '장소5'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 이도이동','image6',4,2,'38', '장소6'),
+                                                    (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7',3,2,'39', '장소7');
 --
 --
 -- -- 16. spot 테이블
@@ -147,17 +147,17 @@ INSERT INTO planner_place (created_at, updated_at, sequence_day, sequence_order,
                                                                                                            (NOW(), NOW(), 1, 1, 4, 5),
                                                                                                            (NOW(), NOW(), 1, 2, 5, 5);
 -- --
--- -- 24. review 테이블
--- INSERT INTO review (created_at, updated_at, content, rate, course_id, member_id, place_id) VALUES
---                                                                                                (NOW(), NOW(), '정말 아름다운 자연 경관이었습니다. 추천합니다!', 4.5, 1, 1, 1),
---                                                                                                (NOW(), NOW(), '제주 문화를 잘 알 수 있는 좋은 곳이에요.', 4.0, 3, 2, 2),
---                                                                                                (NOW(), NOW(), '흑돼지가 정말 맛있어요! 현지인 맛집 인정', 4.8, 4, 3, 3),
---                                                                                                (NOW(), NOW(), '일출이 정말 장관이었습니다.', 4.7, 1, 4, 4),
---                                                                                                (NOW(), NOW(), '호텔 시설이 훌륭하고 서비스가 좋았습니다.', 4.3, NULL, 5, 5),
---                                                                                                (NOW(), NOW(), '전통 시장의 정취를 느낄 수 있었어요.', 3.8, NULL, 1, 6),
---                                                                                                (NOW(), NOW(), '다이빙 체험이 정말 재미있었습니다!', 4.6, NULL, 2, 7),
---                                                                                                (NOW(), NOW(), '코스가 잘 짜여져 있어서 편하게 관광했어요.', 4.2, 2, 3, 1),
---                                                                                                (NOW(), NOW(), '가격 대비 만족스러운 식사였습니다.', 4.1, 4, 4, 3);
+-- 24. review 테이블
+INSERT INTO review (created_at, updated_at, content, rate, course_id, member_id, place_id) VALUES
+                                                                                               (NOW(), NOW(), '정말 아름다운 자연 경관이었습니다. 추천합니다!', 4.5, 1, 1, 1),
+                                                                                               (NOW(), NOW(), '제주 문화를 잘 알 수 있는 좋은 곳이에요.', 4.0, 3, 1, 2),
+                                                                                               (NOW(), NOW(), '흑돼지가 정말 맛있어요! 현지인 맛집 인정', 4.8, 4, 1, 3),
+                                                                                               (NOW(), NOW(), '일출이 정말 장관이었습니다.', 4.7, 1, 1, 4),
+                                                                                               (NOW(), NOW(), '호텔 시설이 훌륭하고 서비스가 좋았습니다.', 4.3, NULL, 5, 5),
+                                                                                               (NOW(), NOW(), '전통 시장의 정취를 느낄 수 있었어요.', 3.8, NULL, 1, 6),
+                                                                                               (NOW(), NOW(), '다이빙 체험이 정말 재미있었습니다!', 4.6, NULL, 2, 7),
+                                                                                               (NOW(), NOW(), '코스가 잘 짜여져 있어서 편하게 관광했어요.', 4.2, 2, 3, 1),
+                                                                                               (NOW(), NOW(), '가격 대비 만족스러운 식사였습니다.', 4.1, 4, 4, 3);
 
 -- 데이터 삽입 완료
 INSERT INTO category_map (category3, category_type) VALUES ('A01010400','ACTIVITY');
