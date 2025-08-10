@@ -32,7 +32,7 @@ jobs:
           . \
           --push
 
-      - name: SSH into Raspberry Pi and deploy
+      - name: SSH into AWS
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.PI_HOST }}
@@ -41,4 +41,4 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/oreum:latest
             docker image prune -f 
-            docker compose -f /home/pi/oreum/compose.yml --env-file /home/pi/oreum/.env up -d
+            docker compose -f /home/ec2-user/compose.yml --env-file /home/ec2-user/.env up -d
