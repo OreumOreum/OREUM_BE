@@ -41,4 +41,4 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/oreum:latest
             docker image prune -f 
-            docker compose -f /home/ec2-user/compose.yml --env-file /home/ec2-user/.env up -d
+            docker-compose -f /home/ec2-user/compose.yml --env-file /home/ec2-user/.env up -d
