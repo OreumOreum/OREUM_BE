@@ -29,8 +29,6 @@ public class Spot extends BaseTimeEntity{
     @Column(name = "order_index")
     private Integer order;
 
-    @OneToMany(mappedBy = "spot")
-    private List<Badge> badges = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")

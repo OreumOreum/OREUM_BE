@@ -10,12 +10,12 @@ INSERT INTO category (type) VALUES
                                 ('SOCIAL');
 
 -- 2. member 테이블
-INSERT INTO member (created_at, updated_at, badge_count, email, fcm_token, login_id, name, phone_no, category_type, skip) VALUES
-                                                                                                                        (NOW(), NOW(), 5, 'kim.jeju@email.com', 'fcm_token_001', '1111', '김제주', '010-1234-5678', 'CULTURE',FALSE),
-                                                                                                                        (NOW(), NOW(), 3, 'lee.seogwipo@email.com', 'fcm_token_002', 'lee_seogwipo', '이서귀포', '010-2345-6789', 'FOOD',FALSE),
-                                                                                                                        (NOW(), NOW(), 7, 'park.hallasan@email.com', 'fcm_token_003', 'park_hallasan', '박한라산', '010-3456-7890', 'FOREST',FALSE),
-                                                                                                                        (NOW(), NOW(), 2, 'choi.seongeup@email.com', 'fcm_token_004', 'choi_seongeup', '최성읍', '010-4567-8901', 'ACTIVITY',FALSE),
-                                                                                                                        (NOW(), NOW(), 4, 'jung.udo@email.com', 'fcm_token_005', 'jung_udo', '정우도', '010-5678-9012', 'MOOD',FALSE);
+INSERT INTO member (created_at, updated_at, email, fcm_token, login_id, name, phone_no, category_type, skip) VALUES
+                                                                                                                        (NOW(), NOW(),  'kim.jeju@email.com', 'fcm_token_001', '1111', '김제주', '010-1234-5678', 'CULTURE',FALSE),
+                                                                                                                        (NOW(), NOW(),  'lee.seogwipo@email.com', 'fcm_token_002', 'lee_seogwipo', '이서귀포', '010-2345-6789', 'FOOD',FALSE),
+                                                                                                                        (NOW(), NOW(),  'park.hallasan@email.com', 'fcm_token_003', 'park_hallasan', '박한라산', '010-3456-7890', 'FOREST',FALSE),
+                                                                                                                        (NOW(), NOW(),  'choi.seongeup@email.com', 'fcm_token_004', 'choi_seongeup', '최성읍', '010-4567-8901', 'ACTIVITY',FALSE),
+                                                                                                                        (NOW(), NOW(),  'jung.udo@email.com', 'fcm_token_005', 'jung_udo', '정우도', '010-5678-9012', 'MOOD',FALSE);
 
 --
 --
