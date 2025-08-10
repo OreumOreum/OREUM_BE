@@ -116,11 +116,13 @@ public class PlaceService {
 
     }
 
+    @Transactional
     public List<MyReviewResponseDto> getMyReviews(Member member){
         List<Review> reviews = reviewRepository.findReviewsByMember(member);
         return reviews.stream().map((review)->
                 new MyReviewResponseDto
-                        (review.getRate(),review.getContent(),review.getCreatedAt(),review.getUpdatedAt()))
+                        (review.getRate(),review.getContent(),review.getCreatedAt(),review.getUpdatedAt()
+                        ,review.getPlace().getTitle()))
                 .toList();
     }
 

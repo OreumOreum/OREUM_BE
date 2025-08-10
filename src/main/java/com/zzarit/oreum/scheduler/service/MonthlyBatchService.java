@@ -136,7 +136,7 @@ public class MonthlyBatchService {
         List<Place> seogwipoPicks = pickRandomPlaces(SEOGWIPO_SI_CODE, 2, excludedPlaceIds);
 
         AtomicInteger order = new AtomicInteger();
-        List<Spot> newSpots = Stream.concat(jejuPicks.stream(), seogwipoPicks.stream())
+        List<Spot> newSpots = Stream.concat(seogwipoPicks.stream(), jejuPicks.stream())
                 .map(place -> new Spot(firstDayOfMonth, place, order.getAndIncrement()))
                 .collect(Collectors.toList());
 
