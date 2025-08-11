@@ -42,31 +42,31 @@ INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, c
                                                     (NOW(), NOW(), '제주특별자치도 서귀포시 안덕면 사계리','image7',3,2,'39', '장소7');
 --
 --
--- -- 16. spot 테이블
--- INSERT INTO spot (created_at, updated_at, date,order_index, place_id) VALUES
---                                                               (NOW(), NOW(), '2025-07-01',1, 1),
---                                                               (NOW(), NOW(), '2025-07-01',2, 2),
---                                                               (NOW(), NOW(), '2025-07-01',3, 3),
---                                                               (NOW(), NOW(), '2025-07-01',4, 4),
---                                                               (NOW(), NOW(), '2025-06-01',1, 5),
---                                                               (NOW(), NOW(), '2025-06-01',2, 6),
---                                                               (NOW(), NOW(), '2025-06-01',3, 7),
---                                                               (NOW(), NOW(), '2025-06-01',4, 1),
---                                                               (NOW(), NOW(), '2024-03-01',1, 2);
+-- 16. spot 테이블
+INSERT INTO spot (created_at, updated_at, date,order_index, place_id) VALUES
+                                                              (NOW(), NOW(), '2025-08-01',1, 1),
+                                                              (NOW(), NOW(), '2025-08-01',2, 2),
+                                                              (NOW(), NOW(), '2025-08-01',3, 3),
+                                                              (NOW(), NOW(), '2025-08-01',4, 4),
+                                                              (NOW(), NOW(), '2025-07-01',1, 5),
+                                                              (NOW(), NOW(), '2025-07-01',2, 6),
+                                                              (NOW(), NOW(), '2025-07-01',3, 7),
+                                                              (NOW(), NOW(), '2024-07-01',1, 2);
+
 --
 --
 --
 --
 -- -- 18. badge 테이블
--- INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
---                                                                                                     (NOW(), NOW(), 25, 'FOREST', 1),
---                                                                                                     (NOW(), NOW(), 18, 'CULTURE', 1),
---                                                                                                     (NOW(), NOW(), 32, 'FOOD', 1),
---                                                                                                     (NOW(), NOW(), 41, 'MOOD', 1),
---                                                                                                     (NOW(), NOW(), 15, 'SOCIAL', 5),
---                                                                                                     (NOW(), NOW(), 28, 'FOOD', 6),
---                                                                                                     (NOW(), NOW(), 22, 'ACTIVITY', 7),
---                                                                                                     (NOW(), NOW(), 19, 'ACTIVITY', 8);
+INSERT INTO spot_category_summary (created_at, updated_at, visit_count, category_type, spot_id) VALUES
+                                                                                                    (NOW(), NOW(), 25, 'FOREST', 1),
+                                                                                                    (NOW(), NOW(), 18, 'CULTURE', 1),
+                                                                                                    (NOW(), NOW(), 32, 'FOOD', 1),
+                                                                                                    (NOW(), NOW(), 41, 'MOOD', 1),
+                                                                                                    (NOW(), NOW(), 15, 'FOREST', 2),
+                                                                                                    (NOW(), NOW(), 28, 'CULTURE', 2),
+                                                                                                    (NOW(), NOW(), 22, 'FOOD', 2),
+                                                                                                    (NOW(), NOW(), 19, 'MOOD', 2);
 --
 -- -- 19. visit_log 테이블
 -- INSERT INTO visit_log (created_at, updated_at, member_id, spot_id) VALUES
