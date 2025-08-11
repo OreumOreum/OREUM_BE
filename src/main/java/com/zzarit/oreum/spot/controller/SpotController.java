@@ -23,8 +23,10 @@ public class SpotController {
 
     @Operation(summary = "이달의 여행지 목록 조회 API", description = "현재 월의 '이달의 여행지'로 선정된 스팟 목록을 조회합니다.")
     @GetMapping("/monthly")
-    public ResponseEntity<List<MonthlySpotResponseDto>> getCurrentMonthlySpots() {
-        List<MonthlySpotResponseDto> spots = spotService.getCurrentMonthlySpots();
+    public ResponseEntity<List<MonthlySpotResponseDto>> getCurrentMonthlySpots(
+            Member member
+    ) {
+        List<MonthlySpotResponseDto> spots = spotService.getCurrentMonthlySpots(member);
         return ResponseEntity.ok(spots);
     }
 

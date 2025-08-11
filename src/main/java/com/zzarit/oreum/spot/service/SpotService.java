@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -31,14 +29,20 @@ public class SpotService {
     private final SpotCategorySummaryRepository summaryRepository;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public List<MonthlySpotResponseDto> getCurrentMonthlySpots() {
+    public List<MonthlySpotResponseDto> getCurrentMonthlySpots(Member member) {
+        Category category = member.getCategory();
         LocalDate firstDayOfCurrentMonth = LocalDate.now().withDayOfMonth(1);
 
         List<Spot> monthlySpots = spotRepository.findAllByDateWithPlace(firstDayOfCurrentMonth);
 
         return monthlySpots.stream()
-                .map(MonthlySpotResponseDto::new)
-                .collect(Collectors.toList());
+                .map(spot -> {
+                    SpotCategorySummary summary = summaryRepository.findBySpotAndCategory(spot, category).orElse(null);
+                    Long count = (summary==null) ? 0 : summary.getVisitCount();
+                    return MonthlySpotResponseDto.from(spot,count);
+                })
+                .toList();
+
     }
     @Transactional
     public void createVisitLog(Member member, Long spotId) {
