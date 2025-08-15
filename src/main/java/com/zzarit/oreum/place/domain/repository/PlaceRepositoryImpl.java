@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.SubQueryExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -96,8 +97,11 @@ public class PlaceRepositoryImpl implements PlaceRepositoryCustom {
                 .where(builder);
 
 
-        // 2) OrderBy 동적쿼리 (리뷰좋은순)
+        // 2) OrderBy 동적쿼리 (리뷰좋은순, 랜덤)
         Sort.Order reviewOrder = pageable.getSort().getOrderFor("review");
+        Sort.Order randomOrder = pageable.getSort().getOrderFor("random");
+
+
         if (reviewOrder != null) {
             SubQueryExpression<Double> avgRatingSubquery = JPAExpressions
                     .select(review.rate.avg())
@@ -110,6 +114,9 @@ public class PlaceRepositoryImpl implements PlaceRepositoryCustom {
             ).nullsLast();
 
             query.orderBy(orderSpec);
+        }else if (randomOrder != null) {
+            // DB 타입에 따라 RAND() 또는 RANDOM() 사용
+            query.orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc());
         }
 
         // 3) 페이징 및 결과 조회
