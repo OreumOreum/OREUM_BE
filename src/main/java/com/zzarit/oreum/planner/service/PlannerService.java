@@ -153,7 +153,7 @@ public class PlannerService {
 
     @Transactional(readOnly = true)
     public String generatePlannerName(Long memberId) {
-        String baseName = "오름오름 나만의 추천 여행코스";
+        String baseName = "오름오름 나만의 추천 여행코스 ";
         // 1) baseName으로 시작하는 모든 이름을 조회
         List<String> existing = plannerRepository.findNamesByNameStartingWith(baseName + "%", memberId);
 
@@ -174,7 +174,7 @@ public class PlannerService {
                     return 0;
                 })
                 .max(Integer::compareTo)
-                .orElse(0);
+                .orElse(1);
 
         // 4) 다음 숫자를 붙여서 리턴
         return baseName + (maxSuffix + 1);

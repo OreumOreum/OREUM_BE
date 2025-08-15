@@ -132,6 +132,8 @@ public class PlaceService {
                         member.getCategory(), code))
                 .flatMap(Optional::stream)
                 .map(place -> new CategoryRecommendResponseDto(
+                        place.getId(),
+                        place.getContentId(),
                         place.getContentTypeId(),
                         place.getOriginImage()))
                 .collect(Collectors.toList());
