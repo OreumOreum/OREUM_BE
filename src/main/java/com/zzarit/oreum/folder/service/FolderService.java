@@ -30,12 +30,25 @@ public class FolderService {
         folder.setMember(member);
 
         folderRepository.save(folder);
-    };
+    }
+
+    ;
 
     public List<FolderResponseDto> getMyFolders(Member member) {
         List<Folder> folders = folderRepository.findAllByMemberWithFetch(member);
 
         return folders.stream().map(FolderResponseDto::from).toList();
+    }
+
+    @Transactional
+    public List<FolderDetailResponseDto> getMyFoldersDetail(Member member, Long placeId) {
+        List<Folder> folders = folderRepository.findAllByMemberWithFetch(member);
+
+        return folders.stream().map(
+                (f) -> {
+                    return FolderDetailResponseDto.from(f, placeId);
+                }
+        ).toList();
     }
 
     public void updateFolderName(Long folderId, FolderNameRequestDto request, Member member) {
@@ -60,7 +73,9 @@ public class FolderService {
         }
 
         folderRepository.deleteById(folderId);
-    };
+    }
+
+    ;
 
     public void deleteMultipleFolders(FolderIdListRequestDto request, Member member) {
         for (Long folderId : request.folderIds()) {
@@ -71,5 +86,7 @@ public class FolderService {
     @Transactional
     public void deleteAllFolders(Member member) {
         folderRepository.deleteAllByMember(member);
-    };
+    }
+
+    ;
 }

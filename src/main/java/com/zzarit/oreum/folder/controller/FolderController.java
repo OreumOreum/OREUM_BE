@@ -39,6 +39,14 @@ public class FolderController {
         return ResponseEntity.ok(folders);
     };
 
+    @Operation(summary = "폴더 저장상태 조회 API", description = "특정 장소가 어느 폴더에 포함되어 있는지 조회합니다.")
+    @GetMapping("detail/{placeId}")
+    public ResponseEntity<List<FolderDetailResponseDto>> getMyFoldersDetail(Member member, @PathVariable Long placeId) {
+        List<FolderDetailResponseDto> folders = folderService.getMyFoldersDetail(member,placeId);
+
+        return ResponseEntity.ok(folders);
+    };
+
     @Operation(summary = "폴더 수정 API", description = "본인의 폴더 이름을 수정합니다.")
     @PatchMapping("/{folderId}")
     public ResponseEntity<Void> updateFolder(@PathVariable Long folderId, @RequestBody FolderNameRequestDto request, Member member) {

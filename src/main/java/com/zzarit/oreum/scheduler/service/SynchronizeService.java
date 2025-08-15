@@ -210,25 +210,12 @@ public class SynchronizeService {
             // 3) 각 DTO마다 place 업데이트 또는 새로 저장
             for (DetailInfoDto dto : dtos) {
                 placeRepository.findByContentId(dto.getContentId())
-                        .map(place -> {
+                        .ifPresent(place -> {
                             // 기존 place가 있으면 update
                             log.debug("   진입 {}", place.getId());
                             place.setCourse(course);
                             place.setOrders(dto.getOrder());
-                            return placeRepository.save(place);
-                        })
-                        .orElseGet(() -> {
-                            // 없으면 새로 생성하여 저장
-                            log.warn("신규 Place 생성: contentId={}", dto.getContentId());
-                            Place newPlace = Place.builder()
-                                    .contentId(dto.getContentId())
-                                    .title(dto.getTitle())
-                                    .overview(dto.getOverview())
-                                    .orders(dto.getOrder())
-                                    .originImage(dto.getOriginImage())
-                                    .course(course)
-                                    .build();
-                            return placeRepository.save(newPlace);
+                            placeRepository.save(place);
                         });
             }
         }
