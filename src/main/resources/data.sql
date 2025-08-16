@@ -95,8 +95,8 @@ INSERT INTO place_category (created_at, updated_at, place_id, category_type) VAL
 --
 -- 20. folder 테이블
 INSERT INTO folder (created_at, updated_at, name, member_id, is_default) VALUES
-                                                                 (NOW(), NOW(), '제주 맛집 모음', 1,true),
-                                                                 (NOW(), NOW(), '문화유적지', 1,false),
+                                                                 (DATEADD('SECOND', 1, CURRENT_TIMESTAMP), NOW(), '제주 맛집 모음', 1,true),
+                                                                 (DATEADD('SECOND', 2, CURRENT_TIMESTAMP), NOW(), '문화유적지', 1,false),
                                                                  (NOW(), NOW(), '오름 투어', 2,true),
                                                                  (NOW(), NOW(), '가족 여행지', 3,true),
                                                                  (NOW(), NOW(), '액티비티 스팟', 4,true),

@@ -34,7 +34,7 @@ public interface FolderRepository extends JpaRepository<Folder, Long> {
         left join fetch f.folderPlaces fp
         left join fetch fp.place p
         where f.member = :member
-        order by fp.createdAt asc
+        order by f.createdAt asc
 """)
     List<Folder> findAllByMemberWithFetch(
             @Param("member") Member member
