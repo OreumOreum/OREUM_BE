@@ -32,7 +32,7 @@ public record CourseDetailResponseDto(
         return new CourseDetailResponseDto(
                 course.getTitle(),
                 course.getCategory2(),
-                course.getSigunguCode(),
+                course.getPlaces().get(0).getSigunguCode(),
                 course.getOverview(),
                 course.getOriginImage(),
                 rateSummary.average(),

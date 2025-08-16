@@ -80,3 +80,4 @@ public class Course extends BaseTimeEntity {
     @JoinColumn(name = "course_detail_id")
     private CourseDetail courseDetail;
 }
+
