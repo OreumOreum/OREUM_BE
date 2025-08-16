@@ -9,7 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "folder_place")
+@Table(name = "folder_place",
+        uniqueConstraints = @UniqueConstraint(name = "uk_folder_place", columnNames = {"folder_id", "place_id"}))
 public class FolderPlace extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +24,12 @@ public class FolderPlace extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
+
+    public static FolderPlace of(Folder folder, Place place) {
+        FolderPlace fp = new FolderPlace();
+        fp.folder = folder;
+        fp.place = place;
+        return fp;
+    }
 
 }

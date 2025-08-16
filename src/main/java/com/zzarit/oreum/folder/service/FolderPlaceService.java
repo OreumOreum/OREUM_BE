@@ -9,6 +9,7 @@ import com.zzarit.oreum.folder.service.dto.FolderPlaceRequestDto;
 import com.zzarit.oreum.folder.service.dto.FolderPlaceResponseDto;
 import com.zzarit.oreum.folder.service.dto.FolderResponseDto;
 import com.zzarit.oreum.global.exception.BadRequestException;
+import com.zzarit.oreum.global.exception.ForbiddenException;
 import com.zzarit.oreum.global.exception.NotFoundException;
 import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Member;
@@ -16,6 +17,7 @@ import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.domain.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,23 +34,25 @@ public class FolderPlaceService {
     private final FolderPlaceRepository folderPlaceRepository;
     private final PlaceRepository placeRepository;
 
+    @Transactional
     public void addFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
+                .orElseThrow(ForbiddenException::new);
 
         Place place = placeRepository.findById(request.placeId())
                 .orElseThrow(() -> new NotFoundException("장소"));
 
-        boolean exists = folderPlaceRepository.existsByFolderAndPlace(folder, place);
-        if (exists) {
+        Folder defaultFolder = folderRepository.findDefaultFolder(member)
+                .orElseThrow(() -> new NotFoundException("기본폴더"));
+
+        int inserted = folderPlaceRepository.upsertIfAbsent(folder.getId(), place.getId());
+        if (inserted == 0) {
             throw new BadRequestException("이미 추가된 장소입니다.");
         }
 
-        FolderPlace folderPlace = new FolderPlace();
-        folderPlace.setFolder(folder);
-        folderPlace.setPlace(place);
-
-        folderPlaceRepository.save(folderPlace);
+        if (!defaultFolder.getId().equals(folder.getId())) {
+            folderPlaceRepository.upsertIfAbsent(defaultFolder.getId(), place.getId());
+        }
     }
 
     public void addDefaultFolderPlace(FolderPlaceRequestDto request, Member member) {
@@ -82,29 +86,29 @@ public class FolderPlaceService {
         return folderPlaces.stream().map(FolderPlaceResponseDto::new).toList();
     }
 
+    @Transactional
     public void deleteFolderPlace(Long folderId, FolderPlaceRequestDto request, Member member) {
         Folder folder = folderRepository.findByIdAndMember(folderId, member)
-                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
+                .orElseThrow(ForbiddenException::new);
 
-        Place place = placeRepository.findById(request.placeId())
-                .orElseThrow(() -> new NotFoundException("장소"));
+        Long placeId = request.placeId();
 
-        FolderPlace folderPlace = folderPlaceRepository.findByFolderAndPlace(folder, place)
-                .orElseThrow(() -> new UnauthorizedException("접근 권한이 없습니다."));
-
-        folderPlaceRepository.delete(folderPlace);
-
-        Folder defaultFolder = folderRepository.findDefaultFolder(member)
-                .orElseThrow(() -> new UnauthorizedException("기본 폴더 없음"));
-
-        boolean placeExistsInOtherFolders = folderPlaceRepository.existsByMemberAndPlaceAndFolderNot(
-                member, place, defaultFolder
-        );
-
-        if (!placeExistsInOtherFolders) {
-            folderPlaceRepository.findByFolderAndPlace(defaultFolder, place)
-                    .ifPresent(folderPlaceRepository::delete);
+        if (folder.isDefault()) {
+            // 기본 폴더 삭제 정책: 해당 회원의 모든 폴더에서 해당 장소 연결 제거
+            int affected = folderPlaceRepository.deleteByMemberIdAndPlaceId(member.getId(), placeId);
+            if (affected == 0) {
+                // 기본 폴더에도 없고 어디에도 없었던 경우
+                throw new NotFoundException("폴더의 장소");
+            }
+            return;
         }
+
+        // 기본 폴더가 아닌 경우: 해당 폴더-장소 연결만 제거
+        int affected = folderPlaceRepository.deleteByFolderIdAndPlaceId(folderId, placeId);
+        if (affected == 0) {
+            throw new NotFoundException("폴더의 장소");
+        }
+
     }
 
     @Transactional
