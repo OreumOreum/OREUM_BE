@@ -35,6 +35,7 @@ public class Folder extends BaseTimeEntity {
     private boolean isDefault;
 
     @OneToMany(mappedBy = "folder", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("createdAt ASC")
     private List<FolderPlace> folderPlaces = new ArrayList<>();
 
     public Folder(String name, Member member, boolean isDefault) {
