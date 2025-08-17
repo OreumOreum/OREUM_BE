@@ -52,6 +52,3 @@ public record CourseDetailResponseDto(
     ) {}
 
 }
-
-
-
