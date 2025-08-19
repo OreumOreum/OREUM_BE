@@ -3,7 +3,9 @@ package com.zzarit.oreum.place.service;
 import com.zzarit.oreum.folder.domain.Folder;
 import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
 import com.zzarit.oreum.folder.domain.repository.FolderRepository;
+import com.zzarit.oreum.global.exception.ForbiddenException;
 import com.zzarit.oreum.global.exception.NotFoundException;
+import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.member.domain.Type;
@@ -139,6 +141,14 @@ public class PlaceService {
                         place.getContentTypeId(),
                         place.getOriginImage()))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteReview(Member member, long reviewId){
+        Review review = reviewRepository.findById(reviewId).orElseThrow(()->new NotFoundException("리뷰"));
+        if(!review.getMember().getId().equals(member.getId())) throw new ForbiddenException();
+
+        reviewRepository.delete(review);
     }
 
 

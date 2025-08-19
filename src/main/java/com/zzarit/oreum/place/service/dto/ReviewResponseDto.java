@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public record ReviewResponseDto(
+        long reviewId,
         Double rate,
         String content,
         LocalDateTime createdAt,
@@ -23,6 +24,7 @@ public record ReviewResponseDto(
                 .orElse(null);
 
         return new ReviewResponseDto(
+                        review.getId(),
                         review.getRate(),
                         review.getContent(),
                         review.getCreatedAt(),
