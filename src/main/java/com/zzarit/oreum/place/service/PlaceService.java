@@ -99,7 +99,9 @@ public class PlaceService {
                 .map(ReviewResponseDto::from)
                 .toList();
 
-        return new ReviewPaginationResponseDto(dtos, reviews.getTotalElements(), reviews.isLast());
+        RateSummary rateSummary = reviewRepository.getRateSummaryByPlaceId(placeId);
+
+        return new ReviewPaginationResponseDto(dtos, rateSummary.average(), reviews.getTotalElements(), reviews.isLast());
     }
 
     @Transactional

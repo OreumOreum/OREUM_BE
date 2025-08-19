@@ -17,7 +17,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("""
             SELECT new com.zzarit.oreum.place.service.dto.RateSummary(
             AVG (r.rate),
-            COUNT (r)           
+            COUNT (r)
             )
             FROM Review r
             WHERE r.course.id = :courseId
@@ -27,7 +27,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("""
             SELECT new com.zzarit.oreum.place.service.dto.RateSummary(
             AVG (r.rate),
-            COUNT (r)           
+            COUNT (r)
             )
             FROM Review r
             WHERE r.place.id = :placeId

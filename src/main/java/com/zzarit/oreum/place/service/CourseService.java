@@ -74,6 +74,8 @@ public class CourseService {
                 .map(ReviewResponseDto::from)
                 .toList();
 
-        return new ReviewPaginationResponseDto(dtos,reviews.getTotalElements(),reviews.isLast());
+        RateSummary rateSummary = reviewRepository.getRateSummaryByCourseId(courseId);
+
+        return new ReviewPaginationResponseDto(dtos,rateSummary.average(), reviews.getTotalElements(),reviews.isLast());
     }
 }
