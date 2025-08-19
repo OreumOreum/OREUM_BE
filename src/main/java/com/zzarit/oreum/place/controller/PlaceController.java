@@ -94,15 +94,21 @@ public class PlaceController {
     }
 
 
-
-
-
     @Operation(summary = "단일 여행지 별점,리뷰 생성 API", description = "단일 여행지 별점/리뷰를 생성합니다.")
     @PostMapping("/review")
     public ResponseEntity<Void> createReview(Member member,@RequestBody ReviewCreateRequestDto request){
         placeService.createReviewAndRating(member, request);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "리뷰삭제 API", description = "리뷰를 삭제합니다.")
+    @DeleteMapping("{reviewId}")
+    public ResponseEntity<Void> deleteReview(Member member,@PathVariable long reviewId){
+        placeService.deleteReview(member,reviewId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 }

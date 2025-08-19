@@ -11,13 +11,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("""
             SELECT new com.zzarit.oreum.place.service.dto.RateSummary(
             AVG (r.rate),
-            COUNT (r)           
+            COUNT (r)
             )
             FROM Review r
             WHERE r.course.id = :courseId
@@ -27,7 +28,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("""
             SELECT new com.zzarit.oreum.place.service.dto.RateSummary(
             AVG (r.rate),
-            COUNT (r)           
+            COUNT (r)
             )
             FROM Review r
             WHERE r.place.id = :placeId
@@ -39,6 +40,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findByPlace(Place place, Pageable pageable);
 
     List<Review> findReviewsByMember(Member member);
-    
     
 }
