@@ -18,6 +18,9 @@ public record CourseDetailResponseDto(
         List<PlaceResponseDto> placeResponseDtoList = course.getPlaces().stream()
                 .map(place -> new PlaceResponseDto(
                         place.getId(),
+                        place.getContentId(),
+                        place.getContentTypeId(),
+                        place.getSigunguCode(),
                         place.getTitle(),
                         place.getAddress(),
                         place.getMapx(),
@@ -43,6 +46,9 @@ public record CourseDetailResponseDto(
 
     public record PlaceResponseDto(
             Long id,
+            String contentId,
+            String contentTypeId,
+            Integer sigunguCode,
             String title,
             String address,
             Double mapX,
