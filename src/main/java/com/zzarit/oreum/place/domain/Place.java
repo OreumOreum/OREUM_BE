@@ -2,14 +2,12 @@ package com.zzarit.oreum.place.domain;
 
 import com.zzarit.oreum.folder.domain.FolderPlace;
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
-import com.zzarit.oreum.place.domain.detail.*;
-import com.zzarit.oreum.place.service.dto.*;
 import com.zzarit.oreum.planner.domain.PlannerPlace;
 import com.zzarit.oreum.spot.domain.Spot;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
-import org.hibernate.annotations.Type;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,48 +112,5 @@ public class Place extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "culture_detail_id")
-    private CultureDetail cultureDetail;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "festival_detail_id")
-    private FestivalDetail festivalDetail;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_detail_id")
-    private FoodDetail foodDetail;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "leports_detail_id")
-    private LeportsDetail leportsDetail;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lodge_detail_id")
-    private LodgeDetail lodgeDetail;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_detail_id")
-    private ShoppingDetail shoppingDetail;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tour_detail_id")
-    private TourDetail tourDetail;
-
-
-
-    public Object getDetailInfo() {
-        return switch (this.getContentTypeId()) {
-            case "12" -> TourDetailDto.from(this.tourDetail);
-            case "14" -> CultureDetailDto.from(this.cultureDetail);
-            case "15" -> FestivalDetailDto.from(this.festivalDetail);
-            case "28" -> LeportsDetailDto.from(this.leportsDetail);
-            case "32" -> LodgeDetailDto.from(this.lodgeDetail);
-            case "38" -> ShoppingDetailDto.from(this.shoppingDetail);
-            case "39" -> FoodDetailDto.from(this.foodDetail);
-            default -> null;
-        };
-    }
 
 }
