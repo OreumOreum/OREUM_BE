@@ -1,9 +1,6 @@
 package com.zzarit.oreum.scheduler.client;
 
-import com.zzarit.oreum.scheduler.client.dto.AreaBasedDto;
-import com.zzarit.oreum.scheduler.client.dto.DetailCommonDto;
-import com.zzarit.oreum.scheduler.client.dto.DetailInfoDto;
-import com.zzarit.oreum.scheduler.client.dto.OpenApiResponseDto;
+import com.zzarit.oreum.scheduler.client.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +18,7 @@ public class OpenApiClient {
     private static final String GET_AREA_BASED_URI = "https://apis.data.go.kr/B551011/KorService2/areaBasedList2";
     private static final String GET_DETAIL_COMMON_URI = "https://apis.data.go.kr/B551011/KorService2/detailCommon2";
     private static final String GET_DETAIL_INFO_URL = "https://apis.data.go.kr/B551011/KorService2/detailInfo2";
+    private static final String GET_AREA_BASED_SYNC_URL = "https://apis.data.go.kr/B551011/KorService2/areaBasedSyncList2";
 
     @Value("${OPEN_API_SECRET_KEY}")
     private String OPEN_API_SECRET_KEY;
@@ -69,6 +67,20 @@ public class OpenApiClient {
                 .uri(uri)
                 .retrieve()
                 .body(new ParameterizedTypeReference<OpenApiResponseDto<DetailInfoDto>>() {});
+
+        return responseDto.allItems().orElse(null);
+    }
+
+    public List<SynctDto> getAreaBasedSyncList2() {
+        URI uri = baseOpenApiBuilder(GET_AREA_BASED_SYNC_URL)
+                .queryParam("arrange", "C")
+                .build(true)
+                .toUri();
+
+        OpenApiResponseDto<SynctDto> responseDto=  restClient.get()
+                .uri(uri)
+                .retrieve()
+                .body(new ParameterizedTypeReference<OpenApiResponseDto<SynctDto>>() {});
 
         return responseDto.allItems().orElse(null);
     }

@@ -20,7 +20,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -65,13 +67,17 @@ public class CourseService {
     }
 
     @Transactional
-    public ReviewPaginationResponseDto getReviewPagination(long courseId, int page, int size){
+    public ReviewPaginationResponseDto getReviewPagination(long courseId, int page, int size, Member member){
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException("코스"));
         Pageable pageable = PageRequest.of(page,size, Sort.by("createdAt").descending());
         Page<Review> reviews = reviewRepository.findByCourse(course, pageable);
 
         List<ReviewResponseDto> dtos = reviews.getContent().stream()
-                .map(ReviewResponseDto::from)
+                .map((review) -> {
+                    boolean isMyReview = Objects.equals(review.getMember().getId(), member.getId());
+                    return ReviewResponseDto.from(review, isMyReview);
+                })
+                .sorted(Comparator.comparing(ReviewResponseDto::isMyReview).reversed())
                 .toList();
 
         RateSummary rateSummary = reviewRepository.getRateSummaryByCourseId(courseId);

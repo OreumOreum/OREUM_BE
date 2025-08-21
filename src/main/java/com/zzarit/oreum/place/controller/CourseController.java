@@ -39,10 +39,11 @@ public class CourseController {
     @Operation(summary = "코스 리뷰 페이지네이션 조회", description = "코스에 대한 리뷰를 페이지네이션합니다.")
     @GetMapping("/review/{courseId}")
     public ResponseEntity<ReviewPaginationResponseDto> getReviewPagination(
+            Member member,
             @PathVariable long courseId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok(courseService.getReviewPagination(courseId,page,size));
+        return ResponseEntity.ok(courseService.getReviewPagination(courseId,page,size,member));
     }
 
     @Operation(summary = "코스 별점,리뷰 생성 API", description = "코스 별점/리뷰를 생성합니다.")

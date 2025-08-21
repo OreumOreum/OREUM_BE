@@ -30,9 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -93,13 +91,17 @@ public class PlaceService {
 
 
     @Transactional
-    public ReviewPaginationResponseDto getReviewPaginationByPlace(long placeId, int page, int size) {
+    public ReviewPaginationResponseDto getReviewPaginationByPlace(long placeId, int page, int size, Member member) {
         Place place = placeRepository.findById(placeId).orElseThrow(() -> new NotFoundException("장소"));
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Review> reviews = reviewRepository.findByPlace(place, pageable);
 
         List<ReviewResponseDto> dtos = reviews.getContent().stream()
-                .map(ReviewResponseDto::from)
+                .map((review) -> {
+                    boolean isMyReview = Objects.equals(review.getMember().getId(), member.getId());
+                    return ReviewResponseDto.from(review, isMyReview);
+                })
+                .sorted(Comparator.comparing(ReviewResponseDto::isMyReview).reversed())
                 .toList();
 
         RateSummary rateSummary = reviewRepository.getRateSummaryByPlaceId(placeId);

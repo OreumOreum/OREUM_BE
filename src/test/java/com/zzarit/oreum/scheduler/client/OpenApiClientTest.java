@@ -3,6 +3,7 @@ package com.zzarit.oreum.scheduler.client;
 import com.zzarit.oreum.scheduler.client.dto.AreaBasedDto;
 import com.zzarit.oreum.scheduler.client.dto.DetailCommonDto;
 import com.zzarit.oreum.scheduler.client.dto.OpenApiResponseDto;
+import com.zzarit.oreum.scheduler.client.dto.SynctDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +24,7 @@ class OpenApiClientTest {
 
     @Test
     public void courseInfoTest() {
-        openApiClient.getDetailInfo("2372024");
+        List<SynctDto> list2 = openApiClient.getAreaBasedSyncList2();
     }
 
 
