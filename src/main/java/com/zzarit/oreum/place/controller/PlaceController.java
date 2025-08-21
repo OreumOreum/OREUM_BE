@@ -93,10 +93,11 @@ public class PlaceController {
     @Operation(summary = "단일 여행지 리뷰 페이지네이션 조회", description = "여행지에 대한 리뷰를 페이지네이션합니다.")
     @GetMapping("/review/{placeId}")
     public ResponseEntity<ReviewPaginationResponseDto> getReviewPagination(
+            Member member,
             @PathVariable long placeId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok(placeService.getReviewPaginationByPlace(placeId,page,size));
+        return ResponseEntity.ok(placeService.getReviewPaginationByPlace(placeId,page,size,member));
     }
 
 

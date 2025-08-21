@@ -76,7 +76,6 @@ public class SynchronizeService {
                 String cid = item.getContentid();
                 if (existing.contains(cid)) continue;
 
-
                 if (!COURSETYPE.equals(item.getCat1())) {
                     // Place 엔티티 생성
                     Place place = Place.builder()

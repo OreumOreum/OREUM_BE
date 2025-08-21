@@ -14,10 +14,11 @@ public record ReviewResponseDto(
         String content,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        Type type
+        Type type,
+        boolean isMyReview
 ) {
 
-    public static ReviewResponseDto from(Review review){
+    public static ReviewResponseDto from(Review review, boolean isMyReview){
         Type categoryType = Optional.ofNullable(review.getMember())
                 .map(Member::getCategory)
                 .map(Category::getType)
@@ -29,7 +30,8 @@ public record ReviewResponseDto(
                         review.getContent(),
                         review.getCreatedAt(),
                         review.getUpdatedAt(),
-                        categoryType
+                        categoryType,
+                        isMyReview
         );
     }
 }
