@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
+
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SynctDto {
@@ -19,13 +24,23 @@ public class SynctDto {
     private String createdtime;      // 등록일
     private String firstimage;       // 대표이미지 (원본)
     private String firstimage2;      // 대표이미지 (썸네일)
-    private String mapx;             // GPS X좌표
-    private String mapy;             // GPS Y좌표
-    private String modifiedtime;     // 수정일
-    private String sigungucode;      // 시군구 코드
+    private Double mapx;             // GPS X좌표
+    private Double mapy;             // GPS Y좌표
+    private LocalDateTime modifiedtime;     // 수정일
+    private Integer sigungucode;      // 시군구 코드
     private String tel;              // 전화번호
     private String title;            // 콘텐츠 제목
     private String showflag;            // 표출, 비표출 여부
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
+
+    @JsonSetter("modifiedtime")
+    public void setModifiedtime(String value) {
+        if (StringUtils.hasText(value)) {
+            this.modifiedtime = LocalDateTime.parse(value, FORMATTER);
+        }
+    }
 
     @JsonSetter("firstimage")
     public void setFirstimage(String image) {

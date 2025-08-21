@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +30,7 @@ class MonthlyBatchServiceTest {
     @Transactional
     void spotSelectTest(){
         placeRepository.saveAll(PlaceFixture.places());
-        monthlyBatchService.executeMonthlyProcess();
+        monthlyBatchService.selectAndCreateSpotsFor(LocalDate.now());
     }
 
 }

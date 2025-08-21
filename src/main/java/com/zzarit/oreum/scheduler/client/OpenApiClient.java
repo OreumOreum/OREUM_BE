@@ -71,9 +71,11 @@ public class OpenApiClient {
         return responseDto.allItems().orElse(null);
     }
 
-    public List<SynctDto> getAreaBasedSyncList2() {
+    public List<SynctDto> getAreaBasedSyncList2(int numOfRows) {
         URI uri = baseOpenApiBuilder(GET_AREA_BASED_SYNC_URL)
+                .queryParam("numOfRows",numOfRows)
                 .queryParam("arrange", "C")
+                .queryParam("areaCode", "39")
                 .build(true)
                 .toUri();
 
