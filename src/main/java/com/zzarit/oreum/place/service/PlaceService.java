@@ -82,7 +82,8 @@ public class PlaceService {
         List<PlacePaginationResponseDto> dtos = placeList.getContent()
                 .stream()
                 .map((place) ->{
-                    boolean isSaved = folderPlaceRepository.existsByMemberAndPlace(member,place);
+                    boolean
+                            isSaved = folderPlaceRepository.existsByMemberAndPlace(member,place);
                     return PlacePaginationResponseDto.from(place,isSaved);
                 })
                 .toList();
