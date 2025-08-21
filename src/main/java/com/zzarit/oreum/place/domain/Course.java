@@ -1,8 +1,6 @@
 package com.zzarit.oreum.place.domain;
 
 import com.zzarit.oreum.global.domain.BaseTimeEntity;
-import com.zzarit.oreum.place.domain.detail.CourseDetail;
-import com.zzarit.oreum.place.service.dto.CourseDetailDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -75,9 +73,5 @@ public class Course extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "course")
     private List<Review> reviews = new ArrayList<>();
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_detail_id")
-    private CourseDetail courseDetail;
 }
 

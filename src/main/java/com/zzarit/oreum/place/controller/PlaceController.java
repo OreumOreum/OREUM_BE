@@ -1,5 +1,6 @@
 package com.zzarit.oreum.place.controller;
 
+import com.zzarit.oreum.folder.domain.repository.FolderPlaceRepository;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.place.domain.Place;
 import com.zzarit.oreum.place.service.CourseService;
@@ -24,6 +25,7 @@ import java.util.List;
 public class PlaceController {
 
     private final PlaceService placeService;
+    private final FolderPlaceRepository folderPlaceRepository;
 
     @Operation(summary = "여행지 페이지네이션 조회", description = "유형필터시 type=true, 리뷰좋은순 sort=review,DESC")
     @GetMapping()
@@ -42,6 +44,7 @@ public class PlaceController {
     @Operation(summary = "장소 검색 API", description = "DB에 등록된 장소를 검색합니다.")
     @GetMapping("/search-places")
     public ResponseEntity<PlaceSearchResponseDto> searchPlaces(
+            Member member,
             @RequestParam String keyword,
             @RequestParam(required = false) Integer sigunguCode,
             @RequestParam(defaultValue = "0") int page,
@@ -52,7 +55,10 @@ public class PlaceController {
 
         List<PlaceDto> content = places.getContent()
                 .stream()
-                .map(PlaceDto::from)
+                .map((place) ->{
+                    boolean isSaved = folderPlaceRepository.existsByMemberAndPlace(member,place);
+                    return PlaceDto.from(place,isSaved);
+                })
                 .toList();
 
         PlaceSearchResponseDto response = new PlaceSearchResponseDto(content, places.isLast());
