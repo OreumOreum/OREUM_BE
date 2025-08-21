@@ -1,5 +1,6 @@
 package com.zzarit.oreum.scheduler.service;
 
+import com.zzarit.oreum.global.util.OreumStringUtils;
 import com.zzarit.oreum.member.domain.Category;
 import com.zzarit.oreum.place.domain.*;
 import com.zzarit.oreum.place.domain.repository.CategoryMapRepository;
@@ -38,12 +39,12 @@ public class SynchronizeService {
     private int courseOverviewOffset = 0;
 
     public void initialize(){
-//        log.info("1) Place,Course 데이터 저장 시작");
-//        savePlaceAndCourse();
-//        log.info("2) PlaceCategory 매핑 시작");
-//        saveCategoryMap();
-//        log.info("3) CoursePlace 매핑 시작");
-//        saveCoursePlace();
+        log.info("1) Place,Course 데이터 저장 시작");
+        savePlaceAndCourse();
+        log.info("2) PlaceCategory 매핑 시작");
+        saveCategoryMap();
+        log.info("3) CoursePlace 매핑 시작");
+        saveCoursePlace();
     }
 
 
@@ -79,7 +80,7 @@ public class SynchronizeService {
                 if (!COURSETYPE.equals(item.getCat1())) {
                     // Place 엔티티 생성
                     Place place = Place.builder()
-                            .address(removePrefix(item.getAddr1()))
+                            .address(OreumStringUtils.removePrefix(item.getAddr1()))
                             .detailAddress(item.getAddr2())
                             .sigunguCode(toIntOrNull(item.getSigungucode()))
                             .category1(item.getCat1())
@@ -182,13 +183,7 @@ public class SynchronizeService {
         courseRepository.saveAll(courses);
     }
 
-    /**
-     * 매일 낮 12시 500건씩 Place/Course Overview 갱신
-     */
-    @Scheduled(cron = "0 0 12 * * ?")
-    public void saveOverviewDaily() {
-        saveOverviewBatchDevelopVersion();
-    }
+
 
     @Transactional
     public void saveOverviewBatchDevelopVersion() {
@@ -247,12 +242,6 @@ public class SynchronizeService {
         }
     }
 
-    public static String removePrefix(String fullAddr) {
-        if(fullAddr == null) return null;
-
-        String[] token = fullAddr.split(" ");
-        return String.join(" ", Arrays.copyOfRange(token, 1, token.length));
-    }
 
 
     private <T> void saveInBatch(List<T> list, CrudRepository<T, ?> repo) {

@@ -28,21 +28,6 @@ public class MonthlyBatchService {
     private static final int JEJU_SI_CODE = 4;
     private static final int SEOGWIPO_SI_CODE = 3;
 
-    /**
-     * 매달 1일 새벽 2시에 월별 배치 작업 실행
-     * cron = "초 분 시 일 월 요일"
-     */
-    @Scheduled(cron = "0 0 2 1 * *")
-    //@Scheduled(cron = "*/10 * * * * *")
-    @Transactional
-    public void executeMonthlyProcess() {
-        log.info("월별 배치 작업을 시작합니다.");
-        LocalDate today = LocalDate.now();
-
-        selectAndCreateSpotsFor(today);
-        log.info("월별 배치 작업이 성공적으로 완료되었습니다.");
-    }
-
 
     /**
      * 1. 이달의 여행지 선정 및 SPOT 테이블에 등록

@@ -24,7 +24,10 @@ class OpenApiClientTest {
 
     @Test
     public void courseInfoTest() {
-        List<SynctDto> list2 = openApiClient.getAreaBasedSyncList2();
+        List<SynctDto> list2 = openApiClient.getAreaBasedSyncList2(300);
+        for(SynctDto dto : list2){
+            System.out.println(dto.getTitle());
+        }
     }
 
 

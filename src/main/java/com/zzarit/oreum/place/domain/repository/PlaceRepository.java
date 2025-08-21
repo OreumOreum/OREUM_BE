@@ -52,4 +52,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long>, PlaceReposi
         );
         return list.stream().findFirst();
     }
+
+    List<Place> findAllByContentIdIn(Collection<String> contentIds);
 }
