@@ -157,15 +157,42 @@ public class SynchronizeService {
     }
 
     /**
+     * 운영버전 overview 쓰기 (배치사이즈 끊지 X 연속으로 쓰기)
+     */
+    @Transactional
+    public void saveOverviewBatchOperationVersion() {
+
+        List<Place> places = placeRepository.findAll();
+        for (Place place : places) {
+            DetailCommonDto dto = openApiClient.getDetailCommon(place.getContentId());
+            if (dto == null) {
+                continue;
+            }
+            place.setOverview(dto.getOverview());
+        }
+        placeRepository.saveAll(places);
+
+        List<Course> courses = courseRepository.findAll();
+        for (Course course : courses) {
+            DetailCommonDto dto = openApiClient.getDetailCommon(course.getContentId());
+            if (dto == null) {
+                continue;
+            }
+            course.setOverview(dto.getOverview());
+        }
+        courseRepository.saveAll(courses);
+    }
+
+    /**
      * 매일 낮 12시 500건씩 Place/Course Overview 갱신
      */
     @Scheduled(cron = "0 0 12 * * ?")
     public void saveOverviewDaily() {
-        saveOverviewBatch();
+        saveOverviewBatchDevelopVersion();
     }
 
     @Transactional
-    public void saveOverviewBatch() {
+    public void saveOverviewBatchDevelopVersion() {
         int batchSize = 500;
 
         List<Place> places = placeRepository.findAll();
