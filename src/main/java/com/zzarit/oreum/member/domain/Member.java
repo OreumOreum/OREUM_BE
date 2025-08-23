@@ -29,18 +29,6 @@ public class Member extends BaseTimeEntity {
     @Column(name = "login_id")
     private String loginId;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "fcm_token")
-    private String fcmToken;
-
-    @Column(name = "phone_no", unique = true)
-    private String phoneNo;
-
     @Column(name = "skip")
     private Boolean skip = false;
 

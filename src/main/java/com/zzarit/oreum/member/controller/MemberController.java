@@ -28,16 +28,6 @@ public class MemberController {
         return ResponseEntity.ok(myInfo);
     }
 
-    @Operation(summary = "내 정보 수정 API", description = "본인의 프로필 정보를 수정합니다.")
-    @PatchMapping("/me")
-    public ResponseEntity<Void> updateMyProfile(
-            Member member,
-            @RequestBody UpdateMemberProfileRequest request) {
-
-        memberService.updateProfile(member.getId(), request);
-        return ResponseEntity.ok().build();
-    }
-
     @Operation(summary = "내 유형 수정 API", description = "본인의 관심 카테고리를 변경합니다.")
     @PatchMapping("/me/category")
     public ResponseEntity<Void> updateMyCategory(
