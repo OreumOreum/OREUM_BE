@@ -26,25 +26,6 @@ public class MemberService {
         return new MemberResponseDto(member);
     }
 
-    @Transactional
-    public void updateProfile(Long memberId, UpdateMemberProfileRequest request) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 멤버를 찾을 수 없습니다. id=" + memberId));
-
-        if (request.getName() != null) {
-            member.setName(request.getName());
-        }
-
-        if (request.getEmail() != null) {
-            member.setEmail(request.getEmail());
-        }
-
-        if (request.getPhoneNo() != null) {
-            member.setPhoneNo(request.getPhoneNo());
-        }
-
-    }
-
 
     @Transactional
     public void updateCategory(Long memberId, Type typeEnum) {

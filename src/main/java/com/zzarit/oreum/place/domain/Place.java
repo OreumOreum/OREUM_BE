@@ -81,7 +81,7 @@ public class Place extends BaseTimeEntity {
     @Comment("상세설명")
     @Column(
             name             = "overview",
-            columnDefinition = "TEXT"     // ← MySQL TEXT 타입으로 강제
+            columnDefinition = "TEXT"
     )
     private String overview ;
 
