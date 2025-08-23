@@ -1,10 +1,7 @@
 package com.zzarit.oreum.auth.service;
 
 import com.zzarit.oreum.auth.service.client.OAuthClient;
-import com.zzarit.oreum.auth.service.dto.AppleLoginRequestDto;
-import com.zzarit.oreum.auth.service.dto.AuthTokenDto;
-import com.zzarit.oreum.auth.service.dto.GoogleLoginRequestDto;
-import com.zzarit.oreum.auth.service.dto.KakaoLoginRequestDto;
+import com.zzarit.oreum.auth.service.dto.*;
 import com.zzarit.oreum.global.exception.UnauthorizedException;
 import com.zzarit.oreum.member.domain.Member;
 import com.zzarit.oreum.member.domain.repository.AuthProvider;
@@ -63,6 +60,12 @@ public class AuthService {
         }
 
         return authTokenManager.refresh(refreshToken);
+    }
+
+    public boolean checkJoin(MemberExistCheckDto request){
+        OAuthClient client = oAuthClientComposite.getClient(request.provider());
+        String loginId = client.getUserInfo(request.token());
+        return memberRepository.findByLoginId(loginId).isPresent();
     }
 
 }

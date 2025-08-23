@@ -45,5 +45,11 @@ public class AuthController {
         return ResponseEntity.ok(tokens);
     }
 
+    @PostMapping("/member/exist")
+    public ResponseEntity<Boolean> refresh(
+            @RequestBody MemberExistCheckDto request) {
+        return ResponseEntity.ok(authService.checkJoin(request));
+    }
+
 
 }
