@@ -12,6 +12,7 @@ public record PlannerCourseResponseDto(
         List<CoursePlaceDto> dtos = places.stream()
                 .map(place -> new CoursePlaceDto(
                         place.getId(),
+                        place.getContentTypeId(),
                         place.getTitle(),
                         place.getAddress(),
                         place.getThumbnailImage())
@@ -22,6 +23,7 @@ public record PlannerCourseResponseDto(
 
     public record CoursePlaceDto(
             Long placeId,
+            String contentTypeId,
             String placeTitle,
             String placeAddress,
             String placeThumbnailImage
