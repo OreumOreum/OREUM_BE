@@ -126,10 +126,17 @@ public class PlaceService {
     @Transactional
     public List<MyReviewResponseDto> getMyReviews(Member member){
         List<Review> reviews = reviewRepository.findReviewsByMember(member);
-        return reviews.stream().map((review)->
-                new MyReviewResponseDto
-                        (review.getId(),review.getRate(),review.getContent(),review.getCreatedAt(),review.getUpdatedAt()
-                        ,review.getPlace().getTitle()))
+        return reviews.stream().map(review ->
+                        new MyReviewResponseDto(
+                                review.getId(),
+                                review.getRate(),
+                                review.getContent(),
+                                review.getCreatedAt(),
+                                review.getUpdatedAt(),
+                                Optional.ofNullable(review.getPlace())
+                                        .map(Place::getTitle)
+                                        .orElse("삭제된 장소")
+                        ))
                 .toList();
     }
 
