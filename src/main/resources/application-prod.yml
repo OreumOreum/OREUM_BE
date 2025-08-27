@@ -6,20 +6,28 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
-    # 데이터베이스 초기화 지연 없이 바로 수행
     defer-datasource-initialization: false
-
-    # Hibernate에 사용할 Dialect를 명시적으로 지정
     database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: false
 
-    # Spring Boot 3.x 에선 위 옵션만으로도 충분하지만,
-    # Hibernate 속성으로도 중복 지정할 수 있습니다.
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+        # SQL 포매팅 비활성화
+        format_sql: false
+        # SQL 주석 비활성화
+        use_sql_comments: false
 
     hibernate:
       ddl-auto: update
+
+# 로깅 레벨 설정으로 SQL 로그 완전 차단
+logging:
+  level:
+    org.hibernate.SQL: OFF
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF
+    org.springframework.jdbc.core.JdbcTemplate: OFF
+    org.springframework.jdbc.core.StatementCreatorUtils: OFF
 
 security:
   jwt:
