@@ -12,10 +12,10 @@ INSERT INTO category (type) VALUES
 -- 2. member 테이블
 INSERT INTO member (created_at, updated_at, login_id, category_type, skip) VALUES
                                                                                                                         (NOW(), NOW(),  '1111', 'CULTURE',FALSE),
-                                                                                                                        (NOW(), NOW(),  '1111', 'FOOD',FALSE),
-                                                                                                                        (NOW(), NOW(),  '1111', 'FOREST',FALSE),
-                                                                                                                        (NOW(), NOW(),  '1111', 'ACTIVITY',FALSE),
-                                                                                                                        (NOW(), NOW(),  '1111', 'MOOD',FALSE);
+                                                                                                                        (NOW(), NOW(),  '2222', 'FOOD',FALSE),
+                                                                                                                        (NOW(), NOW(),  '3333', 'FOREST',FALSE),
+                                                                                                                        (NOW(), NOW(),  '4444', 'ACTIVITY',FALSE),
+                                                                                                                        (NOW(), NOW(),  '5555', 'MOOD',FALSE);
 
 
 --
