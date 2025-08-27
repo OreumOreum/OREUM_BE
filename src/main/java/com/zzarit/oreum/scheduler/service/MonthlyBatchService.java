@@ -35,7 +35,7 @@ public class MonthlyBatchService {
     public void selectAndCreateSpotsFor(LocalDate today) {
         LocalDate firstDayOfMonth = today.withDayOfMonth(1);
         if (spotRepository.existsByDate(firstDayOfMonth)) {
-            log.info("{}년 {}월의 여행지는 이미 존재하므로 생성을 건너뜁니다.", today.getYear(), today.getMonthValue());
+            log.info("[이달의여행지] {}년 {}월의 여행지는 이미 존재하므로 생성을 건너뜁니다.", today.getYear(), today.getMonthValue());
             return; // 메소드를 즉시 종료
         }
         List<Long> excludedPlaceIds = spotRepository.findAllPlaceIds();
@@ -49,7 +49,7 @@ public class MonthlyBatchService {
                 .collect(Collectors.toList());
 
         spotRepository.saveAll(newSpots);
-        log.info("{}년 {}월의 여행지 {}곳을 SPOT에 등록했습니다.", today.getYear(), today.getMonthValue(), newSpots.size());
+        log.info("[이달의여행지] {}년 {}월의 여행지 {}곳을 SPOT에 등록했습니다.", today.getYear(), today.getMonthValue(), newSpots.size());
     }
 
     private List<Place> pickRandomPlaces(int sigunguCode, int count, List<Long> excludedIds) {
@@ -59,7 +59,7 @@ public class MonthlyBatchService {
 
 
         if (candidates.size() < count) {
-            log.warn("{} 지역에 추천할 장소가 부족합니다. (요청: {}, 후보: {})", sigunguCode, count, candidates.size());
+            log.warn("[이달의여행지] {} 지역에 추천할 장소가 부족합니다. (요청: {}, 후보: {})", sigunguCode, count, candidates.size());
             throw new NotFoundException("추천할 장소");
         }
         Collections.shuffle(candidates);

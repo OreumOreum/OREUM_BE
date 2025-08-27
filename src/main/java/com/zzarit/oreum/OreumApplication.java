@@ -10,6 +10,5 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class OreumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OreumApplication.class, args);
-
 	}
 }
