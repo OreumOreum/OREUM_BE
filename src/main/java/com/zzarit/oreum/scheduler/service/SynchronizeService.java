@@ -164,6 +164,7 @@ public class SynchronizeService {
 
         List<Place> places = placeRepository.findAll();
         for (Place place : places) {
+            if(place.getOverview() != null) continue;
             DetailCommonDto dto = openApiClient.getDetailCommon(place.getContentId());
             if (dto == null) {
                 continue;
@@ -174,6 +175,7 @@ public class SynchronizeService {
 
         List<Course> courses = courseRepository.findAll();
         for (Course course : courses) {
+            if(course.getOverview() != null) continue;
             DetailCommonDto dto = openApiClient.getDetailCommon(course.getContentId());
             if (dto == null) {
                 continue;
