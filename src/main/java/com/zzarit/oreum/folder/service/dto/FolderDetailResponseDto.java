@@ -8,7 +8,8 @@ import java.util.Objects;
 public record FolderDetailResponseDto(
         Long folderId,
         String folderName,
-        boolean isSaved
+        boolean isSaved,
+        boolean isDefault
 ) {
     public static FolderDetailResponseDto from(Folder folder, Long placeId) {
         boolean saved =
@@ -23,7 +24,8 @@ public record FolderDetailResponseDto(
         return new FolderDetailResponseDto(
                 folder != null ? folder.getId() : null,
                 folder != null ? folder.getName() : null,
-                saved
+                saved,
+                folder.isDefault()
         );
     }
 }

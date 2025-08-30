@@ -28,26 +28,30 @@ public record FolderResponseDto(Long folderId, String folderName, List<String> o
         );
     }
 
-    private static List<String> extractImageUrls(List<FolderPlace> places, boolean isDefault, int limit) {
+    private static List<String> extractImageUrls(List<FolderPlace> folderPlaces, boolean isDefault, int limit) {
 
-        if (places.isEmpty()) {
+        List<String> validImages = folderPlaces.stream()
+                .filter(fp -> fp.getPlace() != null) // place null 체크
+                .map(fp -> fp.getPlace().getOriginImage())
+                .filter(Objects::nonNull) // originImage null 체크
+                .collect(Collectors.toList());
+
+        if (validImages.isEmpty()) {
             return null;
         }
 
         // 전체 개수가 limit 미만일 땐, 기본 폴더면 마지막 한 장, 아니면 첫 장만
-        if (places.size() < limit) {
-            FolderPlace fp = isDefault ?
-                    places.get(places.size() - 1) :
-                    places.get(0);
-            return Collections.singletonList(fp.getPlace().getOriginImage());
+        if (validImages.size() < limit) {
+            String url = isDefault ?
+                    validImages.get(validImages.size() - 1) :
+                    validImages.get(0);
+            return Collections.singletonList(url);
         }
 
         // 4장 이상일 땐, 기본 폴더면 뒤에서 4장, 아니면 앞에서 4장
-        int start = isDefault ? places.size() - limit : 0;
-        int end   = isDefault ? places.size()         : limit;
+        int start = isDefault ? validImages.size() - limit : 0;
+        int end   = isDefault ? validImages.size()         : limit;
 
-        return places.subList(start, end).stream()
-                .map(fp -> fp.getPlace().getOriginImage())
-                .collect(Collectors.toList());
+        return validImages.subList(start, end);
     }
 }
