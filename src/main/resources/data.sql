@@ -33,7 +33,7 @@ INSERT INTO course (created_at, updated_at, category_1, category_2, category_3, 
 --
 -- 14. place 테이블
 INSERT INTO place (created_at, updated_at, address, origin_image, sigungucode, course_id, content_type_id, title) VALUES
-                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리','image1',4,1,'12', '장소1'),
+                                                    (NOW(), NOW(), '제주특별자치도 제주시 조천읍 선흘리',null,4,1,'12', '장소1'),
                                                     (NOW(), NOW(), '제주특별자치도 제주시 애월읍 고성리',null,4,1,'14', '장소2'),
                                                     (NOW(), NOW(), '제주특별자치도 제주시 한림읍 한림리','image3',4,1,'15', '장소3'),
                                                     (NOW(), NOW(), '제주특별자치도 서귀포시 성산읍 성산리','image4',3,1,'25', '장소4'),
