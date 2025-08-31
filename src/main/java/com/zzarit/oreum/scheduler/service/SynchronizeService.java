@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class SynchronizeService {
 //        saveCategoryMap();
 //        log.info("[초기화]-3 CoursePlace 매핑 시작");
 //        saveCoursePlace();
-        monthlyBatchService.selectAndCreateSpotsFor(LocalDate.now());
+        monthlyBatchService.selectAndCreateSpotsFor(LocalDate.now(ZoneId.of("Asia/Seoul")));
     }
 
 
