@@ -47,6 +47,7 @@ public class SynchronizeService {
 //        saveCategoryMap();
 //        log.info("[초기화]-3 CoursePlace 매핑 시작");
 //        saveCoursePlace();
+        monthlyBatchService.selectAndCreateSpotsFor(LocalDate.now());
     }
 
 
