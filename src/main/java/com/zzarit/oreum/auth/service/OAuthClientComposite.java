@@ -23,7 +23,7 @@ public class OAuthClientComposite {
 
 
     public OAuthClientComposite(List<OAuthClient> clients, DevAuthClient devAuthClient, Environment env) {
-        isLocal = Arrays.asList(env.getActiveProfiles()).contains("local");
+        isLocal = Arrays.asList(env.getActiveProfiles()).contains("fqwf");
         if(isLocal) log.warn("어플리케이션 실행환경이 DEV 상태입니다, 프로덕션 환경이라면 서버 중지가 필요합니다.");
 
         this.devClient = devAuthClient;

@@ -21,7 +21,7 @@ public class SchedulerManager {
     /**
      * 매일 새벽 3시 DataBase 동기화
      */
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(cron = "0 0 3 * * ?", zone = "Asia/Seoul")
     public void dailySynchronization() {
         dailySynchronizeService.syncDaily();
     }
@@ -30,7 +30,7 @@ public class SchedulerManager {
     /**
      * 매일 낮 12시 500건씩 Place/Course Overview 갱신(Dev버전)
      */
-    @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "0 0 12 * * ?", zone = "Asia/Seoul")
     public void saveOverviewDaily() {
         synchronizeService.saveOverviewBatchDevelopVersion();
     }
@@ -39,8 +39,7 @@ public class SchedulerManager {
      * 매달 1일 새벽 00시에 월별 배치 작업 실행
      * cron = "초 분 시 일 월 요일"
      */
-    @Scheduled(cron = "0 0 0 1 * *")
-    //@Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "0 0 0 1 * *", zone = "Asia/Seoul")
     @Transactional
     public void executeMonthlyProcess() {
         log.info("[이달의여행지] 월별 배치 작업을 시작합니다.");
