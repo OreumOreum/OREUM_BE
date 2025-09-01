@@ -2,12 +2,15 @@ package com.zzarit.oreum.scheduler.service;
 
 import com.zzarit.oreum.global.util.OreumStringUtils;
 import com.zzarit.oreum.logging.config.LoggingFilter;
-import com.zzarit.oreum.place.domain.Course;
-import com.zzarit.oreum.place.domain.Place;
-import com.zzarit.oreum.place.domain.repository.CourseRepository;
-import com.zzarit.oreum.place.domain.repository.PlaceRepository;
+import com.zzarit.oreum.place.domain.*;
+import com.zzarit.oreum.place.domain.repository.*;
 import com.zzarit.oreum.scheduler.client.OpenApiClient;
+import com.zzarit.oreum.scheduler.client.dto.DetailCommonDto;
+import com.zzarit.oreum.scheduler.client.dto.DetailInfoDto;
 import com.zzarit.oreum.scheduler.client.dto.SynctDto;
+import com.zzarit.oreum.spot.domain.Spot;
+import com.zzarit.oreum.spot.domain.repository.SpotRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,9 +32,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DailySynchronizeService {
     private final OpenApiClient openApiClient;
-    private final LoggingFilter loggingFilter;
+    private final SpotRepository spotRepository;
     private final PlaceRepository placeRepository;
     private final CourseRepository courseRepository;
+    private final CategoryMapRepository categoryMapRepository;
+    private final PlaceCategoryRepository placeCategoryRepository;
+    private final CourseCategoryRepository courseCategoryRepository;
+
+
 
 
     /**
@@ -81,7 +89,7 @@ public class DailySynchronizeService {
                 .findAllByContentIdIn(courseSyncList.stream().map(SynctDto::getContentid).toList())
                 .stream().collect(Collectors.toMap(Course::getContentId, Function.identity()));
 
-        int created = 0, updated = 0, deleted = 0;
+        int created = 0, updated = 0, deleted = 0, skip = 0;
 
         // ===== Places =====
         for (SynctDto item : placeSyncList) {
@@ -89,34 +97,20 @@ public class DailySynchronizeService {
             final boolean show = "1".equals(item.getShowflag());
             Place entity = placeMap.get(cid);
 
+            // 삭제
             if (!show) {
-                if (entity != null) { placeRepository.delete(entity); deleted++; }
+                if (entity != null)  deleted+=deletePlace(entity);
                 continue;
             }
 
+            // 생성
             if (entity == null) {
-                Place newPlace = Place.builder()
-                        .address(OreumStringUtils.removePrefix(item.getAddr1()))
-                        .detailAddress(item.getAddr2())
-                        .sigunguCode(item.getSigungucode())
-                        .category1(item.getCat1())
-                        .category2(item.getCat2())
-                        .category3(item.getCat3())
-                        .contentId(cid)
-                        .contentTypeId(item.getContenttypeid())
-                        .originImage(item.getFirstimage())
-                        .thumbnailImage(item.getFirstimage2())
-                        .mapx(item.getMapx())
-                        .mapy(item.getMapy())
-                        .tel(item.getTel())
-                        .title(item.getTitle())
-                        .build();
-                placeRepository.save(newPlace);
-                created++;
+                created+=createPlace(item);
                 continue;
             }
 
-            // ✅ updatedAt < modifiedtime 일 때만 갱신
+
+            // ✅ updatedAt < modifiedtime 일 때만 수정
             if (entity.getUpdatedAt() == null || entity.getUpdatedAt().isBefore(item.getModifiedtime())) {
                 entity.setAddress(OreumStringUtils.removePrefix(item.getAddr1()));
                 entity.setDetailAddress(item.getAddr2());
@@ -133,6 +127,9 @@ public class DailySynchronizeService {
                 entity.setTitle(item.getTitle());
                 updated++;
             }
+            else skip++;
+
+
         }
 
         // ===== Courses =====
@@ -141,27 +138,19 @@ public class DailySynchronizeService {
             final boolean show = "1".equals(item.getShowflag());
             Course entity = courseMap.get(cid);
 
+            // 삭제
             if (!show) {
-                if (entity != null) { courseRepository.delete(entity); deleted++; }
+                if (entity != null) { deleted+=deleteCourse(entity); ; }
                 continue;
             }
 
+            // 생성
             if (entity == null) {
-                Course newCourse = Course.builder()
-                        .title(item.getTitle())
-                        .contentId(cid)
-                        .sigunguCode(item.getSigungucode())
-                        .originImage(item.getFirstimage())
-                        .thumbnailImage(item.getFirstimage2())
-                        .category1(item.getCat1())
-                        .category2(item.getCat2())
-                        .category3(item.getCat3())
-                        .build();
-                courseRepository.save(newCourse);
-                created++;
+                created+=createCourse(item);
                 continue;
             }
 
+            // 수정
             if (entity.getUpdatedAt() == null || entity.getUpdatedAt().isBefore(item.getModifiedtime())) {
                 entity.setTitle(item.getTitle());
                 entity.setSigunguCode(item.getSigungucode());
@@ -172,9 +161,120 @@ public class DailySynchronizeService {
                 entity.setCategory3(item.getCat3());
                 updated++;
             }
+            else skip++;
         }
 
-        log.info("[SYNC] Daily 동기화 {}건 (생성 {}, 수정 {}, 삭제 {}), 기간: [{} ~ {}]",
-                latestByContentId.size(), created, updated, deleted, windowStart, latestModifiedAt);
+        log.info("[SYNC] Daily 동기화 {}건 (생성 {}, 수정 {}, 삭제 {}, 생략 {}), 기간: [{} ~ {}]",
+                latestByContentId.size(), created, updated, deleted, skip, windowStart, latestModifiedAt);
+    }
+
+    @Transactional
+    public int createPlace(SynctDto item){
+        DetailCommonDto dto = openApiClient.getDetailCommon(item.getContentid());
+
+        // 1. Place 생성 (overview 포함)
+        Place newPlace = Place.builder()
+                .address(OreumStringUtils.removePrefix(item.getAddr1()))
+                .detailAddress(item.getAddr2())
+                .sigunguCode(item.getSigungucode())
+                .category1(item.getCat1())
+                .category2(item.getCat2())
+                .category3(item.getCat3())
+                .contentId(item.getContentid())
+                .contentTypeId(item.getContenttypeid())
+                .originImage(item.getFirstimage())
+                .thumbnailImage(item.getFirstimage2())
+                .mapx(item.getMapx())
+                .mapy(item.getMapy())
+                .tel(item.getTel())
+                .title(item.getTitle())
+                .overview(dto != null ? dto.getOverview() : null)
+                .build();
+
+        placeRepository.save(newPlace);
+
+        // 2. place-category 매핑
+        List<CategoryMap> categories = categoryMapRepository.findByIdCategory3(newPlace.getCategory3());
+        if (!categories.isEmpty()) {
+            List<PlaceCategory> placeCategories = categories.stream()
+                    .map(categoryMap -> new PlaceCategory(newPlace, categoryMap.getCategoryType()))
+                    .toList();
+            placeCategoryRepository.saveAll(placeCategories); // 배치 저장
+        }
+
+        return 1;
+    }
+
+    @Transactional
+    public int createCourse(SynctDto item) {
+        DetailCommonDto commonDto = openApiClient.getDetailCommon(item.getContentid());
+        List<DetailInfoDto> dtos = openApiClient.getDetailInfo(item.getContentid());
+
+        // 1. Course 생성
+        Course newCourse = Course.builder()
+                .title(item.getTitle())
+                .contentId(item.getContentid())
+                .sigunguCode(item.getSigungucode())
+                .originImage(item.getFirstimage())
+                .thumbnailImage(item.getFirstimage2())
+                .category1(item.getCat1())
+                .category2(item.getCat2())
+                .category3(item.getCat3())
+                .overview(commonDto != null ? commonDto.getOverview() : null)
+                .build();
+
+        courseRepository.save(newCourse); // 영속화
+
+        // 2. course-category 매핑
+        List<CategoryMap> categories = categoryMapRepository.findByIdCategory3(newCourse.getCategory3());
+        List<CourseCategory> courseCategories = categories.stream()
+                .map(categoryMap -> new CourseCategory(newCourse, categoryMap.getCategoryType()))
+                .toList();
+        courseCategoryRepository.saveAll(courseCategories);
+
+        // 3. course-place 매핑
+        List<String> contentIds = dtos.stream()
+                .map(DetailInfoDto::getContentId)
+                .toList();
+        List<Place> places = placeRepository.findAllByContentIdIn(contentIds);
+        Map<String, DetailInfoDto> dtoMap = dtos.stream()
+                .collect(Collectors.toMap(DetailInfoDto::getContentId, Function.identity()));
+
+        places.forEach(place -> {
+            DetailInfoDto dto = dtoMap.get(place.getContentId());
+            if (dto != null) {
+                place.setCourse(newCourse);
+                place.setOrders(dto.getOrder());
+            }
+        });
+
+        return 1;
+    }
+
+
+
+    /**
+     * 제약조건 safe하게 삭제
+     */
+    @Transactional
+    public int deletePlace(Place place) {
+        List<Spot> spots = place.getSpots();
+        spots.forEach(spot -> spot.setPlace(null));
+
+        spotRepository.saveAll(spots);
+        placeRepository.delete(place);
+
+        return 1;
+    }
+
+    @Transactional
+    public int deleteCourse(Course course) {
+        List<Place> places = course.getPlaces();
+        places.forEach(p -> p.setCourse(null));
+
+        placeRepository.saveAll(places);
+        courseRepository.delete(course);
+
+        return 1;
     }
 }

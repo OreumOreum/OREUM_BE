@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Component
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class SchedulerManager {
     public void executeMonthlyProcess() {
         log.info("[이달의여행지] 월별 배치 작업을 시작합니다.");
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
         monthlyBatchService.selectAndCreateSpotsFor(today);
 
         log.info("[이달의여행지] 월별 배치 작업이 성공적으로 완료되었습니다.");

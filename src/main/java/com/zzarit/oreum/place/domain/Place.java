@@ -89,7 +89,7 @@ public class Place extends BaseTimeEntity {
     private Integer orders;
 
     @Builder.Default
-    @OneToMany(mappedBy = "place")
+    @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<PlaceCategory> placeCategories = new ArrayList<>();
 
     @Builder.Default
