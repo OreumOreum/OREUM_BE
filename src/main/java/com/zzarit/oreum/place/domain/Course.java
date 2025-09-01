@@ -67,11 +67,11 @@ public class Course extends BaseTimeEntity {
     private List<Place> places = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
     private List<CourseCategory> courseCategories = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 }
 

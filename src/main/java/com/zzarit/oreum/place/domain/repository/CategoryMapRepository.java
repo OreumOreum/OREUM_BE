@@ -10,4 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CategoryMapRepository extends JpaRepository<CategoryMap, SubCategory> {
+
+    List<CategoryMap> findByIdCategory3(String category3);
 }

@@ -54,4 +54,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long>, PlaceReposi
     }
 
     List<Place> findAllByContentIdIn(Collection<String> contentIds);
+
+    List<Place> findByContentIdIn(Collection<String> contentIds);
 }

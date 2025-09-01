@@ -42,13 +42,12 @@ public class SynchronizeService {
     private int courseOverviewOffset = 0;
 
     public void initialize(){
-//        log.info("[초기화]-1 Place,Course 데이터 저장 시작");
-//        savePlaceAndCourse();
-//        log.info("[초기화]-2 PlaceCategory 매핑 시작");
-//        saveCategoryMap();
-//        log.info("[초기화]-3 CoursePlace 매핑 시작");
-//        saveCoursePlace();
-        monthlyBatchService.selectAndCreateSpotsFor(LocalDate.now(ZoneId.of("Asia/Seoul")));
+        log.info("[초기화]-1 Place,Course 데이터 저장 시작");
+        savePlaceAndCourse();
+        log.info("[초기화]-2 PlaceCategory 매핑 시작");
+        saveCategoryMap();
+        log.info("[초기화]-3 CoursePlace 매핑 시작");
+        saveCoursePlace();
     }
 
 
