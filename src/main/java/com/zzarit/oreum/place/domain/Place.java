@@ -12,6 +12,20 @@ import org.hibernate.annotations.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 장소 엔티티 클래스
+ * 
+ * 제주도 관광지, 음식점, 숙박시설 등의 장소 정보를 관리하는 도메인 엔티티입니다.
+ * 공공데이터포털의 관광 API를 통해 수집된 정보를 저장하며, 
+ * 위치 정보, 카테고리, 이미지, 상세 설명 등의 데이터를 포함합니다.
+ * 
+ * @see Course 장소가 속한 여행 코스
+ * @see PlaceCategory 장소의 카테고리 분류
+ * @see Spot 장소와 연관된 스팟 정보
+ * @see FolderPlace 폴더에 저장된 장소 관계
+ * @see PlannerPlace 플래너에 추가된 장소 관계
+ * @see Review 장소에 대한 리뷰
+ */
 @Getter
 @Setter
 @Entity
