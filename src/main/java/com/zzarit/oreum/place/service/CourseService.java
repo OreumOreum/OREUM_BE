@@ -24,6 +24,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 코스 관리 서비스 클래스
+ * 
+ * 제주도 여행 코스 정보 및 리뷰 관리 기능을 제공합니다.
+ * 코스 목록 조회, 상세 정보, 리뷰 작성 및 조회 기능을 포함하며,
+ * 사용자의 카테고리 선호도에 따른 맞춤형 코스 추천도 지원합니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

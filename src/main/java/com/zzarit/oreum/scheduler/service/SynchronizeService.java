@@ -26,6 +26,14 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 외부 API 데이터 동기화 서비스
+ * 
+ * 한국관광공사 OpenAPI로부터 제주도 관광 데이터를 가져와서
+ * 내부 데이터베이스와 동기화하는 기능을 제공합니다.
+ * 장소/코스 정보, 카테고리 매핑, 상세 설명 등을 일괄 처리합니다.
+ * 대용량 데이터 처리를 위한 배치 처리 오프셋 가능 기능을 지원합니다.
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor

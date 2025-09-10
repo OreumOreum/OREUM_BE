@@ -10,6 +10,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/**
+ * 사용자 인증 서비스
+ * 
+ * OAuth2 인증을 통한 로그인, 회원가입, 토큰 갱신 기능을 제공합니다.
+ * Kakao, Google, Apple 로그인을 지원하며, JWT 토큰을 사용하여 세션을 관리합니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

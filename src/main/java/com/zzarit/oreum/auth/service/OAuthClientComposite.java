@@ -14,6 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * OAuth 클라이언트 컴포지트 클래스
+ * 
+ * 여러 OAuth 제공업체(Kakao, Google, Apple)의 클라이언트를 통합 관리합니다.
+ * 개발 환경에서는 Mock 클라이언트를 사용하여 테스트를 용이하게 합니다.
+ */
 @Component
 @Slf4j
 public class OAuthClientComposite {

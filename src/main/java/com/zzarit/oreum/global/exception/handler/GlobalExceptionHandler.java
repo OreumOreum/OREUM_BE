@@ -17,6 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * 전역 예외 처리 핸들러
+ * 
+ * 애플리케이션 전체에서 발생하는 예외를 통합 처리합니다.
+ * 사용자 정의 OreumException과 예상치 못한 예외들을 처리하여
+ * RFC 7807 ProblemDetail 형식으로 일관된 에러 응답을 제공합니다.
+ */
 @RestControllerAdvice
 @RequiredArgsConstructor
 @Slf4j

@@ -17,6 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 폴더 관리 서비스 클래스
+ * 
+ * 사용자의 장소 저장 폴더를 관리하는 기능을 제공합니다.
+ * 폴더 생성, 수정, 삭제 및 조회 기능을 포함하며,
+ * 사용자가 관심 장소를 체계적으로 정리할 수 있도록 돕습니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

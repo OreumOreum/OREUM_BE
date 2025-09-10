@@ -32,6 +32,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * 여행 계획 관리 서비스 클래스
+ * 
+ * 사용자의 여행 계획 생성, 수정, 조회, 삭제 기능을 제공합니다.
+ * 여행지를 일차별로 체계적으로 정리할 수 있으며,
+ * 사용자의 선호도에 따른 맞춤형 여행 코스 추천도 지원합니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

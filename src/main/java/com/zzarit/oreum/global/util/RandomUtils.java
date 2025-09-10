@@ -4,6 +4,12 @@ package com.zzarit.oreum.global.util;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * 랜덤 및 확률적 처리를 위한 유틸리티 클래스
+ * 
+ * 리스트에서 랜덤 요소 선택 등의 기능을 제공합니다.
+ * ThreadLocalRandom을 사용하여 동시성 환경에서도 안전합니다.
+ */
 public class RandomUtils {
 
     /**

@@ -20,6 +20,13 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * 이달의 여행지 및 방문 인증 서비스 클래스
+ * 
+ * 매달 선정되는 이달의 여행지 조회 및 사용자의 방문 인증 기능을 제공합니다.
+ * 사용자는 지정된 여행지를 방문하여 스탬프를 얻을 수 있으며,
+ * 카테고리별 방문 통계 및 랭킹 기능도 지원합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class SpotService {

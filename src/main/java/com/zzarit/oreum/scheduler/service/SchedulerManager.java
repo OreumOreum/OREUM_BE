@@ -9,6 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+/**
+ * 시스템 스케줄예 관리 클래스
+ * 
+ * 주정적으로 실행되는 배치 작업들을 관리합니다.
+ * 매일 데이터 동기화, 이달의 여행지 선정, 상세 설명 갱신 등의
+ * 주기적 작업들을 자동으로 수행합니다.
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j

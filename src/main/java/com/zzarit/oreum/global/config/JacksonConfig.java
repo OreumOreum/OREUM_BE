@@ -7,6 +7,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Jackson ObjectMapper 설정 클래스
+ * 
+ * JSON 직렬화/역직렬화를 위한 ObjectMapper 빈을 설정합니다.
+ * Java 8 시간 API 모듈을 등록하고 빈 문자열 처리 옵션을 설정합니다.
+ */
 @Configuration
 public class JacksonConfig {
 
