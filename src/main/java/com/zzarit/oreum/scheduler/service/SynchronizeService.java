@@ -56,6 +56,8 @@ public class SynchronizeService {
         saveCategoryMap();
         log.info("[초기화]-3 CoursePlace 매핑 시작");
         saveCoursePlace();
+        log.info("[초기화]-4 overView 쓰기 시작");
+        saveOverviewBatchOperationVersion();
     }
 
 
@@ -197,7 +199,9 @@ public class SynchronizeService {
     }
 
 
-
+    /**
+     * Dev overveiw write
+     */
     @Transactional
     public void saveOverviewBatchDevelopVersion() {
         int batchSize = 500;
