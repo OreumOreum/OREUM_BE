@@ -25,6 +25,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 폴더-장소 연결 관리 서비스 클래스
+ * 
+ * 폴더에 장소를 추가/삭제하는 기능을 제공합니다.
+ * 기본 폴더의 특수 동작 및 중복 장소 추가 방지 로직을 포함하며,
+ * 사용자가 자신의 관심 장소를 체계적으로 분류할 수 있도록 돕습니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

@@ -13,6 +13,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 회원 관리 컨트롤러 클래스
+ * 
+ * 회원 정보 조회, 관심 카테고리 변경, 회원 탈퇴, 유형 검사 관련 API 엔드포인트를 제공합니다.
+ * 모든 API는 인증된 사용자만 접근 가능하며, Member 객체는 AuthArgumentResolver를 통해 주입됩니다.
+ * 
+ * @see MemberService 회원 관리 비즈니스 로직
+ */
 @Tag(name = "MEMBER", description = "사용자 정보 API")
 @RequiredArgsConstructor
 @RestController

@@ -10,6 +10,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Spring MVC 예외 처리 핸들러
+ * 
+ * Spring MVC에서 발생하는 표준 예외들(예: MethodArgumentNotValidException)을
+ * 처리하여 사용자 친화적인 에러 메시지로 변환합니다.
+ */
 @Component
 public class UncatchedExceptionHandler extends ResponseEntityExceptionHandler {
 

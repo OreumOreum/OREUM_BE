@@ -8,6 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+/**
+ * JWT 토큰 기반 인증 처리 인터셉터
+ * 
+ * HTTP 요청의 Authorization 헤더에서 JWT 토큰을 추출하고 검증하여
+ * 인증된 사용자 정보를 요청 속성에 저장합니다.
+ */
 @RequiredArgsConstructor
 public class AuthorizationInterceptor implements HandlerInterceptor {
 

@@ -8,6 +8,12 @@ import org.springframework.web.client.ResponseErrorHandler;
 
 import java.io.IOException;
 
+/**
+ * 카카오 로그인 에러 처리 핸들러
+ * 
+ * 카카오 API 호출 시 발생하는 HTTP 에러 응답을 처리하고
+ * 적절한 예외로 변환하는 핸들러입니다.
+ */
 @Slf4j
 public class KakaoLoginExceptionHandler implements ResponseErrorHandler {
 

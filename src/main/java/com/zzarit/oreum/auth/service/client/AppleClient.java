@@ -29,6 +29,13 @@ import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
 
+/**
+ * 애플 OAuth 인증 클라이언트
+ * 
+ * Apple Sign In 인증 코드를 사용하여 사용자 인증을 처리합니다.
+ * Client Secret을 자체 생성하여 Apple ID Token API를 호출하고,
+ * 반환된 ID 토큰을 디코딩하여 사용자 정보를 추출합니다.
+ */
 @RequiredArgsConstructor
 @Component
 public class AppleClient implements OAuthClient {

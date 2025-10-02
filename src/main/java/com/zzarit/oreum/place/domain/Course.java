@@ -8,6 +8,17 @@ import org.hibernate.annotations.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 여행 코스 엔티티 클래스
+ * 
+ * 제주도의 테마별 여행 코스 정보를 관리하는 도메인 엔티티입니다.
+ * 공공데이터포털의 관광코스 API를 통해 수집된 정보를 저장하며,
+ * 코스에 포함된 여러 장소들을 순서대로 관리합니다.
+ * 
+ * @see Place 코스에 포함된 장소들
+ * @see CourseCategory 코스의 카테고리 분류
+ * @see Review 코스에 대한 리뷰
+ */
 @Getter
 @Setter
 @Builder

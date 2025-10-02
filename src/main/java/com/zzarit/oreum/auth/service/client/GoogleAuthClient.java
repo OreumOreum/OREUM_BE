@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
+/**
+ * 구글 OAuth 인증 클라이언트
+ * 
+ * 구글 ID 토큰을 검증하여 사용자 정보를 가져오는 기능을 제공합니다.
+ * Google ID Token Verifier를 사용하여 토큰의 유효성을 검증합니다.
+ */
 @RequiredArgsConstructor
 @Component
 public class GoogleAuthClient implements OAuthClient{

@@ -9,6 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+/**
+ * 시스템 스케줄예 관리 클래스
+ * 
+ * 주정적으로 실행되는 배치 작업들을 관리합니다.
+ * 매일 데이터 동기화, 이달의 여행지 선정, 상세 설명 갱신 등의
+ * 주기적 작업들을 자동으로 수행합니다.
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -16,7 +23,6 @@ public class SchedulerManager {
     private final DailySynchronizeService dailySynchronizeService;
     private final MonthlyBatchService monthlyBatchService;
     private final SynchronizeService synchronizeService;
-
 
 
     /**
@@ -28,19 +34,11 @@ public class SchedulerManager {
     }
 
 
-    /**
-     * 매일 낮 12시 500건씩 Place/Course Overview 갱신(Dev버전)
-     */
-    @Scheduled(cron = "0 0 12 * * ?", zone = "Asia/Seoul")
-    public void saveOverviewDaily() {
-        synchronizeService.saveOverviewBatchDevelopVersion();
-    }
 
     /**
-     * 매달 1일 새벽 00시에 월별 배치 작업 실행
-     * cron = "초 분 시 일 월 요일"
+     * 매일 12시에 이달의 여행지 갱신 (이달의 여행징 있으면 스킵)
      */
-    @Scheduled(cron = "0 0 0 1 * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 0 * * ?", zone = "Asia/Seoul")
     @Transactional
     public void executeMonthlyProcess() {
         log.info("[이달의여행지] 월별 배치 작업을 시작합니다.");

@@ -14,6 +14,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * JWT 토큰 및 리프레시 토큰 관리 서비스
+ * 
+ * 사용자 인증을 위한 JWT 토큰 생성, 검증, 갱신 기능을 제공합니다.
+ * 리프레시 토큰은 데이터베이스에 저장되어 관리됩니다.
+ */
 @RequiredArgsConstructor
 @Component
 public class AuthTokenManager {

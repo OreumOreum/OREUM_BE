@@ -11,6 +11,13 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * JWT 토큰 생성 및 검증 제공자
+ * 
+ * JWT 토큰의 생성, 파싱, 검증 기능을 제공합니다.
+ * Access Token과 Refresh Token을 분리하여 관리하며,
+ * 각각 다른 비밀키와 만료 시간을 사용합니다.
+ */
 @Component
 public class JwtTokenProvider {
 

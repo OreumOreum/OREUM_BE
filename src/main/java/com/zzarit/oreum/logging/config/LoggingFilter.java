@@ -17,6 +17,14 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * HTTP 요청/응답 로깅 필터
+ * 
+ * 모든 HTTP 요청과 응답을 인터셉트하여 로깅합니다.
+ * 요청/응답 본문, 상태 코드, 응답 시간 등을 추적하여 시스템 모니터링을 지원합니다.
+ * Swagger 관련 경로는 로깅에서 제외합니다.
+ * TrackId를 사용하여 요청 별 로그를 추적할 수 있습니다.
+ */
 @Slf4j
 @Component
 public class LoggingFilter implements Filter {

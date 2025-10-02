@@ -33,6 +33,13 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 장소 관리 서비스 클래스
+ * 
+ * 제주도의 관광지, 음식점, 숙박시설 등의 장소 정보 관리 기능을 제공합니다.
+ * 장소 검색, 상세 조회, 리뷰 작성, 폴더 저장 등의 기능을 포함하며,
+ * 사용자의 관심 카테고리에 따른 맞춤형 장소 추천 기능도 지원합니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
