@@ -36,7 +36,7 @@ public class SchedulerManager {
 
 
     /**
-     * 매일 12시에 이달의 여행지 갱신 (이달의 여행징 있으면 스킵)
+     * 매일 12시에 이달의 여행지 갱신 (이달의 여행지 있으면 스킵)
      */
     @Scheduled(cron = "0 0 0 * * ?", zone = "Asia/Seoul")
     @Transactional

@@ -58,6 +58,7 @@ public class SynchronizeService {
         saveCoursePlace();
         log.info("[초기화]-4 overView 쓰기 시작");
         saveOverviewBatchOperationVersion();
+        monthlyBatchService.selectAndCreateSpotsFor(LocalDate.now(ZoneId.of("Asia/Seoul")));
     }
 
 
